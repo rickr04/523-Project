@@ -9,7 +9,7 @@ var MongoStore = require('connect-mongo')(session);
 mongoose.connect('mongodb://localhost/SNC');
 var db = mongoose.connection;
 
-//handle mongo error
+//handle mongo error 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   // we're connected!

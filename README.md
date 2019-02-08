@@ -59,9 +59,9 @@ This is the only time you will have to register
 ```
 fetch('http://localhost:3000/login', {
   method: 'POST',
-  body: JSON.stringify({https://github.com/MatthewFrisby
-      username: '<your_username>',
-    logpassword: '<your_password>',
+  body: JSON.stringify({
+   username: '<your_username>',
+   password: '<your_password>',
   }),
   headers: {
     'Content-type': 'application/json; charset=UTF-8'
@@ -70,3 +70,4 @@ fetch('http://localhost:3000/login', {
 .then(res => res.json())
 .then(console.log)
 ```
+   

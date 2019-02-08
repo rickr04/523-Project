@@ -6,13 +6,16 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost/SNC');
-var db = mongoose.connection;
+var database = 'mongodb://localhost/SNC';
+mongoose.connect(database, {useNewUrlParser: true});
 
-//handle mongo error 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  // we're connected!
+// Alert of succesful connection/error
+var db = mongoose.connection;
+mongoose.connection.on('connected', () => {
+  console.log('Connected to database '+ database);
+});
+mongoose.connection.on('error', (err) => {
+  console.log('Database Error: '+ err);
 });
 
 //use sessions for tracking logins
@@ -58,6 +61,6 @@ if (port == null || port == "") {
   port = 3000;
 }
 
-app.listen(3000, function () {
+app.listen(port, function () {
   console.log('Express app listening on port 3000');
 });

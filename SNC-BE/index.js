@@ -7,7 +7,6 @@ var MongoStore = require('connect-mongo')(session);
 
 //connect to MongoDB
 mongoose.connect('mongodb://localhost/SNC');
-//mongoose.connect('mongodb://BEAM_admin:password12345@mongodb-persistent-r2xc4-dszj9:27017/beamdb');
 var db = mongoose.connection;
 
 //handle mongo error

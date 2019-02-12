@@ -10,12 +10,15 @@ var AdminSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   passwordConf: {
     type: String,
-    required: true,
+    required: true
   }
+},
+{
+  timestamps: true
 });
 
 // Authenticate input against database

@@ -1,0 +1,45 @@
+Models To Make
+
+SuperUser{
+  First Name
+  Last Name
+  email address
+  password
+  passwordConf
+  address
+  Company name
+  telephone number
+  Account SAQ's: [of account saq id's]
+  created_date
+}
+
+SubUser{
+SuperUser _id
+First name
+Last Name
+password
+passwordConf
+email address
+phone number
+created_date
+}
+
+
+SAQ templates{
+name of SAQ
+questions = [of question id's]
+created_date
+}
+
+Questions{
+question text
+answer type INT (0 - multiple choice, 1 - checkboxes, 2 - short answer)
+created_date
+}
+
+Account SAQ{
+SAQ template _id
+question and answer: [of {question _id, answer text}]
+created_date
+
+}

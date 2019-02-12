@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-//connect to MongoDB
+// Connect to MongoDB
 var database = 'mongodb://localhost/SNC';
 mongoose.connect(database, {useNewUrlParser: true});
 
@@ -18,7 +18,7 @@ mongoose.connection.on('error', (err) => {
   console.log('Database Error: '+ err);
 });
 
-//use sessions for tracking logins
+// Use sessions for tracking logins
 app.use(session({
   secret: 'sEcUrE&&C0MP1i@NT',
   resave: true,
@@ -28,7 +28,7 @@ app.use(session({
   })
 }));
 
-// parse incoming requests
+// Parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -36,18 +36,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // serve static files from template
 //app.use(express.static(__dirname + '/template'));
 
-// include routes
+// Include routes
 var routes = require('./routes/router');
 app.use('/', routes);
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('File Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
+// Error handler
 // define as the last app.use callback
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
@@ -55,7 +55,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-// listen on port 3000
+// Listen on port 3000
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;

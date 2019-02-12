@@ -18,7 +18,7 @@ var AdminSchema = new mongoose.Schema({
   }
 });
 
-//authenticate input against database
+// Authenticate input against database
 AdminSchema.statics.authenticate = function (username, password, callback) {
   Admin.findOne({ username: username })
     .exec(function (err, admin) {
@@ -39,7 +39,7 @@ AdminSchema.statics.authenticate = function (username, password, callback) {
     });
 }
 
-//hashing a password before saving it to the database
+// Hashing a password before saving it to the database
 AdminSchema.pre('save', function (next) {
   var admin = this;
   bcryptjs.hash(admin.password, 10, function (err, hash) {

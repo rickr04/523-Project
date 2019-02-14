@@ -1,5 +1,6 @@
-var mongoose = require('mongoose');
-var bcryptjs = require('bcryptjs');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const SubUser = require('./SubUser.js');
 
 var SuperUserSchema = new mongoose.Schema({
   email: {
@@ -32,14 +33,35 @@ var SuperUserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  subuserids: {
-    type: [Number]
-  },
-  
+  subusers: {
+    type: [SubUser.Schema]
+  }
 }, 
 {
   timestamps: true
 });
 
-var SuperUser = mongoose.model('SuperUser', SuperUserSchema);
-module.exports = SuperUser;
+const SuperUser = module.exports = mongoose.model('SuperUser', SuperUserSchema);
+
+module.exports.addSubtoSuper = function(sup, subtoAdd, callback) {
+  if (sup.subusers == null) {
+    sup.subusers = [subtoAdd];
+  } else {
+  sup.subusers.push(subtoAdd);
+  sup.save(callback);
+  }
+}
+
+module.exports.addSuper = function(newSuper, callback) {
+  bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newSuper.password, salt, (err, hash) => {
+          if (err) {
+            return callback(err);
+          } else {
+            newSuper.password = hash;
+            newSuper.save(callback);
+          }
+      });
+  });
+}
+

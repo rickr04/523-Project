@@ -1,13 +1,14 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Question = require('./Question.js')
 
-var SAQTemplateSchema = new mongoose.Schema({
+const SAQTemplateSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
     required: true,
   },
-  questionids : {
-      type: [Number],
+  questions : {
+      type: [Question.Schema],
       required: true
   }
 }, 
@@ -15,5 +16,5 @@ var SAQTemplateSchema = new mongoose.Schema({
   timestamps: true
 });
 
-var SAQTemplate = mongoose.model('SAQTemplate', SAQTemplateSchema);
+const SAQTemplate = mongoose.model('SAQTemplate', SAQTemplateSchema);
 module.exports = SAQTemplate;

@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var bcryptjs = require('bcryptjs');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-var SubUserSchema = new mongoose.Schema({
+const SubUserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -25,7 +25,7 @@ var SubUserSchema = new mongoose.Schema({
     required: true
   },
   superuserid: {
-    type: Number,
+    type: String,
     required: true
   },
 }, 
@@ -33,5 +33,39 @@ var SubUserSchema = new mongoose.Schema({
   timestamps: true
 });
 
-var SubUser = mongoose.model('SubUser', SubUserSchema);
-module.exports = SubUser;
+const SubUser = module.exports = mongoose.model('SubUser', SubUserSchema);
+
+module.exports.addSub = function(newSub, callback) {
+  var SuperUser = require('./SuperUser.js');
+  SuperUser.findById(newSub.superuserid, (err, superuser) => {
+    if (err) {
+      callback(err);
+    } else {
+      if (superuser.id != newSub.superuserid) {
+        let err = new Error('SuperUser ID not found.');
+        err.status = 401;
+        return callback(err);
+      } else {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newSub.password, salt, (err, hash) => {
+              if (err) {
+                return callback(err);
+              } else {
+                newSub.password = hash;
+                newSub.save((err, SavedSub) => {
+                  if (err) {
+                    return callback(err);
+                  } else {
+                    SuperUser.addSubtoSuper(superuser, SavedSub);
+                    callback();
+                  }
+                });
+              }
+            });
+        });
+      }
+    }
+  });
+  // Check to see if SuperUser exists before hashing password
+  
+}

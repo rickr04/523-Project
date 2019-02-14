@@ -74,7 +74,5 @@ AdminSchema.pre('findOneAndUpdate', function (next) {
   })
 });
 
-
-
 var Admin = mongoose.model('Admin', AdminSchema);
 module.exports = Admin;

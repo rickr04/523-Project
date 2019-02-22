@@ -1,8 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var Admin = require('../models/Admin');
-var cors = require('cors');
-var app = express();
+const express = require('express');
+const router = express.Router();
+const cors = require('cors');
+const app = express();
+const Admin = require('../models/Admin');
+const SuperUser = require('../models/SuperUser');
+const SubUser = require('../models/SubUser');
+const Question = require('../models/Question');
+const Question = require('../models/SAQTemplate');
 
 var corsOptions = {
   credentials: true,
@@ -10,13 +14,6 @@ var corsOptions = {
 };
 router.options('*', cors())
 router.use(cors());
-
-
-
-
-
-
-
 
 router.post('/login', function(req, res, next) {
   // confirm that user typed same password twice
@@ -81,6 +78,86 @@ router.get('/admin/logout', cors(corsOptions), function(req, res, next) {
   }
 });
 
+// Create SuperUser
+router.post('/api/SuperUser', (req, res, next) => {
+  if (req.body.password != req.body.passwordConf) {
+    res.json({success: false, msg:'Passwords did not match'});
+  } else {    
+    let newSuper = new SuperUser({
+      fname: req.body.fname,
+      lname: req.body.lname,
+      email: req.body.email,
+      password: req.body.password,
+      address: req.body.address,
+      company: req.body.company,
+      telephone: req.body.telephone,
+    });
 
+    SuperUser.addSuper(newSuper, (err, newSuper) => {
+      if (err) {
+      res.json({success: false, msg:'Failed to register user.' + err.message});
+      } else {
+      res.json({success: true, msg:'User Registered'});
+      }
+    });
+  }
+});
+
+// Create SubUser
+router.post('/api/SubUser', (req, res, next) => {
+  if (req.body.password != req.body.passwordConf) {
+    res.json({success: false, msg:'Passwords did not match'});
+  } else {    
+      let newSub = new SubUser({
+          fname: req.body.fname,
+          lname: req.body.lname,
+          email: req.body.email,
+          password: req.body.password,
+          telephone: req.body.telephone,
+          superuserid: req.body.superuserid
+      });
+      SubUser.addSub(newSub, (err, newSub) => {
+          if (err) {
+              res.json({success: false, msg: err.message});
+          } else {
+              res.json({success: true, msg:'User Registered'});
+          }
+      });
+  }
+});
+
+// Create Question
+router.post('/api/Question', (req, res, next) => {   
+  let newQuestion = new Question({
+    questiontext: req.body.questiontext,
+    answertype: req.body.answertype
+  });
+  
+  newQuestion.save((err) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, msg:'Question Posted'});
+    }
+  });
+});
+
+// Create SAQTemplate, currently uses QuestionIDs and template name
+router.post('/api/SAQ', (req, res, next) => {   
+  let SAQquestions = Question.getQuestionsByIds(req.body.questions);
+  
+  let SAQ = new SAQTemplate({
+    name: req.body.name,
+    questions: SAQquestions
+  });
+  
+  SAQ.save((err) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, msg:'SAQ Template Created'});
+    }
+  });
+});
 
 module.exports = router;

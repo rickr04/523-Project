@@ -10,12 +10,15 @@ var AdminSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   passwordConf: {
     type: String,
-    required: true,
+    required: true
   }
+},
+{
+  timestamps: true
 });
 
 // Authenticate input against database
@@ -70,8 +73,6 @@ AdminSchema.pre('findOneAndUpdate', function (next) {
     next();
   })
 });
-
-
 
 var Admin = mongoose.model('Admin', AdminSchema);
 module.exports = Admin;

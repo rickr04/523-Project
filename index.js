@@ -18,6 +18,8 @@ mongoose.connection.on('error', (err) => {
   console.log('Database Error: '+ err);
 });
 
+app.use(express.static(__dirname + ‘/SNC-FE/dist'));
+
 // Use sessions for tracking logins
 app.use(session({
   secret: 'sEcUrE&&C0MP1i@NT',

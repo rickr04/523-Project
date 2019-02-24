@@ -6,7 +6,7 @@ const Admin = require('../models/Admin');
 const SuperUser = require('../models/SuperUser');
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
-const Question = require('../models/SAQTemplate');
+const Questions = require('../models/SAQTemplate');
 
 var corsOptions = {
   credentials: true,
@@ -15,7 +15,7 @@ var corsOptions = {
 router.options('*', cors())
 router.use(cors());
 
-router.post('/login', function(req, res, next) {
+router.post('/api/login', function(req, res, next) {
   // confirm that user typed same password twice
 
   if (
@@ -82,7 +82,7 @@ router.get('/admin/logout', cors(corsOptions), function(req, res, next) {
 router.post('/api/SuperUser', (req, res, next) => {
   if (req.body.password != req.body.passwordConf) {
     res.json({success: false, msg:'Passwords did not match'});
-  } else {    
+  } else {
     let newSuper = new SuperUser({
       fname: req.body.fname,
       lname: req.body.lname,
@@ -107,7 +107,7 @@ router.post('/api/SuperUser', (req, res, next) => {
 router.post('/api/SubUser', (req, res, next) => {
   if (req.body.password != req.body.passwordConf) {
     res.json({success: false, msg:'Passwords did not match'});
-  } else {    
+  } else {
       let newSub = new SubUser({
           fname: req.body.fname,
           lname: req.body.lname,
@@ -127,12 +127,12 @@ router.post('/api/SubUser', (req, res, next) => {
 });
 
 // Create Question
-router.post('/api/Question', (req, res, next) => {   
+router.post('/api/Question', (req, res, next) => {
   let newQuestion = new Question({
     questiontext: req.body.questiontext,
     answertype: req.body.answertype
   });
-  
+
   newQuestion.save((err) => {
     if (err) {
       res.json({success: false, msg: err.message});
@@ -143,14 +143,14 @@ router.post('/api/Question', (req, res, next) => {
 });
 
 // Create SAQTemplate, currently uses QuestionIDs and template name
-router.post('/api/SAQ', (req, res, next) => {   
-  let SAQquestions = Question.getQuestionsByIds(req.body.questions);
-  
+router.post('/api/SAQ', (req, res, next) => {
+  let SAQquestions = Questions.getQuestionsByIds(req.body.questions);
+
   let SAQ = new SAQTemplate({
     name: req.body.name,
     questions: SAQquestions
   });
-  
+
   SAQ.save((err) => {
     if (err) {
       res.json({success: false, msg: err.message});

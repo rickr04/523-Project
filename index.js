@@ -3,22 +3,23 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
+const cookieParser = require('cookie-parser');
 var MongoStore = require('connect-mongo')(session);
-
+var cors = require('cors');
 // Connect to MongoDB
-var database = 'mongodb://localhost/SNC';
-mongoose.connect(database, {useNewUrlParser: true});
+
+var db = mongoose.connection;
+mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
+
 
 // Alert of succesful connection/error
-var db = mongoose.connection;
-mongoose.connection.on('connected', () => {
-  console.log('Connected to database '+ database);
-});
-mongoose.connection.on('error', (err) => {
-  console.log('Database Error: '+ err);
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  // we're connected!
 });
 
-app.use(express.static(__dirname + ‘/SNC-FE/dist'));
+app.use(express.static(__dirname + '/SNC-FE/dist/SNC'));
 
 // Use sessions for tracking logins
 app.use(session({
@@ -33,6 +34,7 @@ app.use(session({
 // Parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 
 // serve static files from template
@@ -58,10 +60,7 @@ app.use(function (err, req, res, next) {
 
 
 // Listen on port 3000
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
+port = process.env.PORT || 3000;
 
 app.listen(port, function () {
   console.log('Express app listening on port 3000');

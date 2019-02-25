@@ -7,6 +7,7 @@ const SuperUser = require('../models/SuperUser');
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const Questions = require('../models/SAQTemplate');
+const Skeleton = require('../models/Skeleton');
 
 var corsOptions = {
   credentials: true,
@@ -14,6 +15,70 @@ var corsOptions = {
 };
 router.options('*', cors())
 router.use(cors());
+
+router.post('/api/demo/:_id', function(req, res, next){
+
+  Skeleton.findById(req.params._id)
+    .exec(function(error, lasercutter) {
+      if (error) {
+        return next(error);
+      } else {
+         var temp_id = req.params._id;
+        Skeleton.findByIdAndUpdate(temp_id, {Answer: req.body.answer}, function(err, newbool) {
+         if (err) {
+           res.json({
+             message: 'Error!'
+           });
+         } else {
+           res.json({
+             Answer: req.body.answer
+           });
+         }
+       });
+     }
+   });
+});
+
+
+router.get('/api/demo', function(req, res, next) {
+
+  Skeleton.find({}, {}, function(err, skeleton) {
+    if (err) {
+      res.json({
+        status: "error",
+        message: err,
+      });
+    }
+    res.json({
+      status: "success",
+      data: skeleton
+    });
+  });
+
+});
+
+
+router.post('/api/demo', function(req, res, next) {
+  var skeleton = new Skeleton();
+  skeleton.Question = req.body.question;
+  skeleton.Answer = "u";
+
+  // save the contact and check for errors
+  skeleton.save(function(err) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "New Question Added",
+        data: skeleton
+      });
+    }
+  });
+
+});
+
+
+
 
 router.post('/api/login', function(req, res, next) {
   // confirm that user typed same password twice

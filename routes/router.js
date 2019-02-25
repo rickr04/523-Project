@@ -8,6 +8,8 @@ const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const Questions = require('../models/SAQTemplate');
 const Skeleton = require('../models/Skeleton');
+const aws = require('aws-sdk');
+
 
 var corsOptions = {
   credentials: true,
@@ -225,4 +227,16 @@ router.post('/api/SAQ', (req, res, next) => {
   });
 });
 
+router.get('/api/sign-s3', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: CLOUDCUBE_URL,
+    Key: CLOUDCUBE_SECRET_ACCESS_KEY,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+});
 module.exports = router;

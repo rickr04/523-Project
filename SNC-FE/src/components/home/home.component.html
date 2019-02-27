@@ -1,23 +1,50 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 d-flex ml-auto  justify-content-center">
-        <div class=" align-items-center">
+      <div class=" align-items-center">
 
         <div *ngIf="get == false && create == false; else elseBlock">
-            <button type="button" (click)="createState()" class="btn-lg btn-outline-primary">Fill Out Form</button>
-            <button type="button" (click)="getState()" class="btn-lg btn-outline-success">Get Form</button>
+          <button type="button" (click)="createState()" class="btn-lg btn-outline-primary">Fill Out Form</button>
+          <button type="button" (click)="getState()" class="btn-lg btn-outline-success">Get Form</button>
         </div>
 
         <ng-template #elseBlock>
-              <button type="button" (click)="goBack()" class="btn-lg btn-outline-primary">Go Back</button>
-              <div *ngIf="get == false && create == true">
-                fillform
+          <button type="button" (click)="goBack()" class="btn-lg btn-outline-primary">Go Back</button>
+          <div *ngIf="get == false && create == true">
+
+            <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+              <h2 class="card-header  text-center">
+                Add Patron To Queue
+              </h2>
+              <div class="form-group card-body text-center justify-content-center">
+
+                <input type="text" formControlName="Q1" placeholder="What is your name?"  class="form-control form-control-lg" />
+                <div *ngIf="f.Q1.errors" class="invalid-feedback">
+                  <div *ngIf="f.Q1.errors.required">Answer is required</div>
+                </div>
+
+                <input type="text" formControlName="Q2" placeholder="What is today's date?" class="form-control form-control-lg" />
+                <div *ngIf="f.Q2.errors" class="invalid-feedback">
+                  <div *ngIf="f.Q2.errors.required">Answer is required</div>
+                </div>
+
+                <input type="text" formControlName="Q3" placeholder="How are you today?" class="form-control form-control-lg" />
+                <div *ngIf="f.Q2.errors" class="invalid-feedback">
+                  <div *ngIf="f.Q2.errors.required">Answer is required</div>
+                </div>
               </div>
-              <div *ngIf="get == true && create == false">
-                getform
+
+              <div class="form-group">
+                <button class="btn btn-primary">Submit Form</button>
               </div>
+            </form>
+
+          </div>
+          <div *ngIf="get == true && create == false">
+            getform
+          </div>
         </ng-template>
-        </div>
       </div>
     </div>
   </div>
+</div>

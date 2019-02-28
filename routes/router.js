@@ -19,22 +19,21 @@ var corsOptions = {
 router.options('*', cors())
 router.use(cors());
 
-
-/* Really basic ability to upload file to s3.
-router.post('/api/demo/s3', (req, res, next) => {
-  singleUpload(req, res, (err) => {
+// Call to upload a file. JSON needs "filepath" and "name"
+router.post('/api/demo/upload', (req, res, next) => {
+  s3Handling.upload(req.body.filepath, req.body.name, (err) => {
     return res.json({'pdfUrl': req.file.location});
   })
 });
-*/
 
+
+// Call tp download and update a certain PDF. JSON needs form field IDs
 router.post('/api/demo/answerquestion', (req, res, next) => {
-  s3Handling.download({Bucket: "secure-n-compliant", Key:"1551067527016.pdf"}, req.body, (err) => {
+  s3Handling.download({Bucket: S3_BUCKET, Key:"1551067527016.pdf"}, req.body, (err) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
-      s3Handling.upload2("./tmp/tmpfilled.pdf");
-      res.json({success: true, msg: "Congrats"});
+      res.json({success: true, msg: "./tempstore/tmpfilled.pdf"});
   }
   });
 });

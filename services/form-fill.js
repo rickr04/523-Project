@@ -645,21 +645,18 @@ function fillForm(writer,data, options) {
     }
 }
 
-const s3Handling = require('../services/file-upload');
-
 const editForm = (fileLocation, data) => {
     console.log(fileLocation);
-    let writer = hummus.createWriterToModify(fileLocation, {modifiedFilePath: './tmp/tmpfilled.pdf'});
+    let writer = hummus.createWriterToModify(fileLocation, {modifiedFilePath: './tempstore/tmpfilled.pdf'});
     fillForm(writer, data, {
         defaultTextOptions: {
-            font: writer.getFontForFile('./tmp/Roboto-Regular.ttf'),
+            font: writer.getFontForFile('./tempstore/Roboto-Regular.ttf'),
             size: 10,
             colorspace: 'gray',
             color: 0,
         },
     });
     writer.end();
-    s3Handling.upload2('../tmp/tmpfilled.pdf');
 }
 
 module.exports = editForm;

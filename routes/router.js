@@ -7,9 +7,9 @@ const SuperUser = require('../models/SuperUser');
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const Questions = require('../models/SAQTemplate');
-const Skeleton = require('../models/Skeleton');
+const Skeleton = require('../models/skeleton');
 const s3Handling = require('../services/file-upload');
-const singleUpload = s3Handling.upload.single('pdf');
+
 
 var corsOptions = {
   credentials: true,
@@ -20,19 +20,21 @@ router.options('*', cors())
 router.use(cors());
 
 
-// Really basic ability to upload file to s3.
+/* Really basic ability to upload file to s3.
 router.post('/api/demo/s3', (req, res, next) => {
   singleUpload(req, res, (err) => {
     return res.json({'pdfUrl': req.file.location});
   })
 });
+*/
 
 router.post('/api/demo/answerquestion', (req, res, next) => {
-  s3Handling.download({Bucket: S3_BUCKET, Key:"1551067527016.pdf"}, req.body, (err) => {
+  s3Handling.download({Bucket: "secure-n-compliant", Key:"1551067527016.pdf"}, req.body, (err) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
-      res.json({success: true, msg:'Updated filled form'});
+      s3Handling.upload2("./tmp/tmpfilled.pdf");
+      res.json({success: true, msg: "Congrats"});
   }
   });
 });

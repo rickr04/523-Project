@@ -7,13 +7,95 @@ const SuperUser = require('../models/SuperUser');
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const Questions = require('../models/SAQTemplate');
+const Skeleton = require('../models/skeleton');
+const s3Handling = require('../services/file-upload');
+
 
 var corsOptions = {
   credentials: true,
   origin: 'http://localhost:4200'
 };
+
 router.options('*', cors())
 router.use(cors());
+
+// Call to upload a file. JSON needs "filepath" and "name"
+router.post('/api/demo/upload', (req, res, next) => {
+  s3Handling.upload(req.body.filepath, req.body.name, (err) => {
+    return res.json({'pdfUrl': req.file.location});
+  })
+});
+
+
+// Call tp download and update a certain PDF. JSON needs form field IDs
+router.post('/api/demo/answerquestion', (req, res, next) => {
+  s3Handling.download({Bucket: S3_BUCKET, Key:"1551067527016.pdf"}, req.body, (err) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, msg: "./tempstore/tmpfilled.pdf"});
+  }
+  });
+});
+
+router.post('/api/demo/:_id', function(req, res, next){
+  Skeleton.findById(req.params._id)
+    .exec(function(error, lasercutter) {
+      if (error) {
+        return next(error);
+      } else {
+         var temp_id = req.params._id;
+        Skeleton.findByIdAndUpdate(temp_id, {Answer: req.body.answer}, function(err, newbool) {
+         if (err) {
+           res.json({
+             message: 'Error!'
+           });
+         } else {
+           res.json({
+             Answer: req.body.answer
+           });
+         }
+       });
+     }
+   });
+});
+
+
+router.get('/api/demo', function(req, res, next) {
+
+  Skeleton.find({}, {}, function(err, skeleton) {
+    if (err) {
+      res.json({
+        status: "error",
+        message: err,
+      });
+    }
+    res.json({
+      status: "success",
+      data: skeleton
+    });
+  });
+
+});
+
+router.post('/api/demo', function(req, res, next) {
+  var skeleton = new Skeleton();
+  skeleton.Question = req.body.question;
+  skeleton.Answer = "u";
+
+  // save the contact and check for errors
+  skeleton.save(function(err) {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json({
+        message: "New Question Added",
+        data: skeleton
+      });
+    }
+  });
+
+});
 
 router.post('/api/login', function(req, res, next) {
   // confirm that user typed same password twice

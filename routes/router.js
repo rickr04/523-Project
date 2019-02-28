@@ -8,18 +8,36 @@ const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const Questions = require('../models/SAQTemplate');
 const Skeleton = require('../models/Skeleton');
-const aws = require('aws-sdk');
-
+const s3Handling = require('../services/file-upload');
+const singleUpload = s3Handling.upload.single('pdf');
 
 var corsOptions = {
   credentials: true,
   origin: 'http://localhost:4200'
 };
+
 router.options('*', cors())
 router.use(cors());
 
-router.post('/api/demo/:_id', function(req, res, next){
 
+// Really basic ability to upload file to s3.
+router.post('/api/demo/s3', (req, res, next) => {
+  singleUpload(req, res, (err) => {
+    return res.json({'pdfUrl': req.file.location});
+  })
+});
+
+router.post('/api/demo/answerquestion', (req, res, next) => {
+  s3Handling.download({Bucket: S3_BUCKET, Key:"1551067527016.pdf"}, req.body, (err) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, msg:'Updated filled form'});
+  }
+  });
+});
+
+router.post('/api/demo/:_id', function(req, res, next){
   Skeleton.findById(req.params._id)
     .exec(function(error, lasercutter) {
       if (error) {
@@ -59,7 +77,6 @@ router.get('/api/demo', function(req, res, next) {
 
 });
 
-
 router.post('/api/demo', function(req, res, next) {
   var skeleton = new Skeleton();
   skeleton.Question = req.body.question;
@@ -78,9 +95,6 @@ router.post('/api/demo', function(req, res, next) {
   });
 
 });
-
-
-
 
 router.post('/api/login', function(req, res, next) {
   // confirm that user typed same password twice
@@ -227,16 +241,4 @@ router.post('/api/SAQ', (req, res, next) => {
   });
 });
 
-router.get('/api/sign-s3', (req, res) => {
-  const s3 = new aws.S3();
-  const fileName = req.query['file-name'];
-  const fileType = req.query['file-type'];
-  const s3Params = {
-    Bucket: CLOUDCUBE_URL,
-    Key: CLOUDCUBE_SECRET_ACCESS_KEY,
-    Expires: 60,
-    ContentType: fileType,
-    ACL: 'public-read'
-  };
-});
 module.exports = router;

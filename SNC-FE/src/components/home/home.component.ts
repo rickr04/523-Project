@@ -75,7 +75,8 @@ fileURL: String;
       this.skeleService.writePDF(this.skeleForm.value).subscribe(data => {
       this.fileURL= data.msg,
       console.log(this.fileURL),
-      this.skeleService.sendPDF(this.fileURL).subscribe(res => { console.log(res.msg) });
+      this.skeleService.sendPDF(this.fileURL).subscribe(res => { console.log(res.msg) , this.goBack()});
+
   });
 
 

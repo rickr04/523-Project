@@ -3,8 +3,8 @@ const fs = require('fs');
 const editForm = require('../services/form-fill');
 
 AWS.config.update({
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: 'us-east-1'
 });
 
@@ -19,18 +19,17 @@ module.exports = {
                 fs.writeFile('./tempstore/temp.pdf', data.Body, (err) => {
                     if (err) throw err;
                     console.log('The file has been saved');
-                    editForm('./tempstore/temp.pdf', reqbody);
+                    editForm('./tempstore/temp.pdf', reqbody, callback);
                 });
             }
         });
-        callback();
     },
 
     upload: function(filepath, name, callback) {
         fs.readFile(filepath, (err, fileData) => {
             s3.putObject({
             Body: fileData,
-            Bucket: S3_BUCKET,
+            Bucket: process.env.S3_BUCKET,
             Key: name + Date.now().toString() +".pdf",
             }, (err, data) => {
                 if (err) console.log(err, err.stack);

@@ -22,14 +22,14 @@ router.use(cors());
 // Call to upload a file. JSON needs "filepath" and "name"
 router.post('/api/demo/upload', (req, res, next) => {
   s3Handling.upload(req.body.filepath, req.body.name, (err) => {
-    return res.json({'pdfUrl': req.file.location});
+    return res.json({msg: "It Worked"});
   })
 });
 
 
 // Call tp download and update a certain PDF. JSON needs form field IDs
 router.post('/api/demo/answerquestion', (req, res, next) => {
-  s3Handling.download({Bucket: S3_BUCKET, Key:"1551067527016.pdf"}, req.body, (err) => {
+  s3Handling.download({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {

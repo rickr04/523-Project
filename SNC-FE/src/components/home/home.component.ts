@@ -37,13 +37,14 @@ export class Home implements OnInit {
   get: Boolean = false;
   skeleForm: FormGroup;
 
-  questions = ["5c73424df44fb900174f5720","5c73424df44fb900174f572", "5c73424df44fb900174f5722"];
+  questions = ["5c73424df44fb900174f5720", "5c73424df44fb900174f5712", "5c73424df44fb900174f5722"];
 
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
-      Q1: ['', Validators.required],
-      Q2: ['', Validators.required],
-      Q3: ['', Validators.required]
+
+      c73424df44fb900174f5720: ['', Validators.required],
+      c73424df44fb900174f5721: ['', Validators.required],
+      c73424df44fb900174f5722: ['', Validators.required]
     });
 
 
@@ -51,33 +52,35 @@ export class Home implements OnInit {
   get f() { return this.skeleForm.controls; }
 
 
-  createState(){
+  createState() {
     this.create = true;
     this.get = false;
 
   }
 
-  getState(){
+  getState() {
     this.create = false;
     this.get = true;
 
   }
-  goBack(){
+  goBack() {
     this.create = false;
     this.get = false;
 
   }
 
+fileURL: String;
+
   onSubmit() {
-    for(var i = 1; i<4; i++){
-      var question = 'Q'+i.toString()
+      this.skeleService.writePDF(this.skeleForm.value).subscribe(data => {
+      this.fileURL= data.msg,
+      console.log(this.fileURL),
+      this.skeleService.sendPDF(this.fileURL).subscribe(res => { console.log(res.msg) });
+  });
 
 
 
-      this.skeleService.updateAnswers(this.questions[i-1],  this.skeleForm.controls[question].value).subscribe(data=>{console.log(data.answer)});
-
-    }
-  }
+}
 
 
 

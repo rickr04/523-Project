@@ -25,16 +25,53 @@ module.exports = {
         });
     },
 
-    upload: function(filepath, name, callback) {
+    downloadBucket: function(folderName, callback){
+        s3.listObjects({Bucket: process.env.S3_BUCKET}, (err, data) => {
+            if (err) {
+                callback(err);
+            } else  {
+                console.log(data);
+                let urls = [];
+                data.Contents.forEach((file) => {
+                    if (file.Key.startsWith(folderName+'/')) {
+                        urls.push(s3.getSignedUrl('getObject', {
+                            Bucket: process.env.S3_BUCKET, 
+                            Key: file.Key, 
+                            Expires:60
+                        }));
+                    }             
+                }); 
+                callback(err, urls);
+            }
+        });
+    },
+
+    upload: function(userid, filepath, name, callback) {
         fs.readFile(filepath, (err, fileData) => {
             s3.putObject({
             Body: fileData,
-            Bucket: process.env.S3_BUCKET,
+            Bucket: process.env.S3_BUCKET + '/' + userid,
             Key: name + Date.now().toString() +".pdf",
             }, (err, data) => {
-                if (err) console.log(err, err.stack);
+                callback(err);
             });
         });
-        callback();
     }
+
+    /*
+    // Checks if bucket exists, if no than it creates the bucket
+    checkBucket: function(userid, callback) {
+        s3.headBucket({Bucket: userid}, (err) => {
+            if (err.statusCode === 404) {
+                s3.createBucket({Bucket: userid}, (err) => {
+                    if (err) console.log(err, data);
+                    else console.log(data);
+                    callback();
+                });
+            } else {
+                callback();
+            }
+        });
+    }
+    */
 };

@@ -19,22 +19,38 @@ var corsOptions = {
 router.options('*', cors())
 router.use(cors());
 
-// Call to upload a file. JSON needs "filepath" and "name"
+/* Call to upload a file. JSON needs keys of filepath, name, and userid.
+It will upload the designated file with the designated name in a folder equivalent to the userid */
 router.post('/api/demo/upload', (req, res, next) => {
-  s3Handling.upload(req.body.filepath, req.body.name, (err) => {
-    return res.json({msg: "It Worked"});
-  })
+    s3Handling.upload(req.body.userid, req.body.filepath, req.body.name, (err) => {
+      if (err) {
+        res.json({success: false, msg: err.message});
+      } else {
+        res.json({success: true, msg: "Success"});
+    }
+    });
 });
 
-
-// Call tp download and update a certain PDF. JSON needs form field IDs
+// Call to download and update a certain PDF. JSON needs keys of field ids
 router.post('/api/demo/answerquestion', (req, res, next) => {
   s3Handling.download({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
       res.json({success: true, msg: "./tempstore/tmpfilled.pdf"});
-  }
+    }
+  });
+});
+
+/* Pass JSON with Folder key to the Folder you want (typically a User ID).
+Returns an array of signed URLS to download everything in that folder */
+router.get('/api/demo/getforms', (req, res, next) => {
+  s3Handling.downloadFolder(req.body.Folder, (err, urlArray) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, urls: urlArray});
+    }
   });
 });
 

@@ -1,3 +1,7 @@
+/* This code (with the exception of the editForm function) is taken from the following repo: 
+https://github.com/galkahana/HummusJSSamples/tree/master/filling-form-values
+It allows us to fill out PDF form fields using Hummus. */
+
 var hummus = require('hummus'),
     _ = require('lodash');
 
@@ -644,11 +648,16 @@ function fillForm(writer,data, options) {
         writeFilledForm(handles,acroformDict);
     }
 }
+const streams = require('memory-streams');
+const fs = require('fs');
 
-const editForm = (fileLocation, data, callback) => {
-    console.log(fileLocation);
-    let writer = hummus.createWriterToModify(fileLocation, {modifiedFilePath: './tempstore/tmpfilled.pdf'});
-    fillForm(writer, data, {
+const editForm = (PDFData, formData, callback) => {
+    // Allows to read PDF from stream
+    let inputStream = new hummus.PDFRStreamForBuffer(PDFData.Body);
+    let outputStream = new streams.WritableStream(); 
+    let writer = hummus.createWriterToModify(inputStream, new hummus.PDFStreamForResponse(outputStream));
+
+    fillForm(writer, formData, {
         defaultTextOptions: {
             font: writer.getFontForFile('./tempstore/Roboto-Regular.ttf'),
             size: 10,
@@ -657,7 +666,9 @@ const editForm = (fileLocation, data, callback) => {
         },
     });
     writer.end();
-    callback();
+    outputStream.end();
+    const newDocument = outputStream.toBuffer();
+    callback(null, newDocument);
 }
 
 module.exports = editForm;

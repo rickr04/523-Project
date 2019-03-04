@@ -20,7 +20,7 @@ router.options('*', cors())
 router.use(cors());
 
 /* Call to upload a file. JSON needs keys of filepath, name, and userid.
-It will upload the designated file with the designated name in a folder equivalent to the userid */
+It will upload the designated file with the designated name in a folder equivalent to the userid. */
 router.post('/api/demo/upload', (req, res, next) => {
     s3Handling.upload(req.body.userid, req.body.filepath, req.body.name, (err) => {
       if (err) {
@@ -31,13 +31,29 @@ router.post('/api/demo/upload', (req, res, next) => {
     });
 });
 
-// Call to download and update a certain PDF. JSON needs keys of field ids
+/* Call to download and update a certain PDF. JSON needs keys of field ids.
+JSON format is as follows:
+{
+	"answers": {
+		"c73424df44fb900174f5720":"Mark",
+	  "c73424df44fb900174f5721":"itworks",
+		"c73424df44fb900174f5722":"haha!"
+	},
+	"folder":"userid",
+	"name":"TestWithStreams"
+} */
 router.post('/api/demo/answerquestion', (req, res, next) => {
-  s3Handling.download({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err) => {
+  s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err, data) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
-      res.json({success: true, msg: "./tempstore/tmpfilled.pdf"});
+      s3Handling.upload(req.body.folder, data, req.body.name, (err) => {
+        if (err) {
+          res.json({success: false, msg: err.message});
+        } else {
+          res.json({success: true, msg: "Success"});
+        }
+      });
     }
   });
 });

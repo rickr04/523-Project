@@ -11,20 +11,19 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 module.exports = {
-    download: function(parameters, reqbody, callback) {
+    editForm: function(parameters, reqbody, callback) {
         s3.getObject(parameters, (err, data) => {
             if (err) {
-                console.log(err, err.stack);
+                callback(err, null);
             } else {
-                fs.writeFile('./tempstore/temp.pdf', data.Body, (err) => {
-                    if (err) throw err;
-                    console.log('The file has been saved');
-                    editForm('./tempstore/temp.pdf', reqbody, callback);
-                });
+                console.log(data);
+                editForm(data, reqbody.answers, callback);
             }
         });
     },
 
+    /* Takes in a folder name, usually a user ID, and returns all
+    keys within the folder */
     getFolderKeys: function(folderName, callback){
         s3.listObjects({Bucket: process.env.S3_BUCKET}, (err, data) => {
             if (err) {
@@ -40,13 +39,25 @@ module.exports = {
         });
     },
 
+    // Downloads an S3 file given the relevant key
     downloadFile: function(objectKey, callback) {
-        s3.getObject({Bucket: process.env.S3_BUCKET, Key:objectKey}, (err, data) => {
+        s3.getObject({Bucket: process.env.S3_BUCKET, Key: objectKey}, (err, data) => {
             callback(err, data);
         });
     },
 
-    upload: function(userid, filepath, name, callback) {
+    upload: function(userid, file, name, callback) {
+        s3.putObject({
+            Body: file,
+            Bucket: process.env.S3_BUCKET + '/' + userid,
+            Key: name + Date.now().toString() +".pdf",
+            }, (err, data) => {
+                callback(err);
+        });
+
+    }
+
+    /* upload: function(userid, filepath, name, callback) {
         fs.readFile(filepath, (err, fileData) => {
             s3.putObject({
             Body: fileData,
@@ -56,7 +67,7 @@ module.exports = {
                 callback(err);
             });
         });
-    }
+    } */
 
     /*
     // Checks if bucket exists, if no than it creates the bucket

@@ -25,24 +25,24 @@ module.exports = {
         });
     },
 
-    downloadBucket: function(folderName, callback){
+    getFolderKeys: function(folderName, callback){
         s3.listObjects({Bucket: process.env.S3_BUCKET}, (err, data) => {
             if (err) {
                 callback(err);
             } else  {
                 console.log(data);
-                let urls = [];
+                let keys = [];
                 data.Contents.forEach((file) => {
-                    if (file.Key.startsWith(folderName+'/')) {
-                        urls.push(s3.getSignedUrl('getObject', {
-                            Bucket: process.env.S3_BUCKET, 
-                            Key: file.Key, 
-                            Expires:60
-                        }));
-                    }             
+                    if (file.Key.startsWith(folderName+'/')) keys.push(file.Key);      
                 }); 
-                callback(err, urls);
+                callback(err, keys);
             }
+        });
+    },
+
+    downloadFile: function(objectKey, callback) {
+        s3.getObject({Bucket: process.env.S3_BUCKET, Key:objectKey}, (err, data) => {
+            callback(err, data);
         });
     },
 

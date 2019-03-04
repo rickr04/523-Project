@@ -43,13 +43,25 @@ router.post('/api/demo/answerquestion', (req, res, next) => {
 });
 
 /* Pass JSON with Folder key to the Folder you want (typically a User ID).
-Returns an array of signed URLS to download everything in that folder */
-router.get('/api/demo/getforms', (req, res, next) => {
-  s3Handling.downloadFolder(req.body.Folder, (err, urlArray) => {
+Returns an array of the keys of all files in that folder */
+router.get('/api/demo/getkeys', (req, res, next) => {
+  s3Handling.getFolderKeys(req.body.Folder, (err, keyArray) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
-      res.json({success: true, urls: urlArray});
+      res.json({success: true, Keys: keyArray});
+    }
+  });
+});
+
+/* Allows you to download from the S3 bucket if passed a key */
+router.get('/api/demo/getform', (req, res, next) => {
+  s3Handling.downloadFile(req.body.Key, (err, data) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.attachment('test.pdf');
+      res.send(data.Body);
     }
   });
 });

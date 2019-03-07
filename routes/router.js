@@ -6,9 +6,10 @@ const Admin = require('../models/Admin');
 const SuperUser = require('../models/SuperUser');
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
-const Questions = require('../models/SAQTemplate');
+const SAQTemplate = require('../models/SAQTemplate');
 const Skeleton = require('../models/skeleton');
 const s3Handling = require('../services/file-upload');
+const mongoose = require('mongoose');
 
 
 var corsOptions = {
@@ -256,9 +257,9 @@ router.post('/api/SubUser', (req, res, next) => {
 router.post('/api/Question', (req, res, next) => {
   let newQuestion = new Question({
     questiontext: req.body.questiontext,
-    answertype: req.body.answertype
+    answertype: req.body.answertype,
+    _id: req.body.id
   });
-
   newQuestion.save((err) => {
     if (err) {
       res.json({success: false, msg: err.message});
@@ -270,20 +271,20 @@ router.post('/api/Question', (req, res, next) => {
 
 // Create SAQTemplate, currently uses QuestionIDs and template name
 router.post('/api/SAQ', (req, res, next) => {
-  let SAQquestions = Questions.getQuestionsByIds(req.body.questions);
-
-  let SAQ = new SAQTemplate({
-    name: req.body.name,
-    questions: SAQquestions
-  });
-
-  SAQ.save((err) => {
-    if (err) {
-      res.json({success: false, msg: err.message});
-    } else {
-      res.json({success: true, msg:'SAQ Template Created'});
-    }
-  });
+    let SAQ = new SAQTemplate({
+      name: req.body.name,
+    });
+    req.body.questions.forEach((q) => {
+      SAQ.questions.push(q);
+    });
+    console.log(SAQ);
+    SAQ.save((err) => {
+      if (err) {
+        res.json({success: false, msg: err.message});
+      } else {
+        res.json({success: true, msg:'SAQ Template Created'});
+      }
+    });
 });
 
 module.exports = router;

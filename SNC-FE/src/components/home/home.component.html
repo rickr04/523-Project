@@ -41,7 +41,11 @@
 
           </div>
           <div *ngIf="get == true && create == false">
-            getform
+            <div *ngFor="let key of keys; let i = index">
+              <p>
+                <span><h2>{{i+1}}: </h2><button (click)="formHandle(key)"> {{key}}</button></span>
+              </p>
+            </div>
           </div>
         </ng-template>
       </div>

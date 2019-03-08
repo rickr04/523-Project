@@ -4,11 +4,14 @@ const cors = require('cors');
 const app = express();
 const Admin = require('../models/Admin');
 const SuperUser = require('../models/SuperUser');
+const AccountSAQ = require('../models/AccountSAQ');
+
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
-const Questions = require('../models/SAQTemplate');
+const SAQTemplate = require('../models/SAQTemplate');
 const Skeleton = require('../models/skeleton');
 const s3Handling = require('../services/file-upload');
+const mongoose = require('mongoose');
 
 
 var corsOptions = {
@@ -19,22 +22,81 @@ var corsOptions = {
 router.options('*', cors())
 router.use(cors());
 
-// Call to upload a file. JSON needs "filepath" and "name"
+/* Call to upload a file. JSON needs keys of filepath, name, and userid.
+It will upload the designated file with the designated name in a folder equivalent to the userid. */
 router.post('/api/demo/upload', (req, res, next) => {
-  s3Handling.upload(req.body.filepath, req.body.name, (err) => {
-    return res.json({msg: "It Worked"});
-  })
+    s3Handling.upload(req.body.userid, req.body.filepath, req.body.name, (err) => {
+      if (err) {
+        res.json({success: false, msg: err.message});
+      } else {
+        res.json({success: true, msg: "Success"});
+    }
+    });
 });
 
+/* Call to download and update a certain PDF. JSON needs keys of field ids.
+JSON format is as follows:
+{
+	"answers": {
+		"c73424df44fb900174f5720":"Mark",
+	  "c73424df44fb900174f5721":"itworks",
+		"c73424df44fb900174f5722":"haha!"
+	},
+	"folder":"userid",
+	"name":"TestWithStreams"
+} */
+router.post('/api/demo/:_id/answerquestion', (req, res, next) => {
+  var account_var = {
+    superuserid: req.params._id,
+    name: "demo",
+    templateid: 1234,
+    questionsandanswers: req.body.answers
+  }
+  AccountSAQ.create(account_var);
 
-// Call tp download and update a certain PDF. JSON needs form field IDs
-router.post('/api/demo/answerquestion', (req, res, next) => {
-  s3Handling.download({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err) => {
+
+  s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err, data) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
-      res.json({success: true, msg: "./tempstore/tmpfilled.pdf"});
-  }
+      s3Handling.upload(req.body.folder, data, req.body.name, (err) => {
+        if (err) {
+          res.json({success: false, msg: err.message});
+        } else {
+          res.json({success: true, msg: "Success"});
+        }
+      });
+    }
+  });
+});
+
+/* Pass JSON with Folder key to the Folder you want (typically a User ID).
+Returns an array of the keys of all files in that folder */
+router.get('/api/demo/:_id/getkeys', (req, res, next) => {
+  s3Handling.getFolderKeys(req.params._id, (err, keyArray) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, Keys: keyArray});
+    }
+  });
+});
+
+/* Allows you to download from the S3 bucket if passed a key */
+router.post('/api/demo/getform', (req, res, next) => {
+  console.log(req.body.Key)
+  s3Handling.downloadFile(req.body.Key, (err, data) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      //res.download(data.Body);
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename=some_file.pdf',
+        'Content-Length': data.Body.length
+      });
+      res.end(data.Body);
+    }
   });
 });
 
@@ -212,9 +274,9 @@ router.post('/api/SubUser', (req, res, next) => {
 router.post('/api/Question', (req, res, next) => {
   let newQuestion = new Question({
     questiontext: req.body.questiontext,
-    answertype: req.body.answertype
+    answertype: req.body.answertype,
+    _id: req.body.id
   });
-
   newQuestion.save((err) => {
     if (err) {
       res.json({success: false, msg: err.message});
@@ -226,20 +288,20 @@ router.post('/api/Question', (req, res, next) => {
 
 // Create SAQTemplate, currently uses QuestionIDs and template name
 router.post('/api/SAQ', (req, res, next) => {
-  let SAQquestions = Questions.getQuestionsByIds(req.body.questions);
-
-  let SAQ = new SAQTemplate({
-    name: req.body.name,
-    questions: SAQquestions
-  });
-
-  SAQ.save((err) => {
-    if (err) {
-      res.json({success: false, msg: err.message});
-    } else {
-      res.json({success: true, msg:'SAQ Template Created'});
-    }
-  });
+    let SAQ = new SAQTemplate({
+      name: req.body.name,
+    });
+    req.body.questions.forEach((q) => {
+      SAQ.questions.push(q);
+    });
+    console.log(SAQ);
+    SAQ.save((err) => {
+      if (err) {
+        res.json({success: false, msg: err.message});
+      } else {
+        res.json({success: true, msg:'SAQ Template Created'});
+      }
+    });
 });
 
 module.exports = router;

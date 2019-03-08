@@ -8,6 +8,10 @@ const QuestionSchema = new mongoose.Schema({
   answertype: {
       type: Number,
       required: true
+  },
+  _id: {
+    type: String,
+    required: true
   }
 }, 
 {
@@ -19,15 +23,13 @@ module.exports = Question;
 
 // Function in order to get multiple questions for SAQTemplate
 // Takes in array of IDs and returns array of Questions
-module.exports.getQuestionsByIDs = function(ids) {
+module.exports.getQuestionsByIDs = (ids, callback) => {
   let questions = [];
+  console.log(ids);
   for (let i = 0; i < ids.length; i++) {
-    questions[i] = Question.findById(ids[i], (err, question) => {
-      if (err) {
-        throw err;
-      } else {
-        return question;
-      }
+    questions[i] = Question.findById(ids[i], (err) => {
+      if (err) throw err;
     });
   }
+  callback(null, questions);
 }

@@ -12,7 +12,7 @@ export class TestService  {
 
 
  _url: string = "https://security-n-compliance.herokuapp.com"
-
+//_url: string = "http://localhost:3000"
   constructor(private http: HttpClient) { }
 
   updateAnswers(_id: String, answer: String): Observable<any>{
@@ -22,17 +22,25 @@ export class TestService  {
 
   writePDF(template: any): Observable<any>{
     const headers = new HttpHeaders({'Content-Type': 'Content-Type: application/json'});
-  return  this.http.post<any>(this._url+"/api/demo/answerquestion",template) };
+  return  this.http.post<any>(this._url+"/api/demo/12345/answerquestion",template) };
 
 
-    sendPDF(filepath: String): Observable<any>{
+    sendPDF(stream: any): Observable<any>{
       const headers = new HttpHeaders({'Content-Type': 'Content-Type: application/json'});
-  return this.http.post<any>(this._url+"/api/demo/upload",{filepath: filepath, name: "fetest" });
+  return this.http.post<any>(this._url+"/api/demo/upload",stream);
 }
-  // getQueueAtLocation(location: string): Observable<Response>{
-  //   const headers = new HttpHeaders({'Content-Type': 'Content-Type: application/json'});
-  //   return this.http.get<Response>(this._url+'/'+location);
-  // }
+
+getKeys(): Observable <any>{
+return this.http.get<any>(this._url+'/api/demo/DEMO/getkeys');
+}
+
+getForm(key: String): Observable<ArrayBuffer>{
+    return this.http.post(this._url+'/api/demo/getform', {Key: key}, { responseType: 'arraybuffer' });
+}
+
+
+
+
 
 
 

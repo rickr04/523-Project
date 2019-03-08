@@ -58,9 +58,12 @@ export class Home implements OnInit {
 
   }
 
+  keys: String[];
   getState() {
-    this.create = false;
-    this.get = true;
+    this.skeleService.getKeys().subscribe(data=>{this.keys = data.Keys,   this.create = false,
+      this.get = true});
+
+
 
   }
   goBack() {
@@ -69,14 +72,20 @@ export class Home implements OnInit {
 
   }
 
+  formHandle(key: String){
+    this.skeleService.getForm(key).subscribe(data=>{var newBlob = new Blob([data], { type: "application/pdf" });
+
+           var fileURL = URL.createObjectURL(newBlob);
+           console.log(fileURL);
+           window.open(fileURL)});
+  }
+
 fileURL: String;
 
   onSubmit() {
-      this.skeleService.writePDF(this.skeleForm.value).subscribe(data => {
+      this.skeleService.writePDF({answers: this.skeleForm.value, folder: "DEMO", name: "test" }).subscribe(data => {
       this.fileURL= data.msg,
-      console.log(this.fileURL),
-      this.skeleService.sendPDF(this.fileURL).subscribe(res => { console.log(res.msg) , this.goBack()});
-
+      console.log(this.fileURL)
   });
 
 

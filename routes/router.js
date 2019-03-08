@@ -4,6 +4,8 @@ const cors = require('cors');
 const app = express();
 const Admin = require('../models/Admin');
 const SuperUser = require('../models/SuperUser');
+const AccountSAQ = require('../models/AccountSAQ');
+
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const SAQTemplate = require('../models/SAQTemplate');
@@ -43,7 +45,16 @@ JSON format is as follows:
 	"folder":"userid",
 	"name":"TestWithStreams"
 } */
-router.post('/api/demo/answerquestion', (req, res, next) => {
+router.post('/api/demo/:_id/answerquestion', (req, res, next) => {
+  var account_var = {
+    superuserid: req.params._id,
+    name: "demo",
+    templateid: 1234,
+    questionsandanswers: req.body.answers
+  }
+  AccountSAQ.create(account_var);
+
+
   s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err, data) => {
     if (err) {
       res.json({success: false, msg: err.message});
@@ -61,8 +72,8 @@ router.post('/api/demo/answerquestion', (req, res, next) => {
 
 /* Pass JSON with Folder key to the Folder you want (typically a User ID).
 Returns an array of the keys of all files in that folder */
-router.get('/api/demo/getkeys', (req, res, next) => {
-  s3Handling.getFolderKeys(req.body.Folder, (err, keyArray) => {
+router.get('/api/demo/:_id/getkeys', (req, res, next) => {
+  s3Handling.getFolderKeys(req.params._id, (err, keyArray) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
@@ -72,13 +83,19 @@ router.get('/api/demo/getkeys', (req, res, next) => {
 });
 
 /* Allows you to download from the S3 bucket if passed a key */
-router.get('/api/demo/getform', (req, res, next) => {
+router.post('/api/demo/getform', (req, res, next) => {
+  console.log(req.body.Key)
   s3Handling.downloadFile(req.body.Key, (err, data) => {
     if (err) {
       res.json({success: false, msg: err.message});
     } else {
-      res.attachment('test.pdf');
-      res.send(data.Body);
+      //res.download(data.Body);
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename=some_file.pdf',
+        'Content-Length': data.Body.length
+      });
+      res.end(data.Body);
     }
   });
 });

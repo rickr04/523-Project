@@ -16,7 +16,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                console.log(data);
+                
                 editForm(data, reqbody.answers, callback);
             }
         });
@@ -29,11 +29,11 @@ module.exports = {
             if (err) {
                 callback(err);
             } else  {
-                console.log(data);
+
                 let keys = [];
                 data.Contents.forEach((file) => {
-                    if (file.Key.startsWith(folderName+'/')) keys.push(file.Key);      
-                }); 
+                    if (file.Key.startsWith(folderName+'/')) keys.push(file.Key);
+                });
                 callback(err, keys);
             }
         });

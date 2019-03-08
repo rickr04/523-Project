@@ -6,6 +6,8 @@ var session = require('express-session');
 const cookieParser = require('cookie-parser');
 var MongoStore = require('connect-mongo')(session);
 var cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config()
 // Connect to MongoDB
 
 var db = mongoose.connection;

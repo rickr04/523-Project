@@ -17,27 +17,23 @@ import { TestService } from '@services/test.service';
 //import { LaserCutterService } from '@services/lasercutter.service';
 
 @Component({
-  selector: 'home-root',
-  templateUrl: './home.component.html',
+  selector: 'login-root',
+  templateUrl: './login.component.html',
   providers: [TestService],
 })
 
 
-export class Home implements OnInit {
+export class Login implements OnInit {
 
   constructor(
-
   ) { }
 
-
+ 
   ngOnInit() {
 
+
+
   }
-
-
-
-
-
 
 
 

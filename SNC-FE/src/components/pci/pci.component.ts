@@ -17,27 +17,23 @@ import { TestService } from '@services/test.service';
 //import { LaserCutterService } from '@services/lasercutter.service';
 
 @Component({
-  selector: 'home-root',
-  templateUrl: './home.component.html',
+  selector: 'pci-root',
+  templateUrl: './pci.component.html',
   providers: [TestService],
 })
 
 
-export class Home implements OnInit {
+export class Pci implements OnInit {
 
   constructor(
-
   ) { }
 
 
   ngOnInit() {
 
+
+
   }
-
-
-
-
-
 
 
 

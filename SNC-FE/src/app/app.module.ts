@@ -6,12 +6,24 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { Home } from '@components/home/home.component';
+import { Account } from '@components/account/account.component';
+import { Login } from '@components/login/login.component';
+import { Register } from '@components/register/register.component';
+import { Pci } from '@components/pci/pci.component';
+import { Demo } from '@components/demo/demo.component';
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    Home
+    Home,
+    Login,
+    Register,
+    Pci,
+    Account,
+    Demo
   ],
   imports: [
     BrowserModule,

@@ -11,8 +11,8 @@ dotenv.config()
 // Connect to MongoDB
 
 var db = mongoose.connection;
-mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
-
+//mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
+mongoose.connect(  'mongodb://localhost:27017/snc');
 
 // Alert of succesful connection/error
 

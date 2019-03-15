@@ -104,6 +104,56 @@ if(req.session && req.params._id == req.session.superuserId){
 }
 });
 
+/* Post DB questions
+JSON format as follows, I choose to manually assign IDs so that we can
+better track our form fields and their corresponding IDs.
+{
+  "questiontext":"What is the date?",
+  "answertype":"0",
+  "id":"123abc"
+} */
+router.post('/api/admin/question', (req, res, next) => { 
+  let newQuestion = new Question({
+    questiontext: req.body.questiontext,
+    answertype: req.body.answertype,
+    _id: req.body.id
+  });
+
+  newQuestion.save((err) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, msg:'Question Posted'});
+    }
+  });
+});
+
+/* Posts SAQ Template. Name is the SAQ type, questions are question IDs
+{
+	"name":"a",
+	"questions":["a2","a1"]
+} */
+router.post('/api/admin/SAQTemplate', (req, res, next) => { 
+  let newSAQTemplate = new SAQTemplate({
+    name: req.body.name,
+    questions: req.body.questions
+  });
+  console.log(req.body.questions);
+  newSAQTemplate.save((err) => {
+    if (err) {
+      res.json({success: false, msg: err.message});
+    } else {
+      res.json({success: true, msg:'SAQ Template Posted'});
+    }
+  });
+});
+
+// Get questions from SAQTemplate. Just need to pass it the ID of the SAQTemplate.
+router.get('/api/SAQ', (req, res, next) => {
+  SAQTemplate.findById(req.body.id).populate('questions').exec((err, question) => {
+    res.send(question.questions);
+  });
+});
 
 
 module.exports = router;

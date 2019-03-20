@@ -91,17 +91,38 @@ router.get('/api/superuser/auth', function(req, res, next){
 })
 
 
-//create subuser
-router.post('/api/:_id/create', (req, res, next) => {
-if(req.session && req.params._id == req.session.superuserId){
-
-
-
-}else{
-  var err = new Error('Not Authorized');
-  err.status = 400;
-  return next(err);
+/* Create Subuser. SuperUser ID stored in params._id.
+JSON format passed needs to be as follows:
+{
+	"email":"testa@test.com",
+	"password":"1234",
+	"fname":"Test",
+	"lname":"TESTAGAIN",
+	"telephone":"012-345-6789"
 }
+*/
+router.post('/api/:_id/create', (req, res, next) => {
+  if (req.session && req.params._id == req.session.superuserId) {
+    let subUserData = new SubUser({
+      email: req.body.email,
+      password: req.body.password,
+      fname: req.body.fname,
+      lname: req.body.lname,
+      telephone: req.body.telephone,
+      superuserid: req.params._id
+    });
+    SubUser.addSub(subUserData, (err, savedSub) => {
+      if (err) {
+        res.json({success: false, message: err.message});
+      } else {
+        res.json({success: true, message: "Subuser created", data: savedSub});
+      }
+    });
+  } else {
+    var err = new Error('Not Authorized');
+    err.status = 400;
+    return next(err);
+  }
 });
 
 /* Post DB questions
@@ -121,9 +142,9 @@ router.post('/api/admin/question', (req, res, next) => {
 
   newQuestion.save((err) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({success: false, message: err.message});
     } else {
-      res.json({success: true, msg:'Question Posted'});
+      res.json({success: true, message:'Question Posted'});
     }
   });
 });
@@ -141,9 +162,9 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
   console.log(req.body.questions);
   newSAQTemplate.save((err) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({success: false, message: err.message});
     } else {
-      res.json({success: true, msg:'SAQ Template Posted'});
+      res.json({success: true, message:'SAQ Template Posted'});
     }
   });
 });
@@ -152,7 +173,7 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
 router.get('/api/SAQ', (req, res, next) => {
   SAQTemplate.findById(req.body.id).populate('questions').exec((err, question) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({success: false, message: err.message});
     } else {
       res.send(question.questions);
     }

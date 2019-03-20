@@ -56,8 +56,8 @@ module.exports.addSub = function(newSub, callback) {
                   if (err) {
                     return callback(err);
                   } else {
-                    SuperUser.addSubtoSuper(superuser, SavedSub);
-                    callback();
+                    SuperUser.addSubtoSuper(superuser, SavedSub._id);
+                    callback(err, SavedSub);
                   }
                 });
               }
@@ -67,5 +67,4 @@ module.exports.addSub = function(newSub, callback) {
     }
   });
   // Check to see if SuperUser exists before hashing password
-  
 }

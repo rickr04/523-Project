@@ -13,9 +13,6 @@ import { TestService } from '@services/test.service';
 
 
 
-
-//import { LaserCutterService } from '@services/lasercutter.service';
-
 @Component({
   selector: 'login-root',
   templateUrl: './login.component.html',
@@ -25,16 +22,27 @@ import { TestService } from '@services/test.service';
 
 export class Login implements OnInit {
 
-  constructor(
-  ) { }
 
- 
-  ngOnInit() {
+    constructor(
+      private router: Router,
+      private formBuilder: FormBuilder,
+      private skeleService: TestService
+    ) { }
+
+    skeleForm: FormGroup;
+    ngOnInit() {
+      this.skeleForm = this.formBuilder.group({
+        // Ask about naming conventions
+        username: ['', Validators.required],
+        password: ['', Validators.required]
+      });
 
 
+    }
 
+    onSubmit() {
+        console.log(this.skeleForm.value)
   }
-
 
 
 }

@@ -1,7 +1,37 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 d-flex ml-auto  justify-content-center">
-      login
+      <div class=" align-items-center">
+
+      <!-- Come back and add form specifications -->
+      <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+        <h2 class="card-header  text-center">
+          Login
+        </h2>
+        <div class="form-group card-body text-center justify-content-center">
+
+          Username<input type="text" formControlName="username" class="form-control form-control-lg" />
+      
+          Password<input type="text" formControlName="password" class="form-control form-control-lg" />
+
+
+        </div>
+
+        <div class="form-group">
+          <!-- For now both will respond to the same onSubmit()  (console.log response then redirect to home) -->
+          <!-- Set actual method for auth guard, temp solution for making skeleton -->
+          <button class="btn btn-primary" routerLink="/account">Login As Super User</button>
+          <button class="btn btn-primary" routerLink="/account">Login As Sub User</button>
+
+        </div>
+      </form>
+      <button class="btn btn-primary" routerLink="/home" routerLinkActive="active">Home</button>
+      <button class="btn btn-primary" routerLink="/register" routerLinkActive="active">Don't have an account? Register Here</button>
+
+
+      <br>
     </div>
+  </div>
+
   </div>
 </div>

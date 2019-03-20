@@ -26,14 +26,31 @@ import { TestService } from '@services/test.service';
 export class Register implements OnInit {
 
   constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private skeleService: TestService
   ) { }
 
-
+  skeleForm: FormGroup;
   ngOnInit() {
-
+    this.skeleForm = this.formBuilder.group({
+      // Ask about naming conventions
+      first: ['', Validators.required],
+      last: ['', Validators.required],
+      email: ['', Validators.required],
+      address: ['', Validators.required],
+      company: ['', Validators.required],
+      phone: ['', Validators.required],
+      password: ['', Validators.required],
+      passConf: ['', Validators.required]
+    });
 
 
   }
+
+  onSubmit() {
+      console.log(this.skeleForm.value)
+}
 
 
 

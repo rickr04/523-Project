@@ -1,7 +1,45 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 d-flex ml-auto  justify-content-center">
-      register
+      <div class=" align-items-center">
+
+      <!-- Come back and add form specifications -->
+      <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+        <h2 class="card-header  text-center">
+          Please Fill Out All Fields
+        </h2>
+        <div class="form-group card-body text-center justify-content-center">
+
+          <input type="text" formControlName="first" placeholder="First Name"  class="form-control form-control-lg" />
+
+
+          <input type="text" formControlName="last" placeholder="Last Name" class="form-control form-control-lg" />
+
+          <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg" />
+
+          <input type="text" formControlName="address" placeholder="Address" class="form-control form-control-lg" />
+
+          <input type="text" formControlName="company" placeholder="Company Name" class="form-control form-control-lg" />
+
+          <input type="text" formControlName="phone" placeholder="First Name"  class="form-control form-control-lg" />
+
+          <input type="text" formControlName="password" placeholder="Password" class="form-control form-control-lg" />
+          <input type="text" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" />
+
+
+        </div>
+
+        <!-- Fix so routing has auth guard-->
+        <div class="form-group">
+          <button class="btn btn-primary" routerLink="/account">Register</button>
+
+        </div>
+      </form>
+      <button class="btn btn-primary" routerLink="/home" routerLinkActive="active">Home</button>
+      <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Already have an account? Login Here</button>
+
+
+      <br>
     </div>
   </div>
 </div>

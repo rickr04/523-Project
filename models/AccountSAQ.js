@@ -16,8 +16,9 @@ var AccountSAQSchema = new mongoose.Schema({
       required: true
   },
   templateid : {
-      type: Number,
-      required: true
+      type: String,
+      required: true,
+      ref: 'SAQTemplate'
   }
 },
 {

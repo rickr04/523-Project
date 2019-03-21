@@ -25,7 +25,8 @@ const SubUserSchema = new mongoose.Schema({
     required: true
   },
   superuserid: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'SubUser',
     required: true
   },
 }, 
@@ -33,7 +34,7 @@ const SubUserSchema = new mongoose.Schema({
   timestamps: true
 });
 
-const SubUser = module.exports = mongoose.model('SubUser', SubUserSchema);
+module.exports = mongoose.model('SubUser', SubUserSchema);
 
 module.exports.addSub = function(newSub, callback) {
   var SuperUser = require('./SuperUser.js');

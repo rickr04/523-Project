@@ -26,19 +26,27 @@ export class Login implements OnInit {
       private formBuilder: FormBuilder,
       private skeleService: TestService
     ) { }
-
+    submitted = false;
     skeleForm: FormGroup;
     ngOnInit() {
       this.skeleForm = this.formBuilder.group({
         // Ask about naming conventions
         username: ['', Validators.required],
-        password: ['', Validators.required]
+        password: ['', [Validators.required, Validators.minLength(8)]]
       });
 
 
     }
 
+
+    get form(){return this.skeleForm.controls};
+
+
     onSubmit() {
+        this.submitted = true;
+        if(this.skeleForm.invalid){
+          return;
+        }
         console.log(this.skeleForm.value),
         this.router.navigateByUrl('/account');
   }

@@ -33,7 +33,7 @@ export class Register implements OnInit {
 
 
   questions = ["first", "last", "email", "address", "company", "phone", "password", "passConf"];
-
+  submitted = false;
 
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
@@ -44,17 +44,35 @@ export class Register implements OnInit {
       address: ['', Validators.required],
       company: ['', Validators.required],
       phone: ['', Validators.required],
-      password: ['', Validators.required],
-      passConf: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      passConf: ['', [Validators.required, Validators.minLength(8)]]
     });
 
 
   }
 
   onSubmit() {
+    this.submitted = true;
+    if(this.skeleForm.invalid){
+      return;
+    }
       console.log(this.skeleForm.value),
       this.router.navigateByUrl('/account')
 
+}
+
+  get form(){return this.skeleForm.controls};
+
+confirmPassword(form: FormGroup){
+  let password = form.controls.password.value;
+  let passwordConf = form.controls.passwordConf.value;
+
+  if(password == passwordConf){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 

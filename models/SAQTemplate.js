@@ -9,9 +9,9 @@ const SAQTemplateSchema = new mongoose.Schema({
     required: true,
   },
   questions : [{
-      type:  String, 
-      ref: 'Question',
-      required: true
+    type:  String, 
+    ref: 'Question',
+    required: true
   }]
 }, 
 {

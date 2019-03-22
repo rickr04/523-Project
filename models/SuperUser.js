@@ -33,9 +33,10 @@ var SuperUserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  subusers: {
-    type: [SubUser.Schema]
-  }
+  subusers: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'SubUser'
+  }]
 },
 {
   timestamps: true
@@ -75,11 +76,11 @@ SuperUserSchema.statics.authenticate = function (email, password, callback) {
 
 const SuperUser = module.exports = mongoose.model('SuperUser', SuperUserSchema);
 
-module.exports.addSubtoSuper = function(sup, subtoAdd, callback) {
+module.exports.addSubtoSuper = function(sup, subID, callback) {
   if (sup.subusers == null) {
-    sup.subusers = [subtoAdd];
+    sup.subusers = [subID];
   } else {
-  sup.subusers.push(subtoAdd);
+  sup.subusers.push(subID);
   sup.save(callback);
   }
 }

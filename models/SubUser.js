@@ -25,7 +25,8 @@ const SubUserSchema = new mongoose.Schema({
     required: true
   },
   superuserid: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'SubUser',
     required: true
   },
 }, 
@@ -33,7 +34,7 @@ const SubUserSchema = new mongoose.Schema({
   timestamps: true
 });
 
-const SubUser = module.exports = mongoose.model('SubUser', SubUserSchema);
+module.exports = mongoose.model('SubUser', SubUserSchema);
 
 module.exports.addSub = function(newSub, callback) {
   var SuperUser = require('./SuperUser.js');
@@ -56,8 +57,8 @@ module.exports.addSub = function(newSub, callback) {
                   if (err) {
                     return callback(err);
                   } else {
-                    SuperUser.addSubtoSuper(superuser, SavedSub);
-                    callback();
+                    SuperUser.addSubtoSuper(superuser, SavedSub._id);
+                    callback(err, SavedSub);
                   }
                 });
               }
@@ -67,5 +68,4 @@ module.exports.addSub = function(newSub, callback) {
     }
   });
   // Check to see if SuperUser exists before hashing password
-  
 }

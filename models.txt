@@ -1,49 +1,40 @@
-Models To Make
-backend branch
+Current Schemas for backend models (Mainly used to help me build the front end models.)
 
+Users:
 
-SuperUser{
-  First Name
-  Last Name
-  email address
-  password
-  passwordConf
-  address
-  Company name
-  telephone number
-  Account SAQ's: [of account saq id's]
-  created_date
+SuperUser {
+  email: String,
+  password: String,
+  fname: String,
+  lname: String,
+  address: String,
+  company: String,
+  telephone: String,
+  subusers: Array of ObjectIds referencing SubUsers
 }
 
-SubUser{
-SuperUser _id
-First name
-Last Name
-password
-passwordConf
-email address
-phone number
-created_date
+SubUser {
+  email: String,
+  password: String,
+  fname: String,
+  lname: String,
+  telephone: String,
+  superuserid: String of a SuperUser's ID (might get changed into an ObjectId referencing SuperUser)
 }
 
+SAQ Stuff:
 
-SAQ templates{
-name of SAQ
-questions = [of question id's]
-created_date
+Question {
+  questiontext: String,
+  answertype: Number,
+  _id: Manually set ID to help us better track questions
 }
 
-Questions{
-question text
-answer type INT (0 - multiple choice, 1 - checkboxes, 2 - short answer)
-created_date
+SAQTemplate {
+  name: String,
+  questions: Array of ID strings referencing questions
 }
 
-Account SAQ{
-SAQ template _id
-question and answer: [of {question _id, answer text}]
-created_date
-
+Account SAQ {
+  Got to figure this one out.
 }
-
-**

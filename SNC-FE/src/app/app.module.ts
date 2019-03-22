@@ -11,6 +11,7 @@ import { Login } from '@components/login/login.component';
 import { Register } from '@components/register/register.component';
 import { Pci } from '@components/pci/pci.component';
 import { Demo } from '@components/demo/demo.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -30,7 +31,7 @@ import { Demo } from '@components/demo/demo.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-
+    
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

@@ -1,7 +1,70 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 d-flex ml-auto  justify-content-center">
-      register
+      <div class=" align-items-center">
+
+      <!-- Come back and add form specifications -->
+      <ng-container>
+      <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+        <h2 class="card-header  text-center">
+          Please Fill Out All Fields
+        </h2>
+        <div class="form-group card-body text-center justify-content-center">
+
+          <input type="text" formControlName="fname" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
+          <div *ngIf="form.fname.errors" class="invalid-feedback">
+            <div *ngIf="form.fname.errors.required">Answer is required</div>
+          </div>
+
+          <input type="text" formControlName="lname" placeholder="Last Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.lname.errors } "/>
+          <div *ngIf="form.lname.errors" class="invalid-feedback">
+            <div *ngIf="form.lname.errors.required">Answer is required</div>
+          </div>
+
+          <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+          <div *ngIf="form.email.errors" class="invalid-feedback">
+            <div *ngIf="form.email.errors.required">Answer is required</div>
+          </div>
+
+          <input type="text" formControlName="address" placeholder="Address" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.address.errors }"/>
+          <div *ngIf="form.address.errors" class="invalid-feedback">
+            <div *ngIf="form.address.errors.required">Answer is required</div>
+          </div>
+
+          <input type="text" formControlName="company" placeholder="Company Name" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.company.errors }"/>
+          <div *ngIf="form.company.errors" class="invalid-feedback">
+            <div *ngIf="form.company.errors.required">Answer is required</div>
+          </div>
+
+          <input type="text" formControlName="telephone" placeholder="Phone Number"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.telephone.errors }"/>
+          <div *ngIf="form.telephone.errors" class="invalid-feedback">
+            <div *ngIf="form.telephone.errors.required">Answer is required</div>
+          </div>
+
+          <input type="password" formControlName="password" placeholder="Password" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.password.errors }"/>
+          <div *ngIf="form.password.errors" class="invalid-feedback">
+            <div *ngIf="form.password.errors.required">Answer is required</div>
+          </div>
+
+          <input type="password" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.passConf.errors }" />
+          <div *ngIf="form.passConf.errors" class="invalid-feedback">
+            <div *ngIf="form.passConf.errors.required">Answer is required</div>
+              <div *ngIf="notMatch">Passwords Do Not Match</div>
+          </div>
+
+        </div>
+
+        <!-- Fix so routing has auth guard-->
+        <div class="form-group">
+          <button class="btn btn-primary">Register</button>
+
+        </div>
+      </form>
+      <button class="btn btn-primary" routerLink="/home" routerLinkActive="active">Home</button>
+      <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Already have an account? Login Here</button>
+    </ng-container>
+
+      <br>
     </div>
   </div>
 </div>

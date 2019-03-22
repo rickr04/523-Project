@@ -7,15 +7,6 @@ import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TestService } from '@services/test.service';
 
-
-
-
-
-
-
-
-//import { LaserCutterService } from '@services/lasercutter.service';
-
 @Component({
   selector: 'home-root',
   templateUrl: './home.component.html',
@@ -33,8 +24,6 @@ export class Home implements OnInit {
   ngOnInit() {
 
   }
-
-
 
 
 

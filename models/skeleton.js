@@ -7,8 +7,8 @@ var SkeletonSchema = new mongoose.Schema({
     required: true,
   },
   Answer: {
-      type: String,
-      required: true
+    type: String,
+    required: true
   }
 },
 {

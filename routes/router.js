@@ -51,7 +51,6 @@ router.post('/api/register', (req, res, next) => {
 
 //Superuser login
 router.post('/api/login', (req, res, next) => {
-
 var superuserdata = {
   email: req.body.email,
   password: req.body.password
@@ -133,7 +132,7 @@ better track our form fields and their corresponding IDs.
   "answertype":"0",
   "id":"123abc"
 } */
-router.post('/api/admin/question', (req, res, next) => { 
+router.post('/api/admin/question', (req, res, next) => {
   let newQuestion = new Question({
     questiontext: req.body.questiontext,
     answertype: req.body.answertype,
@@ -154,7 +153,7 @@ router.post('/api/admin/question', (req, res, next) => {
 	"name":"a",
 	"questions":["a2","a1"]
 } */
-router.post('/api/admin/SAQTemplate', (req, res, next) => { 
+router.post('/api/admin/SAQTemplate', (req, res, next) => {
   let newSAQTemplate = new SAQTemplate({
     name: req.body.name,
     questions: req.body.questions

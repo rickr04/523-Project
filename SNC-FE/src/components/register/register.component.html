@@ -11,14 +11,14 @@
         </h2>
         <div class="form-group card-body text-center justify-content-center">
 
-          <input type="text" formControlName="first" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.first.errors }" />
-          <div *ngIf="form.first.errors" class="invalid-feedback">
-            <div *ngIf="form.first.errors.required">Answer is required</div>
+          <input type="text" formControlName="fname" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
+          <div *ngIf="form.fname.errors" class="invalid-feedback">
+            <div *ngIf="form.fname.errors.required">Answer is required</div>
           </div>
 
-          <input type="text" formControlName="last" placeholder="Last Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.last.errors } "/>
-          <div *ngIf="form.last.errors" class="invalid-feedback">
-            <div *ngIf="form.last.errors.required">Answer is required</div>
+          <input type="text" formControlName="lname" placeholder="Last Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.lname.errors } "/>
+          <div *ngIf="form.lname.errors" class="invalid-feedback">
+            <div *ngIf="form.lname.errors.required">Answer is required</div>
           </div>
 
           <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
@@ -36,19 +36,20 @@
             <div *ngIf="form.company.errors.required">Answer is required</div>
           </div>
 
-          <input type="text" formControlName="phone" placeholder="Phone Number"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.phone.errors }"/>
-          <div *ngIf="form.phone.errors" class="invalid-feedback">
-            <div *ngIf="form.phone.errors.required">Answer is required</div>
+          <input type="text" formControlName="telephone" placeholder="Phone Number"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.telephone.errors }"/>
+          <div *ngIf="form.telephone.errors" class="invalid-feedback">
+            <div *ngIf="form.telephone.errors.required">Answer is required</div>
           </div>
 
-          <input type="text" formControlName="password" placeholder="Password" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.password.errors }"/>
+          <input type="password" formControlName="password" placeholder="Password" class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.password.errors }"/>
           <div *ngIf="form.password.errors" class="invalid-feedback">
             <div *ngIf="form.password.errors.required">Answer is required</div>
           </div>
 
-          <input type="text" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.passConf.errors }" />
+          <input type="password" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.passConf.errors }" />
           <div *ngIf="form.passConf.errors" class="invalid-feedback">
             <div *ngIf="form.passConf.errors.required">Answer is required</div>
+              <div *ngIf="notMatch">Passwords Do Not Match</div>
           </div>
 
         </div>

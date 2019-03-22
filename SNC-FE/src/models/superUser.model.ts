@@ -11,3 +11,4 @@ export class SuperUser {
     telephone: string;
     subusers: [SubUser]
 }
+ 

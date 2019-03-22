@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { TestService } from '@services/test.service';
+import { UserService } from '@services/user.service';
 
 
 
@@ -17,7 +17,7 @@ import { TestService } from '@services/test.service';
 @Component({
   selector: 'register-root',
   templateUrl: './register.component.html',
-  providers: [TestService],
+  providers: [UserService],
 })
 
 
@@ -26,11 +26,11 @@ export class Register implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private skeleService: TestService
+    private skeleService: UserService
 
   ) {  }
   skeleForm: FormGroup;
-
+  notMatch = false;
 
   questions = ["first", "last", "email", "address", "company", "phone", "password", "passConf"];
   submitted = false;
@@ -38,12 +38,12 @@ export class Register implements OnInit {
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
 
-      first: ['', Validators.required],
-      last: ['', Validators.required],
+      fname: ['', Validators.required],
+      lname: ['', Validators.required],
       email: ['', Validators.required],
       address: ['', Validators.required],
       company: ['', Validators.required],
-      phone: ['', Validators.required],
+      telephone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passConf: ['', [Validators.required, Validators.minLength(8)]]
     });
@@ -53,10 +53,23 @@ export class Register implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    if(!this.confirmPassword(this.skeleForm)){
+      this.notMatch = true;
+      return;
+    }
     if(this.skeleForm.invalid){
       return;
     }
-      console.log(this.skeleForm.value),
+
+      this.skeleService.register(
+      this.skeleForm.controls.password.value,
+      this.skeleForm.controls.email.value,
+      this.skeleForm.controls.address.value,
+      this.skeleForm.controls.company.value,
+      this.skeleForm.controls.telephone.value,
+      this.skeleForm.controls.fname.value,
+      this.skeleForm.controls.lname.value,
+      ).subscribe(data=>{console.log(data)});
       this.router.navigateByUrl('/account')
 
 }
@@ -65,12 +78,14 @@ export class Register implements OnInit {
 
 confirmPassword(form: FormGroup){
   let password = form.controls.password.value;
-  let passwordConf = form.controls.passwordConf.value;
+  let passConf = form.controls.passConf.value;
 
-  if(password == passwordConf){
+  if(password == passConf){
+
     return true;
   }
   else{
+
     return false;
   }
 }

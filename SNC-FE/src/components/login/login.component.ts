@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { TestService } from '@services/test.service';
+import { UserService } from '@services/user.service';
 
 
 
@@ -14,7 +14,7 @@ import { TestService } from '@services/test.service';
 @Component({
   selector: 'login-root',
   templateUrl: './login.component.html',
-  providers: [TestService],
+  providers: [UserService],
 })
 
 
@@ -24,14 +24,14 @@ export class Login implements OnInit {
     constructor(
       private router: Router,
       private formBuilder: FormBuilder,
-      private skeleService: TestService
+      private skeleService: UserService
     ) { }
     submitted = false;
     skeleForm: FormGroup;
     ngOnInit() {
       this.skeleForm = this.formBuilder.group({
         // Ask about naming conventions
-        username: ['', Validators.required],
+        email: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(8)]]
       });
 
@@ -47,7 +47,8 @@ export class Login implements OnInit {
         if(this.skeleForm.invalid){
           return;
         }
-        console.log(this.skeleForm.value),
+        this.skeleService.login(this.skeleForm.controls.email.value, this.skeleForm.controls.password.value).subscribe(data=>{console.log(data)});
+
         this.router.navigateByUrl('/account');
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
@@ -14,8 +14,6 @@ import { TestService } from '@services/test.service';
 
 
 
-//import { LaserCutterService } from '@services/lasercutter.service';
-
 @Component({
   selector: 'register-root',
   templateUrl: './register.component.html',
@@ -29,12 +27,17 @@ export class Register implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private skeleService: TestService
-  ) { }
 
+  ) {  }
   skeleForm: FormGroup;
+
+
+  questions = ["first", "last", "email", "address", "company", "phone", "password", "passConf"];
+
+
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
-      // Ask about naming conventions
+
       first: ['', Validators.required],
       last: ['', Validators.required],
       email: ['', Validators.required],
@@ -50,7 +53,7 @@ export class Register implements OnInit {
 
   onSubmit() {
       console.log(this.skeleForm.value),
-      this.router.navigateByUrl('/account');
+      this.router.navigateByUrl('/account')
 
 }
 

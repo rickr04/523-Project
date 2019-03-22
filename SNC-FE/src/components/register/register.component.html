@@ -4,6 +4,7 @@
       <div class=" align-items-center">
 
       <!-- Come back and add form specifications -->
+      <ng-container>
       <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
         <h2 class="card-header  text-center">
           Please Fill Out All Fields
@@ -11,23 +12,44 @@
         <div class="form-group card-body text-center justify-content-center">
 
           <input type="text" formControlName="first" placeholder="First Name"  class="form-control form-control-lg" />
-          <!-- <div *ngIf="f.first.errors " class="invalid-feedback">
-            <div *ngIf="f.first.errors.required">Name is required.</div>
-          </div> -->
+          <div *ngIf="f.first.errors" class="invalid-feedback">
+            <div *ngIf="f.first.errors.required">Answer is required</div>
+          </div>
 
           <input type="text" formControlName="last" placeholder="Last Name" class="form-control form-control-lg" />
+          <div *ngIf="f.last.errors" class="invalid-feedback">
+            <div *ngIf="f.last.errors.required">Answer is required</div>
+          </div>
 
           <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg" />
+          <div *ngIf="f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Answer is required</div>
+          </div>
 
           <input type="text" formControlName="address" placeholder="Address" class="form-control form-control-lg" />
+          <div *ngIf="f.address.errors" class="invalid-feedback">
+            <div *ngIf="f.address.errors.required">Answer is required</div>
+          </div>
 
           <input type="text" formControlName="company" placeholder="Company Name" class="form-control form-control-lg" />
+          <div *ngIf="f.company.errors" class="invalid-feedback">
+            <div *ngIf="f.company.errors.required">Answer is required</div>
+          </div>
 
           <input type="text" formControlName="phone" placeholder="First Name"  class="form-control form-control-lg" />
+          <div *ngIf="f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">Answer is required</div>
+          </div>
 
           <input type="text" formControlName="password" placeholder="Password" class="form-control form-control-lg" />
-          <input type="text" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" />
+          <div *ngIf="f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Answer is required</div>
+          </div>
 
+          <input type="text" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" />
+          <div *ngIf="f.passConf.errors" class="invalid-feedback">
+            <div *ngIf="f.passConf.errors.required">Answer is required</div>
+          </div>
 
         </div>
 
@@ -39,7 +61,7 @@
       </form>
       <button class="btn btn-primary" routerLink="/home" routerLinkActive="active">Home</button>
       <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Already have an account? Login Here</button>
-
+    </ng-container>
 
       <br>
     </div>

@@ -49,7 +49,9 @@ export class Register implements OnInit {
   }
 
   onSubmit() {
-      console.log(this.skeleForm.value)
+      console.log(this.skeleForm.value),
+      this.router.navigateByUrl('/account');
+
 }
 
 

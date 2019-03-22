@@ -11,8 +11,6 @@ import { TestService } from '@services/test.service';
 
 
 
-
-
 @Component({
   selector: 'login-root',
   templateUrl: './login.component.html',
@@ -41,7 +39,8 @@ export class Login implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.skeleForm.value)
+        console.log(this.skeleForm.value),
+        this.router.navigateByUrl('/account');
   }
 
 

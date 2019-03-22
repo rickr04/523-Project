@@ -11,7 +11,9 @@
         <div class="form-group card-body text-center justify-content-center">
 
           <input type="text" formControlName="first" placeholder="First Name"  class="form-control form-control-lg" />
-
+          <!-- <div *ngIf="f.first.errors " class="invalid-feedback">
+            <div *ngIf="f.first.errors.required">Name is required.</div>
+          </div> -->
 
           <input type="text" formControlName="last" placeholder="Last Name" class="form-control form-control-lg" />
 
@@ -31,7 +33,7 @@
 
         <!-- Fix so routing has auth guard-->
         <div class="form-group">
-          <button class="btn btn-primary" routerLink="/account">Register</button>
+          <button class="btn btn-primary">Register</button>
 
         </div>
       </form>

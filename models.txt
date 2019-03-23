@@ -19,7 +19,7 @@ SubUser {
   fname: String,
   lname: String,
   telephone: String,
-  superuserid: String of a SuperUser's ID (might get changed into an ObjectId referencing SuperUser)
+  superuserid: ObjectId referencing SuperUser
 }
 
 SAQ Stuff:
@@ -27,7 +27,7 @@ SAQ Stuff:
 Question {
   questiontext: String,
   answertype: Number,
-  _id: Manually set ID to help us better track questions
+  _id: Manually set ID to help us better track questions (This one is a string while every other ID is an ObjectId)
 }
 
 SAQTemplate {
@@ -36,5 +36,8 @@ SAQTemplate {
 }
 
 Account SAQ {
-  Got to figure this one out.
+  superuserid: ObjectId referencing superuserid
+  name: String,
+  questionsandanswers: JSON object,
+  templateid: ObjectId referencing SAQ template
 }

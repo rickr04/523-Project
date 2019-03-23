@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var AccountSAQSchema = new mongoose.Schema({
   superuserid: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'SuperUser'
   },
@@ -16,7 +16,7 @@ var AccountSAQSchema = new mongoose.Schema({
       required: true
   },
   templateid : {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'SAQTemplate'
   }

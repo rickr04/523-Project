@@ -19,6 +19,7 @@ import { TestService } from '@services/test.service';
 @Component({
   selector: 'account-root',
   templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
   providers: [TestService],
 })
 

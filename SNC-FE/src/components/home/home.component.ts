@@ -10,6 +10,7 @@ import { TestService } from '@services/test.service';
 @Component({
   selector: 'home-root',
   templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
   providers: [TestService],
 })
 

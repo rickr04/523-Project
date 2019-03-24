@@ -19,6 +19,7 @@ import { TestService } from '@services/test.service';
 @Component({
   selector: 'pci-root',
   templateUrl: './pci.component.html',
+  styleUrls: ['./pci.component.css'],
   providers: [TestService],
 })
 

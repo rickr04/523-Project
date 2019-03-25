@@ -1,0 +1,74 @@
+Documentation of all current routes and what they currently do as well as the JSON format needed on the request and what is returned on a succesful response.
+
+Account Handling:
+
+POST /api/register: Registers a SuperUser
+Request: {
+    email: string,
+    fname: string,
+    lname: string,
+    password: string,
+    address: string,
+    company: string,
+    telephone: string
+}
+Response: {
+    message: "Super User has been registered",
+    data: superuser object
+}
+
+POST /api/login: Login as a SuperUser
+Request: {
+    email: string,
+    password: string
+}
+Response: {
+    message: "Super User has been registered",
+    data: superuser object
+}
+
+GET /api/superuser/auth (Not really sure how to document this one)
+
+POST /api/:_id/create: Registers and creates a SubUser (All body data is that of the SubUser that you want to create)
+Request: {
+    email: string ,
+    password: string
+    fname: string,
+    lname: string,
+    telephone: string,
+}
+Response: {
+    message: "Subuser created",
+    data: SubUser object
+}
+
+POST /api/admin/question: Posts an SAQ question
+Request: {
+    questiontext: string (The actual question),
+    answertype: number (Currently have not set what number each type is assigned to),
+    id: string (We manually assign the question's ID here)
+}
+Response: {
+    message: "Question posted",
+    data: Question object
+}
+
+POST /api/admin/saqtemplate: Posts an SAQ template
+Request: {
+    name: string ("SAQAV2-4" for example),
+    questions: Array of question IDs
+}
+Response: {
+    message: "SAQ template posted",
+    data: SAQTemplate object
+}
+
+GET /api/SAQ: Get questions from SAQ template
+Request: {
+    id: String (The SAQ template's ID)
+}
+Response {
+    Need to work on this.
+}
+
+// To complete

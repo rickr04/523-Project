@@ -17,6 +17,7 @@ import { UserService } from '@services/user.service';
 @Component({
   selector: 'register-root',
   templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
   providers: [UserService],
 })
 

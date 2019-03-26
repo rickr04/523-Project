@@ -1,3 +1,5 @@
+
+<div class="jumbotron2">
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 d-flex ml-auto  justify-content-center">
@@ -6,7 +8,7 @@
       <!-- Come back and add form specifications -->
       <ng-container>
       <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
-        <h2 class="card-header  text-center">
+        <h2 class="card-header oswald-head  text-center">
           Please Fill Out All Fields
         </h2>
         <div class="form-group card-body text-center justify-content-center">
@@ -56,15 +58,18 @@
 
         <!-- Fix so routing has auth guard-->
         <div class="form-group">
-          <button class="btn btn-primary">Register</button>
+          <button class="btn btn-main">Register</button>
 
         </div>
       </form>
-      <button class="btn btn-primary" routerLink="/home" routerLinkActive="active">Home</button>
-      <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Already have an account? Login Here</button>
-    </ng-container>
+      <h3 class="oswald text-center">Already have an account?</h3>
+      <div class="justify-content-center text-center">
+      <button class="btn btn-acclight" id="regbutton" routerLink="/login" routerLinkActive="active">Login Here</button>
+      </div>
+        </ng-container>
 
       <br>
     </div>
   </div>
+</div>
 </div>

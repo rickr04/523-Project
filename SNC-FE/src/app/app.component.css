@@ -1,27 +1,13 @@
 /*font-family: 'Oswald', sans-serif;*/
 /*font-family: 'Cabin', sans-serif;*/
-
-.light-background{
-background-color: #FAF4F1;
-color: #000000;
+.nav !important{
+  width: 100%;
+  	float: left;
+  	margin: 0 0 1em 0;
+  	padding: 0;
 }
 
-.dark-background{
-background-color: #203767;
-color: #FFFFFF;
-}
 
-.light-accent{
-background-color: #7FB877;
-}
-
-.dark-accent{
-background-color: #9A465E;
-}
-
-.main{
-background-color: #57A8CD;
-}
 
 .white-text{
 color: #FFFFFF;

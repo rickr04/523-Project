@@ -1,1 +1,55 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+* { padding: 0; margin: 0; }
+
+html, body {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+body > * {
+  flex-shrink: 2;
+}
+.light-background !important{
+background-color: #FAF4F1;
+color: #000000;
+}
+
+.dark-background{
+background-color: #203767;
+color: #FFFFFF;
+}
+
+.light-accent{
+background-color: #7FB877;
+}
+
+.dark-accent{
+background-color: #9A465E;
+}
+
+.main{
+background-color: #57A8CD;
+}
+
+
+.btn-main{
+  font-family: 'Oswald', sans-serif;
+  color:white;
+  background-color: #57A8CD;
+  font-size: 24px;
+}
+
+.btn-acclight{
+  font-family: 'Oswald', sans-serif;
+  color:white;
+  background-color: #7FB877;
+  font-size: 24px;
+}
+
+.btn-accdark{
+  font-family: 'Oswald', sans-serif;
+  color:white;
+  background-color: #9A465E;
+  font-size: 24px;
+}

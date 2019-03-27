@@ -20,8 +20,8 @@ export class UserService  {
      this.currentUserSubject = new BehaviorSubject<SuperUser>(JSON.parse(localStorage.getItem('currentUser')));
      this.currentUser = this.currentUserSubject.asObservable();
  }
-  _url: string = "https://security-n-compliance.herokuapp.com"
-  //private _url: string = "http://localhost:3000/api";
+  //_url: string = "https://security-n-compliance.herokuapp.com"
+  private _url: string = "http://localhost:3000/api";
 
   public get currentUserValue(): SuperUser {
         return this.currentUserSubject.value;

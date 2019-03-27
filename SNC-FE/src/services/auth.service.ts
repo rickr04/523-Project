@@ -16,8 +16,8 @@ export class AuthenticationService {
           }
 
 
-    //private _url = "http://localhost:3000/api/superuser/auth";
-    private _url: string = "https://security-n-compliance.herokuapp.com/api/superuser/auth";
+    private _url = "http://localhost:3000/api/superuser/auth";
+    //private _url: string = "https://security-n-compliance.herokuapp.com/api/superuser/auth";
 
 
 

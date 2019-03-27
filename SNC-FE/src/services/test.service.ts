@@ -11,8 +11,8 @@ import { HttpHeaders } from '@angular/common/http';
 export class TestService  {
 
 
- _url: string = "https://security-n-compliance.herokuapp.com"
-//_url: string = "http://localhost:3000"
+ //_url: string = "https://security-n-compliance.herokuapp.com"
+_url: string = "http://localhost:3000"
   constructor(private http: HttpClient) { }
 
   updateAnswers(_id: String, answer: String): Observable<any>{

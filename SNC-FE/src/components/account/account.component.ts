@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
@@ -27,6 +27,8 @@ import { TestService } from '@services/test.service';
 export class Account implements OnInit {
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
 
@@ -35,6 +37,8 @@ export class Account implements OnInit {
 
 
   }
+
+
 
 
 

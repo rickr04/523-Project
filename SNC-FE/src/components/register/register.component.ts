@@ -70,8 +70,8 @@ export class Register implements OnInit {
       this.skeleForm.controls.telephone.value,
       this.skeleForm.controls.fname.value,
       this.skeleForm.controls.lname.value,
-      ).subscribe(data=>{console.log(data)});
-      this.router.navigateByUrl('/account')
+    ).subscribe(data=>{console.log(data), this.router.navigateByUrl('/account')});
+
 
 }
 

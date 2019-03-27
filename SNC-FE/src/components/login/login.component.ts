@@ -48,9 +48,9 @@ export class Login implements OnInit {
         if(this.skeleForm.invalid){
           return;
         }
-        this.skeleService.login(this.skeleForm.controls.email.value, this.skeleForm.controls.password.value).subscribe(data=>{console.log(data)});
+        this.skeleService.login(this.skeleForm.controls.email.value, this.skeleForm.controls.password.value).subscribe(data=>{console.log(data), this.router.navigateByUrl('/account');});
 
-        this.router.navigateByUrl('/account');
+
   }
 
 

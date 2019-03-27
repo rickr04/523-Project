@@ -87,7 +87,7 @@ router.get('/api/superuser/auth', function(req, res, next){
 
   return res.json({status: err.status, data: [auth]});
 
-})
+});
 
 
 /* Create Subuser. SuperUser ID stored in params._id.

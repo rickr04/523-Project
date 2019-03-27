@@ -11,8 +11,8 @@ dotenv.config()
 // Connect to MongoDB
 
 var db = mongoose.connection;
-//mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
-mongoose.connect(  'mongodb://localhost:27017/snc');
+mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
+//mongoose.connect(  'mongodb://localhost:27017/snc');
 
 // Alert of succesful connection/error
 
@@ -36,8 +36,7 @@ app.use(session({
 // Parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
-
+app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
 
 // serve static files from template
 //app.use(express.static(__dirname + '/template'));

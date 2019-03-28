@@ -5,7 +5,6 @@ const app = express();
 const Admin = require('../models/Admin');
 const SuperUser = require('../models/SuperUser');
 const AccountSAQ = require('../models/AccountSAQ');
-
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const SAQTemplate = require('../models/SAQTemplate');
@@ -167,9 +166,14 @@ router.get('/api/SAQ', (req, res, next) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
-      res.json({success: true, message: err.message});
+      res.send(question.questions);
     }
   });
+});
+
+
+router.post('/api/SAQ/:_id/AccountSAQ', (req,res, next) => {
+
 });
 
 /* Call to download and update a certain PDF. JSON needs keys of field ids.
@@ -185,6 +189,7 @@ JSON format is as follows:
   "templateid":"12yuasd18237ads512x"
 } */
 router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
+  /* We'll need a seperate route for handling the database
   var account_var = {
     superuserid: req.params._id,
     name: req.body.name,
@@ -192,6 +197,7 @@ router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
     questionsandanswers: req.body.answers
   }
   AccountSAQ.create(account_var);
+  */
 
   s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.body.templateid+'.pdf'}, req.body, (err, data) => {
     if (err) {
@@ -233,6 +239,27 @@ router.post('/api/demo/getform', (req, res, next) => {
         'Content-Length': data.Body.length
       });
       res.end(data.Body);
+    }
+  });
+});
+
+// The following routes are just for testing purposes
+router.post('/api/test/accountSAQ', (req, res, next) => {
+  AccountSAQ.buildAccountSAQ(req.body.templateid, req.body.userid, req.body.name, (err, newSAQ) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      res.json({success: true, AccountSAQ: newSAQ});
+    }
+  });
+});
+
+router.get('/api/test/accountSAQ', (req, res, next) => {
+  AccountSAQ.getAccountSAQJSON(req.body.id, (err, newJSON) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      res.json({success: true, questions: newJSON});
     }
   });
 });

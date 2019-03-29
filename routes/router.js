@@ -5,7 +5,6 @@ const app = express();
 const Admin = require('../models/Admin');
 const SuperUser = require('../models/SuperUser');
 const AccountSAQ = require('../models/AccountSAQ');
-
 const SubUser = require('../models/SubUser');
 const Question = require('../models/Question');
 const SAQTemplate = require('../models/SAQTemplate');
@@ -23,7 +22,7 @@ router.options('*', cors())
 router.use(cors());
 
 
-//Superuser registration
+// Superuser registration
 router.post('/api/register', (req, res, next) => {
 
   var superUserData = {
@@ -49,7 +48,7 @@ router.post('/api/register', (req, res, next) => {
   });
 });
 
-//Superuser login
+// Superuser login
 router.post('/api/login', (req, res, next) => {
 var superuserdata = {
   email: req.body.email,
@@ -102,14 +101,7 @@ JSON format passed needs to be as follows:
 */
 router.post('/api/:_id/create', (req, res, next) => {
   if (req.session && req.params._id == req.session.superuserId) {
-    let subUserData = new SubUser({
-      email: req.body.email,
-      password: req.body.password,
-      fname: req.body.fname,
-      lname: req.body.lname,
-      telephone: req.body.telephone,
-      superuserid: req.params._id
-    });
+    let subUserData = new SubUser();
     SubUser.addSub(subUserData, (err, savedSub) => {
       if (err) {
         res.json({success: false, message: err.message});
@@ -139,11 +131,11 @@ router.post('/api/admin/question', (req, res, next) => {
     _id: req.body.id
   });
 
-  newQuestion.save((err) => {
+  newQuestion.save((err, question) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
-      res.json({success: true, message:'Question Posted'});
+      res.json({success: true, message:'Question posted', data: question});
     }
   });
 });
@@ -159,11 +151,11 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
     questions: req.body.questions
   });
   console.log(req.body.questions);
-  newSAQTemplate.save((err) => {
+  newSAQTemplate.save((err, template) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
-      res.json({success: true, message:'SAQ Template Posted'});
+      res.json({success: true, message:'SAQ template posted', data: template});
     }
   });
 });
@@ -179,5 +171,97 @@ router.get('/api/SAQ', (req, res, next) => {
   });
 });
 
+
+router.post('/api/SAQ/:_id/AccountSAQ', (req,res, next) => {
+
+});
+
+/* Call to download and update a certain PDF. JSON needs keys of field ids.
+JSON format is as follows:
+{
+	"answers": {
+		"c73424df44fb900174f5720":"Mark",
+	  "c73424df44fb900174f5721":"itworks",
+		"c73424df44fb900174f5722":"haha!"
+	},
+	"folder":"userid",
+  "name":"TestWithStreams"
+  "templateid":"12yuasd18237ads512x"
+} */
+router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
+  /* We'll need a seperate route for handling the database
+  var account_var = {
+    superuserid: req.params._id,
+    name: req.body.name,
+    templateid: req.body.templateid,
+    questionsandanswers: req.body.answers
+  }
+  AccountSAQ.create(account_var);
+  */
+
+  s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.body.templateid+'.pdf'}, req.body, (err, data) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      s3Handling.upload(req.body.folder, data, req.body.name, (err) => {
+        if (err) {
+          res.json({success: false, message: err.message});
+        } else {
+          res.json({success: true, message: "Success"});
+        }
+      });
+    }
+  });
+});
+
+/* Pass JSON with Folder key to the Folder you want (typically a User ID).
+Returns an array of the keys of all files in that folder */
+router.get('/api/SAQ/:_id/getkeys', (req, res, next) => {
+  s3Handling.getFolderKeys(req.params._id, (err, keyArray) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      res.json({success: true, keys: keyArray});
+    }
+  });
+});
+
+/* Allows you to download from the S3 bucket if passed a key */
+router.post('/api/demo/getform', (req, res, next) => {
+  s3Handling.downloadFile(req.body.Key, (err, data) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      //res.download(data.Body);
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename=some_file.pdf',
+        'Content-Length': data.Body.length
+      });
+      res.end(data.Body);
+    }
+  });
+});
+
+// The following routes are just for testing purposes
+router.post('/api/test/accountSAQ', (req, res, next) => {
+  AccountSAQ.buildAccountSAQ(req.body.templateid, req.body.userid, req.body.name, (err, newSAQ) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      res.json({success: true, AccountSAQ: newSAQ});
+    }
+  });
+});
+
+router.get('/api/test/accountSAQ', (req, res, next) => {
+  AccountSAQ.getAccountSAQJSON(req.body.id, (err, newJSON) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      res.json({success: true, questions: newJSON});
+    }
+  });
+});
 
 module.exports = router;

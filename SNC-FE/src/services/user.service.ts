@@ -21,7 +21,7 @@ export class UserService  {
      this.currentUser = this.currentUserSubject.asObservable();
  }
  //_url: string = "https://security-n-compliance.herokuapp.com/api"
-/ private _url: string = "http://localhost:3000/api";
+ private _url: string = "http://localhost:3000/api";
 
   public get currentUserValue(): SuperUser {
         return this.currentUserSubject.value;

@@ -40,9 +40,7 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
     if (err) {
       callback(err)
     } else {
-      console.log(populatedSAQ);
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
-        console.log(item);
         if (err) {
           callback(err);
         } else {
@@ -72,7 +70,7 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
             callback(err)
           } else {
             questionIDs.push(savedAnswer._id);
-            if (index + 1 == array.length) {
+            if (questionIDs.length == array.length) {
               let newAccountSAQ = new AccountSAQ({
                 superuserid: userID,
                 name: name,
@@ -84,6 +82,25 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
           }
         });
       });
+    }
+  });
+}
+
+module.exports.updateSAQAnswers = (tempID, userID, answers, callback) => {
+  AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
+    if (err) {
+      callback(err);
+    } else {
+      if (ansq == null) { 
+        buildAccountSAQ(tempID, userID, tempID + userID, callback);
+      } else {
+        ansq.answeredquestions.forEach((item, index, array) => {
+          item.answer = answers[item.question];
+          item.save((err) => {
+            if (index + 1 == array.length) callback(err);
+          });
+        });
+      }
     }
   });
 }

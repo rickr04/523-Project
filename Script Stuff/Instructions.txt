@@ -1,16 +1,17 @@
 Look at the SAQA and find all the relevant SAQ questions on the spreadsheet. 
 For SAQA these should all be a part of requirement 9 and requirement 12.
 
-*Note* some questions will have a part (a) and (b), just address part (a) for now.
+*Note* some questions will have a part (a) and (b), add this to the end of the ID
 
 In the spreadsheet create 2 new columns to the right, one will be ID, the other will be questiontype.
 From here you need to fill the spreadsheet out with the relevant ID and question type for each question.
 For now let's set the ID to the requirement number. 
 The question type is the following 
-0: Written answer
-1: Multiple choice answer
+0: Written answer,
+1: Multiple choice answer,
+2: No answer
 
-From what I've gleamed all the questions for SAQA are MC with responses Yes, Yes with CCW, No, and N/a
+From what I've gleamed all the questions for SAQA are MC with responses Yes, Yes with CCW, No, and N/A
 
 Once you have all the spreadsheet filled out you just need to create an array of JSON objects for the questions in script.js
 
@@ -27,7 +28,7 @@ let questions = [
         "questiontext":"Is strict control maintained over the internal or external distribution of any kind of media?",
         "answertype":1,
         "answers":["Yes", "Yes with CCW", "No", "N/A"],
-        "_id":"9.6"
+        "_id":"9.6.a"
     },...
 ]
 

@@ -50,7 +50,6 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
       });
     }
   });
-  
 }
 
 module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
@@ -60,27 +59,48 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
       callback(err);
     } else {
       question.questions.forEach((item, index, array) => {
-        let newAnswered = new AnsweredQuestion({
-          question: item._id,
-          answer: ' ',
-          superuserid: userID
-        });
-        newAnswered.save((err, savedAnswer) => {
+        AnsweredQuestion.findOne({question: item._id, superuserid: userID}).exec((err, tempAns) => {
           if (err) {
             callback(err)
           } else {
-            questionIDs.push(savedAnswer._id);
-            if (questionIDs.length == array.length) {
-              let newAccountSAQ = new AccountSAQ({
-                superuserid: userID,
-                name: name,
-                templateid: templateID,
-                answeredquestions: questionIDs
+            if (tempAns == null) {
+              questionIDs.push(savedAnswer._id);
+              if (questionIDs.length == array.length) {
+                // Need to put this in a function most likely
+                let newAccountSAQ = new AccountSAQ({
+                  superuserid: userID,
+                  name: name,
+                  templateid: templateID,
+                  answeredquestions: questionIDs
+                });
+                newAccountSAQ.save(callback(err, newAccountSAQ));
+              }
+            } else {
+              let newAnswered = new AnsweredQuestion({
+                question: item._id,
+                answer: ' ',
+                superuserid: userID
               });
-              newAccountSAQ.save(callback(err, newAccountSAQ));
+              newAnswered.save((err, savedAnswer) => {
+                if (err) {
+                  callback(err)
+                } else {
+                  // Need to put this in a function most likely
+                  questionIDs.push(savedAnswer._id);
+                  if (questionIDs.length == array.length) {
+                    let newAccountSAQ = new AccountSAQ({
+                      superuserid: userID,
+                      name: name,
+                      templateid: templateID,
+                      answeredquestions: questionIDs
+                    });
+                    newAccountSAQ.save(callback(err, newAccountSAQ));
+                  }
+                }
+              });
             }
           }
-        });
+        });        
       });
     }
   });

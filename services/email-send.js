@@ -9,7 +9,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //Later incorporate type parameter to choose registration or Reminders
 //For now default to reminder
 function sendMail(destination) {
-
   const msg = {
     // Add verification!
     to: destination.value,

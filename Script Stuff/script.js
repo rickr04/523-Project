@@ -1,5 +1,19 @@
-const SAQTemplate = require('523-Project/models/SAQTemplate.js');
-const Question = require('523-Project/models/Question.js');
+// To run this script simply run the following command from the home directory: node "Script Stuff/script.js"
+
+const SAQTemplate = require('../models/SAQTemplate.js');
+const Question = require('../models/Question.js');
+const mongoose = require('mongoose');
+
+var db = mongoose.connection;
+mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
+//mongoose.connect(  'mongodb://localhost:27017/snc');
+
+// Alert of succesful connection/error
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  // we're connected!
+});
 
 let SAQAv3 = new SAQTemplate ({
 	"name":"SAQAv3",
@@ -112,16 +126,23 @@ let questions = [
     }
 ];
 
-addQuestion = function(newQuestion) {
-	newQuestion.save(function (err) {
-		if err {
-			//deal with error
-		} else {
-			//confirm saving question
-		}
-	});
-}
+questions.forEach((question, index, array) => {
+    let tempQuest = new Question(question);
+    tempQuest.save((err, quest) => {
+        if (err) {
+            console.log(err) 
+        } else {
+            if (index + 1 == array.length) {
+                SAQAv3.save((err) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        mongoose.connection.close();
+                    }
+                })
+                
+            }
+        }
+    });
+});
 
-for question in questions {
-	addQuestion(new Question(question));
-}

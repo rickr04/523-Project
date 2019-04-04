@@ -15,7 +15,9 @@ const Mail = require('../services/email-send');
 
 var corsOptions = {
   credentials: true,
-  origin: 'http://localhost:4200'
+  origin: 'http://localhost:4200',
+  httpOnly: false,
+  secure: false,
 };
 
 router.options('*', cors())
@@ -23,7 +25,7 @@ router.use(cors());
 
 
 // Superuser registration
-router.post('/api/register', (req, res, next) => {
+router.post('/api/register', cors(corsOptions), (req, res, next) => {
 
   var superUserData = {
     email: req.body.email,
@@ -54,7 +56,7 @@ router.post('/api/register', (req, res, next) => {
 });
 
 // Superuser login
-router.post('/api/login', (req, res, next) => {
+router.post('/api/login', cors(corsOptions), (req, res, next) => {
 var superuserdata = {
   email: req.body.email,
   password: req.body.password
@@ -78,7 +80,7 @@ SuperUser.authenticate(superuserdata.email, superuserdata.password, function(err
 
 
 //check if authenticated
-router.get('/api/superuser/auth', function(req, res, next){
+router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
   var auth = "false"
   var err = new Error('Not Authorized');
   if(req.session.superuserId){
@@ -104,7 +106,7 @@ JSON format passed needs to be as follows:
 	"telephone":"012-345-6789"
 }
 */
-router.post('/api/:_id/create', (req, res, next) => {
+router.post('/api/:_id/create', cors(corsOptions), (req, res, next) => {
   if (req.session && req.params._id == req.session.superuserId) {
     let subUserData = new SubUser();
     SubUser.addSub(subUserData, (err, savedSub) => {

@@ -42,6 +42,8 @@ Response: {
     data: SubUser object
 }
 
+SAQ Handling:
+
 POST /api/admin/question: Posts an SAQ question
 Request: {
     questiontext: string (The actual question),
@@ -68,7 +70,6 @@ Request: {
     id: String (The SAQ template's ID)
 }
 Response {
-    Need to work on this.
+    sends JSON of question objects.
 }
 
-// To complete

@@ -184,7 +184,7 @@ router.post('/api/SAQ/:_id/AccountSAQ', (req,res, next) => {
 
 });
 
-/* Call to download and update a certain PDF. JSON needs keys of field ids.
+/* Call to download and update a certain PDF and the database behind it. JSON needs keys of field ids.
 JSON format is as follows:
 {
 	"answers": {
@@ -192,34 +192,29 @@ JSON format is as follows:
 	  "c73424df44fb900174f5721":"itworks",
 		"c73424df44fb900174f5722":"haha!"
 	},
-	"folder":"userid",
   "name":"TestWithStreams"
   "templateid":"12yuasd18237ads512x"
 } */
-router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
-  /* We'll need a seperate route for handling the database
-  var account_var = {
-    superuserid: req.params._id,
-    name: req.body.name,
-    templateid: req.body.templateid,
-    questionsandanswers: req.body.answers
-  }
-  AccountSAQ.create(account_var);
-  */
-
-  s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.body.templateid+'.pdf'}, req.body, (err, data) => {
+router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => { 
+  AccountSAQ.updateSAQAnswers(req.body.templateid, req.params._id, req.body.answers, (err) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
-      s3Handling.upload(req.body.folder, data, req.body.name, (err) => {
+      s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.body.templateid+'.pdf'}, req.body, (err, data) => {
         if (err) {
           res.json({success: false, message: err.message});
         } else {
-          res.json({success: true, message: "Success"});
+          s3Handling.upload(req.params._id, data, req.body.name, (err) => {
+            if (err) {
+              res.json({success: false, message: err.message});
+            } else {
+              res.json({success: true, message: "Success"});
+            }
+          });
         }
       });
     }
-  });
+  });  
 });
 
 /* Pass JSON with Folder key to the Folder you want (typically a User ID).
@@ -234,8 +229,8 @@ router.get('/api/SAQ/:_id/getkeys', (req, res, next) => {
   });
 });
 
-/* Allows you to download from the S3 bucket if passed a key */
-router.post('/api/demo/getform', (req, res, next) => {
+/* Allows you to download from the S3 bucket if passed a key. */
+router.post('/api/SAQ/getform', (req, res, next) => {
   s3Handling.downloadFile(req.body.Key, (err, data) => {
     if (err) {
       res.json({success: false, message: err.message});
@@ -251,8 +246,12 @@ router.post('/api/demo/getform', (req, res, next) => {
   });
 });
 
-// The following routes are just for testing purposes
-router.post('/api/test/accountSAQ', (req, res, next) => {
+/* Call to create an account SAQ from a SAQ template.
+{
+  "templateid":"ads5123",
+  "userid":"123ijsdasdja12@34"
+} */
+router.post('/api/SAQ/accountSAQ', (req, res, next) => {
   AccountSAQ.buildAccountSAQ(req.body.templateid, req.body.userid, req.body.name, (err, newSAQ) => {
     if (err) {
       res.json({success: false, message: err.message});

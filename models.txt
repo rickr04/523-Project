@@ -26,7 +26,8 @@ SAQ Stuff:
 
 Question {
   questiontext: String,
-  answertype: Number,
+  answertype: Number (0 for free-response, 1 for MC),
+  answers: [String] (Only relevant for answertype 1, basically the choices),
   _id: Manually set ID to help us better track questions (This one is a string while every other ID is an ObjectId)
 }
 

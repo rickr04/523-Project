@@ -69,6 +69,7 @@ SuperUser.authenticate(superuserdata.email, superuserdata.password, function(err
     return next(error);
   } else {
     req.session.superuserId = superuser._id;
+
     return res.status(err ? 500 : 200).send(err ? err :
       {
       message: "Super User has been logged in",

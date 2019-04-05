@@ -61,10 +61,10 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
       question.questions.forEach((item, index, array) => {
         AnsweredQuestion.findOne({question: item._id, superuserid: userID}).exec((err, tempAns) => {
           if (err) {
-            callback(err)
+            callback(err);
           } else {
-            if (tempAns == null) {
-              questionIDs.push(savedAnswer._id);
+            if (tempAns != null) {
+              questionIDs.push(tempAns._id);
               if (questionIDs.length == array.length) {
                 // Need to put this in a function most likely
                 let newAccountSAQ = new AccountSAQ({
@@ -83,7 +83,7 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
               });
               newAnswered.save((err, savedAnswer) => {
                 if (err) {
-                  callback(err)
+                  callback(err);
                 } else {
                   // Need to put this in a function most likely
                   questionIDs.push(savedAnswer._id);
@@ -117,7 +117,12 @@ module.exports.updateSAQAnswers = (tempID, userID, answers, callback) => {
         ansq.answeredquestions.forEach((item, index, array) => {
           item.answer = answers[item.question];
           item.save((err) => {
-            if (index + 1 == array.length) callback(err);
+            if (err) {
+              callback(err)
+            } else {
+              if (index + 1 == array.length);
+              callback(null, AccountSAQ.findById(ansq._id));
+            }
           });
         });
       }

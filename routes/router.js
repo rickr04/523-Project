@@ -11,7 +11,7 @@ const SAQTemplate = require('../models/SAQTemplate');
 const Skeleton = require('../models/skeleton');
 const s3Handling = require('../services/file-upload');
 const mongoose = require('mongoose');
-
+const Mail = require('../services/email-send');
 
 var corsOptions = {
   credentials: true,
@@ -42,6 +42,11 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
       return next(error);
     } else {
       req.session.superuserId = superuser._id;
+      Mail.sendMail(req.body.email, (err) => {
+        if (err) {
+          return next(err);
+        }
+      });
       return res.status(error ? 500 : 200).send(error ? error : {
         message: "Super User has been registered",
         data: superuser
@@ -64,6 +69,7 @@ SuperUser.authenticate(superuserdata.email, superuserdata.password, function(err
     return next(error);
   } else {
     req.session.superuserId = superuser._id;
+
     return res.status(err ? 500 : 200).send(err ? err :
       {
       message: "Super User has been logged in",

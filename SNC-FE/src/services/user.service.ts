@@ -6,6 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SuperUser } from '@models/superUser.model';
 import { Response } from '@models/response.model';
+import { ResponseA } from '@models/responseA.model';
 
 
 
@@ -37,7 +38,7 @@ export class UserService  {
         return this.http.post<Response>(this._url+"/register", {password, email, address, company, telephone, fname, lname}, { observe: 'response' });
     }
 
-      callCheckAuth(): Observable<Response>{
+      callCheckAuth(): Observable<ResponseA>{
       return this.http.get<Response>(this._url+"/superuser/auth", {withCredentials: true });
 
       }

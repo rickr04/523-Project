@@ -169,8 +169,9 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
 });
 
 // Get questions from SAQTemplate. Just need to pass it the ID of the SAQTemplate.
-router.get('/api/SAQ', (req, res, next) => {
-  SAQTemplate.findById(req.body.id).populate('questions').exec((err, question) => {
+router.get('/api/SAQ/:id', (req, res, next) => {
+  console.log(req.params.id);
+  SAQTemplate.find({_id: req.params.id}).populate('questions').exec((err, question) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
@@ -195,7 +196,7 @@ JSON format is as follows:
   "name":"TestWithStreams"
   "templateid":"12yuasd18237ads512x"
 } */
-router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => { 
+router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
   AccountSAQ.updateSAQAnswers(req.body.templateid, req.params._id, req.body.answers, (err) => {
     if (err) {
       res.json({success: false, message: err.message});
@@ -214,7 +215,7 @@ router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
         }
       });
     }
-  });  
+  });
 });
 
 /* Pass JSON with Folder key to the Folder you want (typically a User ID).

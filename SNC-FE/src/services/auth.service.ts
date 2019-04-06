@@ -27,9 +27,8 @@ export class AuthenticationService {
 
       public adm: String;
 
-      public isAuthenticated(): any{
-        this.callCheckAuth().subscribe(data=>{this.adm = data.data[0] });
-        return;
+    isAuthenticated(){
+        this.callCheckAuth().subscribe(data=>{this.adm = data.data[0]});
       }
 
 

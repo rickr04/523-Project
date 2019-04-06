@@ -170,12 +170,11 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
 
 // Get questions from SAQTemplate. Just need to pass it the ID of the SAQTemplate.
 router.get('/api/SAQ/:id', (req, res, next) => {
-  console.log(req.params.id);
-  SAQTemplate.find({_id: req.params.id}).populate('questions').exec((err, question) => {
+  SAQTemplate.findById(req.params.id).populate('questions').exec((err, question) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
-      res.send(question.questions);
+      res.json({success: true, data: question.questions});
     }
   });
 });

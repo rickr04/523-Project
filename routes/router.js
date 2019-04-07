@@ -23,7 +23,6 @@ var corsOptions = {
 router.options('*', cors())
 router.use(cors());
 
-
 // Superuser registration
 router.post('/api/register', cors(corsOptions), (req, res, next) => {
 
@@ -79,7 +78,6 @@ SuperUser.authenticate(superuserdata.email, superuserdata.password, function(err
 });
 });
 
-
 //check if authenticated
 router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
   var auth = "false"
@@ -95,7 +93,6 @@ router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
   return res.json({status: err.status, data: [auth]});
 
 });
-
 
 /* Create Subuser. SuperUser ID stored in params._id.
 JSON format passed needs to be as follows:
@@ -158,7 +155,6 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
     name: req.body.name,
     questions: req.body.questions
   });
-  console.log(req.body.questions);
   newSAQTemplate.save((err, template) => {
     if (err) {
       res.json({success: false, message: err.message});
@@ -195,20 +191,28 @@ JSON format is as follows:
   "name":"TestWithStreams"
   "templateid":"12yuasd18237ads512x"
 } */
-router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
-  AccountSAQ.updateSAQAnswers(req.body.templateid, req.params._id, req.body.answers, (err) => {
+
+router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => { 
+  AccountSAQ.updateSAQAnswers(req.body.templateid, req.params._id, req.body.answers, (err, acctSAQ) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
-      s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.body.templateid+'.pdf'}, req.body, (err, data) => {
+      AccountSAQ.getAccountSAQJSON(acctSAQ, (err, acctJSON) => {
         if (err) {
           res.json({success: false, message: err.message});
         } else {
-          s3Handling.upload(req.params._id, data, req.body.name, (err) => {
+          req.body.answers = acctJSON;
+          s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.body.templateid+'.pdf'}, req.body, (err, data) => {
             if (err) {
               res.json({success: false, message: err.message});
             } else {
-              res.json({success: true, message: "Success"});
+              s3Handling.upload(req.params._id, data, req.body.name, (err) => {
+                if (err) {
+                  res.json({success: false, message: err.message});
+                } else {
+                  res.json({success: true, message: "Success"});
+                }
+              });
             }
           });
         }
@@ -231,7 +235,7 @@ router.get('/api/SAQ/:_id/getkeys', (req, res, next) => {
 
 /* Allows you to download from the S3 bucket if passed a key. */
 router.post('/api/SAQ/getform', (req, res, next) => {
-  s3Handling.downloadFile(req.body.Key, (err, data) => {
+  s3Handling.downloadFile(req.body.key, (err, data) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {
@@ -246,13 +250,24 @@ router.post('/api/SAQ/getform', (req, res, next) => {
   });
 });
 
+// Lists all the keys in the S3 bucket for testing purposes
+router.get('/api/admin/S3/keys', (req, res, next) => {
+  s3Handling.getFolderKeys(null, (err, keys) => {
+    if (err) {
+      res.json({success: false, message: err.message});
+    } else {
+      res.json({success: true, message: "Success", data: keys});
+    }
+  });
+});
+
 /* Call to create an account SAQ from a SAQ template.
 {
   "templateid":"ads5123",
-  "userid":"123ijsdasdja12@34"
+  "name":"SAQA"
 } */
-router.post('/api/SAQ/accountSAQ', (req, res, next) => {
-  AccountSAQ.buildAccountSAQ(req.body.templateid, req.body.userid, req.body.name, (err, newSAQ) => {
+router.post('/api/SAQ/:_id/accountSAQ', (req, res, next) => {
+  AccountSAQ.buildAccountSAQ(req.body.templateid, req.params._id, req.body.name, (err, newSAQ) => {
     if (err) {
       res.json({success: false, message: err.message});
     } else {

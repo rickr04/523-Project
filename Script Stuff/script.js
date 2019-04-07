@@ -1,7 +1,7 @@
 // To run this script simply run the following command from the home directory: node "Script Stuff/script.js"
-
 const SAQTemplate = require('../models/SAQTemplate.js');
 const Question = require('../models/Question.js');
+const SuperUser = require('../models/SuperUser');
 const mongoose = require('mongoose');
 
 var db = mongoose.connection;
@@ -13,9 +13,22 @@ mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   // we're connected!
+  console.log("Connected to DB");
 });
 
-let SAQAv3 = new SAQTemplate ({
+let user = new SuperUser({
+    "email":"testuser@test.com",
+    "password":"test",
+    "fname":"test",
+    "lname":"test",
+    "address":"test",
+    "company":"test",
+    "telephone":"test",
+});
+
+user.save();
+
+let SAQAv3 = new SAQTemplate({
 	"name":"SAQAv3",
 	"questions":["9.5","9.6.a","9.6.b","9.6.1","9.6.2","9.6.3","9.7","9.8.a","9.8.c","9.8.1.a","9.8.1.b","12.8","12.8.1","12.8.2","12.8.3","12.8.4","12.8.5"]
 });
@@ -126,6 +139,7 @@ let questions = [
     }
 ];
 
+
 questions.forEach((question, index, array) => {
     let tempQuest = new Question(question);
     tempQuest.save((err, quest) => {
@@ -139,8 +153,7 @@ questions.forEach((question, index, array) => {
                     } else {
                         mongoose.connection.close();
                     }
-                })
-                
+                });
             }
         }
     });

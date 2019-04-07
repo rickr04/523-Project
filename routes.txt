@@ -73,3 +73,27 @@ Response {
     sends JSON of question objects.
 }
 
+POST /api/SAQ/:_id/answerquestion: Updates the corresponding SAQ form and database
+Request: {
+    answers: {
+        Keys of fields and their responses. For example:
+        "8.5.1":"No",
+        "8.5.2":"N/A",
+        "12.1.2.a":"Yes"
+    },
+    name: String (What the file will be named on S3 (there will also be a timestamp behind it)),
+    templateid: String (The ID of the SAQ template that you want) 
+}
+Response: {
+    message: "Success" 
+    I'll try to update this later
+}
+
+POST /api/SAQ/:_id/accountSAQ: Creates answered questions and Account SAQ from SAQ template
+Request: {
+    templateid: String (The ID of whatever SAQ template you want),
+    name: String (Whatever you want the name of the account SAQ to be)
+}
+Response: {
+    data: The new account SAQ object
+}

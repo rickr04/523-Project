@@ -6,6 +6,8 @@ import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '@services/user.service';
+import { AuthenticationService } from '@services/auth.service';
+
 
 
 
@@ -22,33 +24,42 @@ import { UserService } from '@services/user.service';
 export class Login implements OnInit {
 
 
-    constructor(
-      private router: Router,
-      private formBuilder: FormBuilder,
-      private skeleService: UserService
-    ) { }
-    submitted = false;
-    skeleForm: FormGroup;
-    ngOnInit() {
-      this.skeleForm = this.formBuilder.group({
-        // Ask about naming conventions
-        email: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]]
-      });
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private skeleService: UserService,
+    private auth: AuthenticationService
+
+  ) { }
+  submitted = false;
+  skeleForm: FormGroup;
+  ngOnInit() {
+    this.skeleForm = this.formBuilder.group({
+      // Ask about naming conventions
+      email: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
 
 
+  }
+
+
+  get form() { return this.skeleForm.controls };
+
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.skeleForm.invalid) {
+      return;
     }
-
-
-    get form(){return this.skeleForm.controls};
-
-
-    onSubmit() {
-        this.submitted = true;
-        if(this.skeleForm.invalid){
-          return;
-        }
-        this.skeleService.login(this.skeleForm.controls.email.value, this.skeleForm.controls.password.value).subscribe(data=>{console.log(data), this.router.navigateByUrl('/account');});
+    this.skeleService.login(this.skeleForm.controls.email.value, this.skeleForm.controls.password.value).subscribe(data => {
+      localStorage.setItem('_id', data.data._id),
+        this.auth.callCheckAuth().subscribe(data => {
+          this.auth.isAuthenticated(),
+            this.router.navigateByUrl('/account'),
+            this.router.navigateByUrl('/account')
+        })
+    });
 
 
   }

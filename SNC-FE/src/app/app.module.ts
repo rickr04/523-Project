@@ -12,6 +12,8 @@ import { Register } from '@components/register/register.component';
 import { Pci } from '@components/pci/pci.component';
 import { Demo } from '@components/demo/demo.component';
 import { RouterModule } from '@angular/router';
+import { Saq } from '@components/saq/saq.component';
+import { Form } from '@components/form/form.component';
 
 
 
@@ -24,14 +26,16 @@ import { RouterModule } from '@angular/router';
     Register,
     Pci,
     Account,
-    Demo
+    Demo,
+    Saq,
+    Form
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    
+
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

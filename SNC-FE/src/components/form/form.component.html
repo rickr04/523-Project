@@ -1,0 +1,30 @@
+<div *ngIf="loaded">
+<form [formGroup]="saqForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+  <h2 class="card-header oswald-head  text-center">
+    Please Fill Out All Fields
+  </h2>
+  <div class="form-group card-body text-center justify-content-center">
+
+    <!-- <input type="text" formControlName="fname" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
+    <div *ngIf="form.fname.errors" class="invalid-feedback">
+      <div *ngIf="form.fname.errors.required">Answer is required</div>
+    </div> -->
+
+    <ul>
+    <li *ngFor="let item of questions; let i = index">
+      <label [for]="item._id">{{item.questiontext}}</label>
+      <br/>yes
+      <input type="radio" [formControlName]="item._id"     [ngClass]="" />
+    </li>
+  </ul>
+
+
+  </div>
+
+  <!-- Fix so routing has auth guard-->
+  <div class="form-group">
+    <button class="btn btn-main">Register</button>
+
+  </div>
+</form>
+</div>

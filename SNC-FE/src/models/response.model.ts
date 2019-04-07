@@ -1,4 +1,4 @@
 export class Response {
     message: string;
-    data: any[];
+    data: any;
 }

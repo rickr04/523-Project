@@ -13,6 +13,7 @@ import { Pci } from '@components/pci/pci.component';
 import { Demo } from '@components/demo/demo.component';
 import { RouterModule } from '@angular/router';
 import { Saq } from '@components/saq/saq.component';
+import { Form } from '@components/form/form.component';
 
 
 
@@ -26,7 +27,8 @@ import { Saq } from '@components/saq/saq.component';
     Pci,
     Account,
     Demo,
-    Saq
+    Saq,
+    Form
   ],
   imports: [
     BrowserModule,

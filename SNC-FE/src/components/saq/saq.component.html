@@ -1,30 +1,54 @@
-<div *ngIf="loaded">
-<form [formGroup]="saqForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
-  <h2 class="card-header oswald-head  text-center">
-    Please Fill Out All Fields
-  </h2>
-  <div class="form-group card-body text-center justify-content-center">
+<div class="jumbotron2">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 d-flex  justify-content-center">
+        <div class=" align-items-center">
+          <h1 class="oswald-head text-center">SAQ {{typeTemplate}} Portal</h1>
+          <br/>
+          <div *ngIf="typeTemplate == 'A'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'AEP'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'B'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'BIP'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'C'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'CVT'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'P2PE'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'D Merchant'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div *ngIf="typeTemplate == 'D Service'">
+          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+          </div>
+          <div class="container">
+            <div class="btn-holder">
+            <div class="text-center">
+              <div class="d-inline">
+              <p class="text-center"><button class="btn btn-acclight" id="regbutton" routerLink="form" routerLinkActive="active">Complete SAQ {{typeTemplate}}</button>
+              &nbsp;
+              <button class="btn btn-accdark" id="regbutton" (click)="flip()" routerLinkActive="active">View Previous Forms</button>
+              </div>
+              <div *ngIf="view">
+                TEST
+                </div>
+          </div>
+          </div>
+          </div>
+        </div>
 
-    <!-- <input type="text" formControlName="fname" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
-    <div *ngIf="form.fname.errors" class="invalid-feedback">
-      <div *ngIf="form.fname.errors.required">Answer is required</div>
-    </div> -->
-
-    <ul>
-    <li *ngFor="let item of questions; let i = index">
-      <label [for]="item._id">{{item.questiontext}}</label>
-      <br/>
-      <input type="radio" [formControlName]="item._id" [placeholder]="yes"   [ngClass]="" />
-    </li>
-  </ul>
-
-
+      </div>
+    </div>
   </div>
-
-  <!-- Fix so routing has auth guard-->
-  <div class="form-group">
-    <button class="btn btn-main">Register</button>
-
-  </div>
-</form>
 </div>

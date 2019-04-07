@@ -14,71 +14,69 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-saq',
-  templateUrl: './saq.component.html',
-  styleUrls: ['./saq.component.css'],
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css'],
   providers: [SAQService],
 })
-export class Saq implements OnInit {
+export class Form implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private saq: SAQService,
-
+    private formBuilder: FormBuilder,
   ) { }
   loaded: boolean;
-  view: boolean;
   type:string;
   saqForm: FormGroup;
   enum = SAQEnum;
   questions: any[];
-  typeTemplate: String;
-
-
   ngOnInit() {
-    this.view=false;
     this.type = this.route.snapshot.paramMap.get('type');
 
     this.loaded = false;
 
-    this.getEnum(this.type);
+    this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
+    this.questions = data.data,
+      this.buildForm()
+    });
   }
 
  getEnum(type: String){
    if(type == "a"){
-      this.typeTemplate = "A";
      return this.enum.A;
    }
    else if(type == "aep"){
-       this.typeTemplate = "AEP";
      return this.enum.AEP;
    }else if(type == "b"){
-       this.typeTemplate = "B";
      return this.enum.B;
    }else if(type == "bip"){
-       this.typeTemplate = "BIP";
      return this.enum.BIP;
    }else if(type == "c"){
-       this.typeTemplate = "C";
      return this.enum.C;
    }else if(type == "cvt"){
-       this.typeTemplate = "CVT";
      return this.enum.CVT;
    }else if(type == "p2pe"){
-       this.typeTemplate = "P2PE";
      return this.enum.PPE;
    }else if(type == "d_merchant"){
-       this.typeTemplate = "D Merchant";
      return this.enum.DMERCHANT;
    }else if(type == "d_service"){
-       this.typeTemplate = "D Service";
      return this.enum.DSERVICE;
    }
  }
- flip(){
-   this.view = true;
- }
 
+  buildForm() {
+    let group = {};
+    for (let i = 0; i < this.questions.length; i++) {
+      group[`${this.questions[i]._id}`] = '';
+    }
+    this.saqForm = this.formBuilder.group(group);
+    console.log(this.saqForm);
+    this.loaded = true;
+  }
 
+  onSubmit() {
+
+  }
 
 }

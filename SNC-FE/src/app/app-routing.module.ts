@@ -7,6 +7,7 @@ import { Register } from '@components/register/register.component';
 import { Pci } from '@components/pci/pci.component';
 import { AuthGuardService } from '@services/authguard.service';
 import { Saq } from '@components/saq/saq.component';
+import { Form } from '@components/form/form.component';
 
 
 
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'account', component: Account, canActivate: [AuthGuardService] },
    { path: 'account/pci', component: Pci, canActivate: [AuthGuardService] },
-   {path: 'account/pci/saq', component: Saq, canActivate: [AuthGuardService]}
+   {path: 'account/pci/saq/:type', component: Saq, canActivate: [AuthGuardService]},
+   {path: 'account/pci/saq/:type/form', component: Form, canActivate: [AuthGuardService]}
 
 
 ];

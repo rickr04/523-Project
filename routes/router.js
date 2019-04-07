@@ -78,6 +78,18 @@ SuperUser.authenticate(superuserdata.email, superuserdata.password, function(err
 });
 });
 
+//get superuser information
+router.get('/api/superuser/find/:_id', cors(corsOptions),function(req, res, next){
+SuperUser.findById(req.params._id).exec((err, superuser) => {
+  if (err) {
+    res.json({success: false, message: err.message});
+  } else {
+    res.json({success: true, data: superuser});
+  }
+});
+
+})
+
 //check if authenticated
 router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
   var auth = "false"
@@ -192,7 +204,7 @@ JSON format is as follows:
   "templateid":"12yuasd18237ads512x"
 } */
 
-router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => { 
+router.post('/api/SAQ/:_id/answerquestion', (req, res, next) => {
   AccountSAQ.updateSAQAnswers(req.body.templateid, req.params._id, req.body.answers, (err, acctSAQ) => {
     if (err) {
       res.json({success: false, message: err.message});

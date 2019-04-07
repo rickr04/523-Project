@@ -14,6 +14,8 @@ import { Demo } from '@components/demo/demo.component';
 import { RouterModule } from '@angular/router';
 import { Saq } from '@components/saq/saq.component';
 import { Form } from '@components/form/form.component';
+import { Details } from '@components/details/details.component';
+
 
 
 
@@ -28,7 +30,8 @@ import { Form } from '@components/form/form.component';
     Account,
     Demo,
     Saq,
-    Form
+    Form,
+    Details
   ],
   imports: [
     BrowserModule,

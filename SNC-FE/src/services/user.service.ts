@@ -28,7 +28,9 @@ export class UserService  {
         return this.currentUserSubject.value;
     }
 
-
+    private getFromLocal(){
+      return localStorage.getItem("_id");
+    }
 
     login(email: string, password: string):Observable<Response> {
         return this.http.post<Response>(this._url+"/login", {email, password});
@@ -49,6 +51,9 @@ export class UserService  {
         return;
       }
 
+      getSuper():Observable<Response> {
+        return this.http.get<Response>(this._url+"/superuser/find/"+this.getFromLocal(), {withCredentials: true });
+      }
 
     logout() {
         localStorage.removeItem('currentUser');

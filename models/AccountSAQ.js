@@ -44,9 +44,13 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
         if (err) {
           callback(err);
         } else {
-          JSONvar[item.question._id] = item.answer;
-          if (index + 1 == array.length) callback(err, JSONvar);
+          if (item.question.answertype == 1) {
+            JSONvar[item.question._id+item.answer]="X";
+          } else if (item.question.answertype != 0) {
+            JSONvar[item.question._id] = item.answer;
           }
+          if (index + 1 == array.length) callback(err, JSONvar);
+        }
       });
     }
   });
@@ -115,15 +119,19 @@ module.exports.updateSAQAnswers = (tempID, userID, answers, callback) => {
         buildAccountSAQ(tempID, userID, tempID + userID, callback);
       } else {
         ansq.answeredquestions.forEach((item, index, array) => {
-          item.answer = answers[item.question];
-          item.save((err) => {
-            if (err) {
-              callback(err)
-            } else {
-              if (index + 1 == array.length);
-              callback(null, AccountSAQ.findById(ansq._id));
-            }
-          });
+          if (typeof answers[item.question] === 'undefined') {
+            if (index + 1 == array.length) callback(null, AccountSAQ.findById(ansq._id));
+          } else {
+            item.answer = answers[item.question];
+            item.save((err) => {
+              if (err) {
+                callback(err);
+              } else {
+                if (index + 1 == array.length) 
+                callback(null, ansq._id);
+              }
+            });
+          }
         });
       }
     }

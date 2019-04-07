@@ -27,11 +27,16 @@ module.exports = {
         s3.listObjects({Bucket: process.env.S3_BUCKET}, (err, data) => {
             if (err) {
                 callback(err);
-            } else  {
-
+            } else if (folderName != null) {
                 let keys = [];
                 data.Contents.forEach((file) => {
                     if (file.Key.startsWith(folderName+'/')) keys.push(file.Key);
+                });
+                callback(err, keys);
+            } else {
+                let keys = [];
+                data.Contents.forEach((file) => {
+                    keys.push(file.Key);
                 });
                 callback(err, keys);
             }
@@ -46,42 +51,22 @@ module.exports = {
     },
 
     upload: function(userid, file, name, callback) {
-        s3.putObject({
-            Body: file,
-            Bucket: process.env.S3_BUCKET + '/' + userid,
-            Key: name + Date.now().toString() +".pdf",
-            }, (err, data) => {
-                callback(err);
-        });
-
-    }
-
-    /* upload: function(userid, filepath, name, callback) {
-        fs.readFile(filepath, (err, fileData) => {
+        if (userid != null) {
             s3.putObject({
-            Body: fileData,
-            Bucket: process.env.S3_BUCKET + '/' + userid,
-            Key: name + Date.now().toString() +".pdf",
-            }, (err, data) => {
-                callback(err);
+                Body: file,
+                Bucket: process.env.S3_BUCKET + '/' + userid,
+                Key: name + Date.now().toString() + ".pdf",
+                }, (err, data) => {
+                    callback(err);
             });
-        });
-    } */
-
-    /*
-    // Checks if bucket exists, if no than it creates the bucket
-    checkBucket: function(userid, callback) {
-        s3.headBucket({Bucket: userid}, (err) => {
-            if (err.statusCode === 404) {
-                s3.createBucket({Bucket: userid}, (err) => {
-                    if (err) console.log(err, data);
-                    else console.log(data);
-                    callback();
-                });
-            } else {
-                callback();
-            }
-        });
+        } else {
+            s3.putObject({
+                Body: file,
+                Bucket: process.env.S3_BUCKET,
+                Key: name + ".pdf",
+                }, (err, data) => {
+                    callback(err, data);
+            });
+        }
     }
-    */
 };

@@ -200,7 +200,6 @@ JSON format is as follows:
 } */
 
 router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
-  console.log(req.params.templateid +" "+ req.params._id);
   AccountSAQ.createAndUpdateSAQ(req.params.templateid, req.params._id, req.body.answers, (err, acctSAQ) => {
     if (err) {
       return res.json({success: false, message: err.message});
@@ -274,7 +273,6 @@ router.get('/api/admin/S3/keys', (req, res, next) => {
   "templateid":"ads5123",
 } */
 router.post('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
-  console.log("We got the call");
   AccountSAQ.getAccountSAQ(req.params.templateid, req.params._id, (err, newSAQ) => {
     if (err) {
       return res.json({success: false, message: err.message});
@@ -286,7 +284,6 @@ router.post('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
         if (err) {
           return res.json({success: false, message: err.message});
         } else {
-          console.log(populatedSAQ);
           return res.json({success: true, AccountSAQ: populatedSAQ});
         }
       });

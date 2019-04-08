@@ -58,7 +58,6 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
 
 module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
   let questionIDs = [];
-  AccountSAQ
   SAQTemplate.findById(templateID).populate('questions').exec((err, question) => {
     if (err) {
       callback(err);
@@ -78,7 +77,6 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                   templateid: templateID,
                   answeredquestions: questionIDs
                 });
-                console.log("saving");
                 newAccountSAQ.save((err, newAccountSAQ) => {
                   if (err) {
                     callback(err)
@@ -143,10 +141,8 @@ module.exports.getAccountSAQ =  (tempID, userID, callback) => {
       callback(err);
     } else {
       if (saq) {
-        console.log("Finding old SAQ");
         callback(err, saq);
       } else {
-        console.log("Creating SAQ");
         AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
           if (err) {
             callback(err);

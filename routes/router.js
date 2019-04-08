@@ -187,11 +187,6 @@ router.get('/api/SAQ/:id', (req, res, next) => {
   });
 });
 
-
-router.post('/api/SAQ/:_id/AccountSAQ', (req, res, next) => {
-
-});
-
 /* Call to download and update a certain PDF and the database behind it. JSON needs keys of field ids.
 JSON format is as follows:
 {
@@ -277,14 +272,24 @@ router.get('/api/admin/S3/keys', (req, res, next) => {
 /* Call to create an account SAQ from a SAQ template.
 {
   "templateid":"ads5123",
-  "name":"SAQA"
 } */
-router.post('/api/SAQ/:_id/accountSAQ', (req, res, next) => {
-  AccountSAQ.buildAccountSAQ(req.body.templateid, req.params._id, req.body.name, (err, newSAQ) => {
+router.post('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
+  console.log("We got the call");
+  AccountSAQ.getAccountSAQ(req.params.templateid, req.params._id, (err, newSAQ) => {
     if (err) {
       return res.json({success: false, message: err.message});
     } else {
-      return res.json({success: true, AccountSAQ: newSAQ});
+      AccountSAQ.findById(newSAQ._id).populate({
+        path: 'answeredquestions',
+        populate: {path: 'question'}
+      }).exec((err, populatedSAQ) => {
+        if (err) {
+          return res.json({success: false, message: err.message});
+        } else {
+          console.log(populatedSAQ);
+          return res.json({success: true, AccountSAQ: populatedSAQ});
+        }
+      });
     }
   });
 });

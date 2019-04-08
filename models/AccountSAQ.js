@@ -58,6 +58,7 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
 
 module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
   let questionIDs = [];
+  AccountSAQ
   SAQTemplate.findById(templateID).populate('questions').exec((err, question) => {
     if (err) {
       callback(err);
@@ -77,12 +78,18 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                   templateid: templateID,
                   answeredquestions: questionIDs
                 });
-                newAccountSAQ.save(callback(err, newAccountSAQ));
+                console.log("saving");
+                newAccountSAQ.save((err, newAccountSAQ) => {
+                  if (err) {
+                    callback(err)
+                  } else {                  
+                    callback(err, newAccountSAQ);
+                  }
+                });
               }
             } else {
               let newAnswered = new AnsweredQuestion({
                 question: item._id,
-                answer: ' ',
                 superuserid: userID
               });
               newAnswered.save((err, savedAnswer) => {
@@ -130,6 +137,28 @@ module.exports.createAndUpdateSAQ = (tempID, userID, answers, callback) => {
   });
 }
 
+module.exports.getAccountSAQ =  (tempID, userID, callback) => {
+  AccountSAQ.findOne({superuserid: userID, templateid: tempID}).exec((err, saq) => {
+    if (err) {
+      callback(err);
+    } else {
+      if (saq) {
+        console.log("Finding old SAQ");
+        callback(err, saq);
+      } else {
+        console.log("Creating SAQ");
+        AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
+          if (err) {
+            callback(err);
+          } else {
+            callback(err, saq);
+          }
+        });
+      }
+    }
+  });
+}
+
 let updateSAQAnswers = (ansq, answers, callback) => {
   ansq.answeredquestions.forEach((item, index, array) => {
     if (typeof answers[item.question] === 'undefined') {
@@ -143,6 +172,26 @@ let updateSAQAnswers = (ansq, answers, callback) => {
           callback(null, ansq._id);
         }
       });
+    }
+  });
+}
+
+module.exports.createAndUpdateSAQ = (tempID, userID, callback) => {
+  AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
+    if (err) {
+      callback(err);
+    } else {
+      if (ansq) {
+        updateSAQAnswers(ansq, answers, callback);
+      } else {
+        AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
+          if (err) {
+            callback(err);
+          } else {
+            updateSAQAnswers(ansq, answers, callback);
+          }
+        });
+      }
     }
   });
 }

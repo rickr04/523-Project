@@ -34,7 +34,7 @@ var SuperUserSchema = new mongoose.Schema({
     required: true
   },
   subusers: [{
-    type: mongoose.Schema.Types.ObjectId, 
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'SubUser'
   }]
 },

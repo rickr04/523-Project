@@ -13,6 +13,8 @@ const Skeleton = require('../models/skeleton');
 const s3Handling = require('../services/file-upload');
 const mongoose = require('mongoose');
 const Mail = require('../services/email-send');
+const fetch = require("node-fetch");
+
 
 var corsOptions = {
   credentials: true,
@@ -21,12 +23,12 @@ var corsOptions = {
   secure: false,
 };
 
+
 router.options('*', cors())
 router.use(cors());
 
 // Superuser registration
 router.post('/api/register', cors(corsOptions), (req, res, next) => {
-
   var superUserData = {
     email: req.body.email,
     fname: req.body.fname,
@@ -37,16 +39,29 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
     telephone: req.body.telephone
   }
 
-  SuperUser.create(superUserData, function(error, superuser) {
+  var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
+
+//Needs to be async for fetch call
+  SuperUser.create(superUserData,  function(error, superuser) {
     if (error) {
       return next(error);
     } else {
       req.session.superuserId = superuser._id;
-      Mail.sendMail(req.body.email, (err) => {
+
+      //this is ugly nested for now
+      var mailData = {
+        type: "register",
+        email: req.body.email,
+        name: req.body.fname,
+        company: req.body.company
+      }
+      Mail.sendMail(mailData, (err) => {
         if (err) {
           return next(err);
         }
       });
+
+
       return res.status(error ? 500 : 200).send(error ? error : {
         message: "Super User has been registered",
         data: superuser
@@ -54,6 +69,11 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
   }
   });
 });
+
+
+
+
+
 
 // Superuser login
 router.post('/api/login', cors(corsOptions), (req, res, next) => {
@@ -64,6 +84,7 @@ var superuserdata = {
 
 SuperUser.authenticate(superuserdata.email, superuserdata.password, function(error, superuser) {
   if (error || !superuser) {
+
     var err = new Error('Wrong username or password.');
     err.status = 401;
     return next(error);

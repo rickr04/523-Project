@@ -12,6 +12,9 @@ const QuestionSchema = new mongoose.Schema({
   answers: [{
     type: String,
   }],
+  expectedtesting: [{
+    type: String,
+  }],
   _id: {
     type: String,
   }

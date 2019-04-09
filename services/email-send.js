@@ -11,7 +11,7 @@ module.exports = {
         "to": data.email,
         "from": "securencompliant@gmail.com",
         // If you update the template you MUST update the template ID here
-        "templateId": "d-cb44dad3ab8f428f9bac846d755c376d",
+        "templateId": process.env.SENDGRID_REG_TEMPLATE,
         "dynamic_template_data": {
           "subject": "Welcome",
           "name": data.name,

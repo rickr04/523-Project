@@ -10,7 +10,8 @@ html, body {
 body > * {
   flex-shrink: 2;
 }
-.light-background !important{
+
+.light-background{
 background-color: #FAF4F1;
 color: #000000;
 }

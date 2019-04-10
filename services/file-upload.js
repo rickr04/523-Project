@@ -54,8 +54,8 @@ module.exports = {
         if (userid != null) {
             s3.putObject({
                 Body: file,
-                Bucket: process.env.S3_BUCKET + '/' + userid,
-                Key: name + Date.now().toString() + ".pdf",
+                Bucket: process.env.S3_BUCKET + '/' + userid + '/' + name,
+                Key: Date.now().toString() + ".pdf",
                 }, (err, data) => {
                     callback(err);
             });

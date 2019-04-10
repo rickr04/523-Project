@@ -48,7 +48,7 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
         if (err) {
           callback(err);
         } else {
-          if (item.question.answertype == 1) {
+          if (item.question.answertype == 1 && item.question.answer != '') {
             JSONvar[item.question._id+item.answer]="X";
           } else if (item.question.answertype != 0) {
             JSONvar[item.question._id] = item.answer;

@@ -28,7 +28,7 @@ private getFromLocal(){
   saqA: string = "5ca775ed893b2a2900108a05";
 
  getSAQ(saqType: String): Observable<ResponseA>{
-   return this.http.get<ResponseA>(this._url+"/SAQ/"+saqType);
+   return this.http.get<ResponseA>(this._url+"/SAQ/"+this.getFromLocal()+"/getsaq/"+saqType);
  }
 
 submitSAQ(template: String, saqform: any): Observable<Response>{

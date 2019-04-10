@@ -330,19 +330,20 @@ router.get('/api/admin/S3/keys', (req, res, next) => {
 {
   "templateid":"ads5123",
 } */
-router.post('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
+router.get('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
   AccountSAQ.getAccountSAQ(req.params.templateid, req.params._id, (err, newSAQ) => {
     if (err) {
       return res.json({success: false, message: err.message});
     } else {
       AccountSAQ.findById(newSAQ._id).populate({
         path: 'answeredquestions',
+        options: {sort: {question: 1}},
         populate: {path: 'question'}
       }).exec((err, populatedSAQ) => {
         if (err) {
           return res.json({success: false, message: err.message});
         } else {
-          return res.json({success: true, AccountSAQ: populatedSAQ});
+          return res.json({success: true, data: populatedSAQ.answeredquestions});
         }
       });
     }

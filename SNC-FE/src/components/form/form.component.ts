@@ -27,7 +27,7 @@ export class Form implements OnInit {
     private formBuilder: FormBuilder,
   ) { }
   loaded: boolean;
-  type:string;
+  type: string;
   saqForm: FormGroup;
   enum = SAQEnum;
   questions: any[];
@@ -37,48 +37,89 @@ export class Form implements OnInit {
     this.loaded = false;
 
     this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
-    this.questions = data.data,
+
+      this.questions = data.data.sort((n1, n2) => {
+        var first = n1.question._id.split(".");
+        var second = n2.question._id.split(".");
+        var len = Math.max(first.length, second.length);
+
+
+        for (var i = 0; i < len; i++) {
+          
+          if (isNaN(first[i]) && isNaN(second[i])) {
+            if (first[i] > second[i]) {
+              return 1;
+            }
+            else if (first[i] < second[i]) {
+              return -1;
+            }
+          }
+          else if (isNaN(first[i]) && !isNaN(second[i]) ) {
+            return -1;
+          }
+          else if (!isNaN(first[i]) && isNaN(second[i]) ){
+            return 1;
+      }
+       else {
+        if (Number(first[i]) > Number(second[i])) {
+          return 1;
+        }
+        if (Number(first[i]) < Number(second[i])) {
+          return -1;
+        }
+
+      }
+
+
+    }
+
+
+    return 0;
+  });
+
+  console.log(data),
+  //  this.questions = data.data,
       this.buildForm()
     });
   }
 
- getEnum(type: String){
-   if(type == "a"){
-     return this.enum.A;
-   }
-   else if(type == "aep"){
-     return this.enum.AEP;
-   }else if(type == "b"){
-     return this.enum.B;
-   }else if(type == "bip"){
-     return this.enum.BIP;
-   }else if(type == "c"){
-     return this.enum.C;
-   }else if(type == "cvt"){
-     return this.enum.CVT;
-   }else if(type == "p2pe"){
-     return this.enum.PPE;
-   }else if(type == "d_merchant"){
-     return this.enum.DMERCHANT;
-   }else if(type == "d_service"){
-     return this.enum.DSERVICE;
-   }
- }
-
-  buildForm() {
-    let group = {};
-    for (let i = 0; i < this.questions.length; i++) {
-      group[`${this.questions[i]._id}`] = '';
-    }
-    this.saqForm = this.formBuilder.group(group);
-    console.log(this.saqForm);
-    this.loaded = true;
+getEnum(type: String){
+  if (type == "a") {
+    return this.enum.A;
   }
-
-  onSubmit() {
-    console.log(this.saqForm.value);
-    this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data=>{console.log(data)});
-
+  else if (type == "aep") {
+    return this.enum.AEP;
+  } else if (type == "b") {
+    return this.enum.B;
+  } else if (type == "bip") {
+    return this.enum.BIP;
+  } else if (type == "c") {
+    return this.enum.C;
+  } else if (type == "cvt") {
+    return this.enum.CVT;
+  } else if (type == "p2pe") {
+    return this.enum.PPE;
+  } else if (type == "d_merchant") {
+    return this.enum.DMERCHANT;
+  } else if (type == "d_service") {
+    return this.enum.DSERVICE;
   }
+}
+
+buildForm() {
+  let group = {};
+  for (let i = 0; i < this.questions.length; i++) {
+    group[`${this.questions[i]._id}`] = '';
+  }
+  this.saqForm = this.formBuilder.group(group);
+  console.log(this.saqForm);
+  this.loaded = true;
+}
+
+onSubmit() {
+  console.log(this.saqForm.value);
+  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data) });
+
+}
 
 }

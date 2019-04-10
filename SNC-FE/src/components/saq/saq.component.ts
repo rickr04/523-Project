@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SAQService } from '@services/saq.service';
 import { AuthenticationService } from '@services/auth.service';
 import { SAQEnum } from '@models/saqEnum.enum';
+import * as FileSaver from 'file-saver';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -32,6 +33,7 @@ export class Saq implements OnInit {
   saqForm: FormGroup;
   enum = SAQEnum;
   questions: any[];
+  keys:any[];
   typeTemplate: String;
 
 
@@ -76,9 +78,18 @@ export class Saq implements OnInit {
    }
  }
  flip(){
-   this.view = true;
+   this.saq.getKeys().subscribe(data=>{this.keys = data.data, this.view = true});
+
  }
+servePDF(index: any){
+  var key = this.keys[index];
+  var fileName = key.split('/');
+  this.saq.getForm(key).subscribe(data=>{
+    var newBlob = new Blob([data], { type: "application/pdf" });
 
+      FileSaver.saveAs(newBlob, fileName[1]);
 
+});
+}
 
 }

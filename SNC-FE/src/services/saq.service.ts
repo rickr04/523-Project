@@ -35,4 +35,22 @@ submitSAQ(template: String, saqform: any): Observable<Response>{
   return this.http.post<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/completesaq/'+template, {answers: saqform} );
 }
 
+getKeys(): Observable<Response>{
+  return this.http.get<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/getkeys');
+}
+
+
+
+getForm(key: String): Observable<ArrayBuffer>{
+
+//   const httpOptions = {
+//   headers: new HttpHeaders({
+//    'Content-Type': 'application/json'
+//   })
+// };
+
+    return this.http.post(this._url+'/SAQ/getform',  {key: key}, { responseType: 'arraybuffer' });
+}
+
+
 }

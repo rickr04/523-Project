@@ -287,8 +287,8 @@ router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
 
 /* Pass JSON with Folder key to the Folder you want (typically a User ID).
 Returns an array of the keys of all files in that folder */
-router.get('/api/SAQ/:_id/getkeys', (req, res, next) => {
-  s3Handling.getFolderKeys(req.params._id, (err, keyArray) => {
+router.get('/api/SAQ/:_id/getkeys/:templateid', (req, res, next) => {
+  s3Handling.getFolderKeys(req.params._id, req.params.templateid, (err, keyArray) => {
     if (err) {
       return res.json({success: false, message: err.message});
     } else {
@@ -299,7 +299,7 @@ router.get('/api/SAQ/:_id/getkeys', (req, res, next) => {
 
 /* Allows you to download from the S3 bucket if passed a key. */
 router.post('/api/SAQ/getform', (req, res, next) => {
-  
+
   s3Handling.downloadFile(req.body.key, (err, data) => {
     if (err) {
       res.json({success: false, msg: err.message});

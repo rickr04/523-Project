@@ -23,14 +23,14 @@ module.exports = {
 
     /* Takes in a folder name, usually a user ID, and returns all
     keys within the folder */
-    getFolderKeys: function(folderName, callback){
+    getFolderKeys: function(folderName, template, callback){
         s3.listObjects({Bucket: process.env.S3_BUCKET}, (err, data) => {
             if (err) {
                 callback(err);
             } else if (folderName != null) {
                 let keys = [];
                 data.Contents.forEach((file) => {
-                    if (file.Key.startsWith(folderName+'/')) keys.push(file.Key);
+                    if (file.Key.startsWith(folderName+'/'+template+'/')) keys.push(file.Key);
                 });
                 callback(err, keys);
             } else {

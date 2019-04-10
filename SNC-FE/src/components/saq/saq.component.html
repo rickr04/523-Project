@@ -45,11 +45,13 @@
                   <thead>
                     <tr>
                       <th scope="col">SAQ {{typeTemplate}} PDF's</th>
+                      <th scope="col">Date and Time</th>
                       </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let key of keys; let i = index">
+                    <tr *ngFor="let key of keys; let i = index" (click)="servePDF(i)">
                       <th scope="row" (click)="servePDF(i)">{{key.split('/')[1]}}</th>
+                      <th >{{getTime(i)}}</th>
                     </tr>
                   </tbody>
                 </table>

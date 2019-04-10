@@ -78,7 +78,7 @@ export class Saq implements OnInit {
    }
  }
  flip(){
-   this.saq.getKeys().subscribe(data=>{this.keys = data.data, this.view = true});
+   this.saq.getKeys(this.getEnum(this.type)).subscribe(data=>{this.keys = data.data, this.view = true});
 
  }
 servePDF(index: any){
@@ -91,5 +91,10 @@ servePDF(index: any){
 
 });
 }
+
+ getTime(num: any){
+  var date = new Date(Number(this.keys[num].split('/')[2].split('.')[0]));
+    var dateString = ""+date
+    return dateString.split('G')[0]};
 
 }

@@ -35,8 +35,8 @@ submitSAQ(template: String, saqform: any): Observable<Response>{
   return this.http.post<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/completesaq/'+template, {answers: saqform} );
 }
 
-getKeys(): Observable<Response>{
-  return this.http.get<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/getkeys');
+getKeys(template: String): Observable<Response>{
+  return this.http.get<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/getkeys/'+template);
 }
 
 

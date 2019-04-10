@@ -2408,6 +2408,19 @@ let questions = [
 questions.forEach((question, index, array) => {
   let tempQuest = new Question(question);
   tempQuest.save((err, quest) => {
-      if (err) { console.log(err); }
+      if (err) { 
+				console.log(err)
+			} else if (index + 1 == array.length) {
+				allSAQs.forEach((saq, index, array) => {
+					let tempSAQ = new SAQTemplate(saq);
+					tempSAQ.save((err) => {
+						if (err) { 
+							console.log(err)
+						} else if (index + 1 == array.length) {
+							mongoose.connection.close();
+						}
+					});
+				});
+			}
   });
 });

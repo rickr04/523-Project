@@ -49,7 +49,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let key of keys; let i = index">
-                      <th scope="row" (click)="servePDF(i)">{{key}}</th>
+                      <th scope="row" (click)="servePDF(i)">{{key.split('/')[1]}}</th>
                     </tr>
                   </tbody>
                 </table>

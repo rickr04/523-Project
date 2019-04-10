@@ -36,10 +36,14 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
   AccountSAQ.findById(AccountSAQId).populate({
     path: 'answeredquestions',
     populate: {path: 'question'}
-  }).exec((err, populatedSAQ) => {
+  }).populate('superuserid').exec((err, populatedSAQ) => {
     if (err) {
       callback(err)
     } else {
+      let superuser = populatedSAQ.superuserid;
+      JSONvar["Company Name"] = superuser.company;
+      JSONvar["Contact Name"] = superuser.fname + '' + superuser.lname;
+      JSONvar["Telephone"] = superuser.telephone;
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
         if (err) {
           callback(err);

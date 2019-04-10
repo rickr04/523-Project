@@ -1491,7 +1491,7 @@ let questions = [
 		"questiontext": 'Are security policies and operational procedures for restricting physical access to cardholder data: * Documented * In use * Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
-		"_id": "9.1"
+		"_id": "9.10"
 	},
 	{
 		"questiontext": 'Are audit trails enabled and active for system components?',
@@ -1512,7 +1512,7 @@ let questions = [
 		"_id": "10.2"
 	},
 	{
-		"questiontext": '',
+		"questiontext": ' ',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "10.2.1"
@@ -1524,7 +1524,7 @@ let questions = [
 		"_id": "10.2.2"
 	},
 	{
-		"questiontext": '',
+		"questiontext": ' ',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "10.2.3"

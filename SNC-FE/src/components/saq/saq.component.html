@@ -41,7 +41,18 @@
               <button class="btn btn-accdark" id="regbutton" (click)="flip()" routerLinkActive="active">View Previous Forms</button>
               </div>
               <div *ngIf="view">
-                TEST
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">SAQ {{typeTemplate}} PDF's</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let key of keys; let i = index">
+                      <th scope="row" (click)="servePDF(i)">{{key}}</th>
+                    </tr>
+                  </tbody>
+                </table>
                 </div>
           </div>
           </div>

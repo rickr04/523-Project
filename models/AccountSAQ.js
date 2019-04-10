@@ -80,7 +80,7 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                 newAccountSAQ.save((err, newAccountSAQ) => {
                   if (err) {
                     callback(err)
-                  } else {                  
+                  } else {
                     callback(err, newAccountSAQ);
                   }
                 });
@@ -172,7 +172,7 @@ let updateSAQAnswers = (ansq, answers, callback) => {
   });
 }
 
-module.exports.createAndUpdateSAQ = (tempID, userID, callback) => {
+module.exports.createAndUpdateSAQ = (tempID, userID, answers, callback) => {
   AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
     if (err) {
       callback(err);

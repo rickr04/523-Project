@@ -292,16 +292,17 @@ router.get('/api/SAQ/:_id/getkeys', (req, res, next) => {
     if (err) {
       return res.json({success: false, message: err.message});
     } else {
-      return res.json({success: true, keys: keyArray});
+      return res.json({success: true, data: keyArray});
     }
   });
 });
 
 /* Allows you to download from the S3 bucket if passed a key. */
 router.post('/api/SAQ/getform', (req, res, next) => {
+  
   s3Handling.downloadFile(req.body.key, (err, data) => {
     if (err) {
-      return res.json({success: false, message: err.message});
+      res.json({success: false, msg: err.message});
     } else {
       //res.download(data.Body);
       res.writeHead(200, {
@@ -309,7 +310,7 @@ router.post('/api/SAQ/getform', (req, res, next) => {
         'Content-Disposition': 'attachment; filename=some_file.pdf',
         'Content-Length': data.Body.length
       });
-      return res.end(data.Body);
+      res.end(data.Body);
     }
   });
 });

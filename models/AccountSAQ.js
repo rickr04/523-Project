@@ -110,7 +110,13 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                       templateid: templateID,
                       answeredquestions: questionIDs
                     });
-                    newAccountSAQ.save(callback(err, newAccountSAQ));
+                    newAccountSAQ.save((err, newAccountSAQ) => {
+                      if (err) {
+                        callback(err)
+                      } else {
+                        callback(err, newAccountSAQ);
+                      }
+                    });
                   }
                 }
               });

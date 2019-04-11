@@ -119,7 +119,7 @@ buildForm() {
 
 onSubmit() {
   console.log(this.saqForm.value);
-  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data) });
+  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
 
 }
 

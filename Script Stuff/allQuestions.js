@@ -1,4 +1,5 @@
-let questions = [
+//all of the questions
+module.exports = [
 	{
 		"questiontext": 'Are firewall and router configuration standards established and implemented to include the following:',
 		"answertype": 0,

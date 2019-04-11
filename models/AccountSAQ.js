@@ -40,17 +40,19 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
     if (err) {
       callback(err)
     } else {
+      console.log(populatedSAQ);
       let superuser = populatedSAQ.superuserid;
       JSONvar["Company Name"] = superuser.company;
       JSONvar["Contact Name"] = superuser.fname + '' + superuser.lname;
       JSONvar["Telephone"] = superuser.telephone;
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
+
         if (err) {
           callback(err);
         } else {
-          if (item.question.answertype == 1 && item.question.answer != '') {
+          if (item.question.answertype == 1 && item.answer != '') {
             JSONvar[item.question._id+item.answer]="X";
-          } else if (item.question.answertype != 0) {
+          } else if (item.question.answertype == 2) {
             JSONvar[item.question._id] = item.answer;
           }
           if (index + 1 == array.length) callback(err, JSONvar);

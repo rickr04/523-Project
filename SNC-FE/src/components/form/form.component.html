@@ -30,7 +30,7 @@
 
             <ng-template #empty>
               <th scope="row">{{item.question._id}}</th>
-              <td>{{item.question.questiontext}}</td>
+              <td  [innerHTML]="item.question.questiontext"></td>
               <td>
                 <div class="d-flex">
                 <ng-container *ngFor="let answer of item.question.answers; let i = index" class="row">

@@ -1,4 +1,4 @@
-/* This code (with the exception of the editForm function) is taken from the following repo: 
+/* This code (with the exception of the editForm function) is taken from the following repo:
 https://github.com/galkahana/HummusJSSamples/tree/master/filling-form-values
 It allows us to fill out PDF form fields using Hummus. */
 
@@ -652,9 +652,11 @@ const streams = require('memory-streams');
 const fs = require('fs');
 
 const editForm = (PDFData, formData, callback) => {
+  console.log(PDFData);
+  console.log(formData);
     // Allows to read PDF from stream
     let inputStream = new hummus.PDFRStreamForBuffer(PDFData.Body);
-    let outputStream = new streams.WritableStream(); 
+    let outputStream = new streams.WritableStream();
     let writer = hummus.createWriterToModify(inputStream, new hummus.PDFStreamForResponse(outputStream));
 
     fillForm(writer, formData, {

@@ -40,17 +40,20 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
     if (err) {
       callback(err)
     } else {
+      console.log(populatedSAQ);
       let superuser = populatedSAQ.superuserid;
       JSONvar["Company Name"] = superuser.company;
       JSONvar["Contact Name"] = superuser.fname + '' + superuser.lname;
       JSONvar["Telephone"] = superuser.telephone;
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
+        var setCheck = new Set();
+        setCheck.add("Yes").add("No").add("N/A").add("Yes with CCW");
         if (err) {
           callback(err);
         } else {
-          if (item.question.answertype == 1 && item.question.answer != '') {
+          if (item.question.answertype == 1 && item.answer != '' && setCheck.has(item.answer)) {
             JSONvar[item.question._id+item.answer]="X";
-          } else if (item.question.answertype != 0) {
+          } else if (item.question.answertype == 2) {
             JSONvar[item.question._id] = item.answer;
           }
           if (index + 1 == array.length) callback(err, JSONvar);
@@ -107,7 +110,13 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                       templateid: templateID,
                       answeredquestions: questionIDs
                     });
-                    newAccountSAQ.save(callback(err, newAccountSAQ));
+                    newAccountSAQ.save((err, newAccountSAQ) => {
+                      if (err) {
+                        callback(err)
+                      } else {
+                        callback(err, newAccountSAQ);
+                      }
+                    });
                   }
                 }
               });

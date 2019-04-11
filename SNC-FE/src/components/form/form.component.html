@@ -30,7 +30,7 @@
 
             <ng-template #empty>
               <th scope="row">{{item.question._id}}</th>
-              <td>{{item.question.questiontext}}</td>
+              <td  [innerHTML]="item.question.questiontext"></td>
               <td>
                 <div class="d-flex">
                 <ng-container *ngFor="let answer of item.question.answers; let i = index" class="row">
@@ -39,14 +39,14 @@
                   <ng-container *ngIf="i==1; else rest">
                     <div class="col-4">
                           <label [for]="answer">{{answer}}<br/>
-                                <input type="radio" [formControlName]="item._id" [value]="answer" >
+                                <input type="radio" [formControlName]="item.question._id" [value]="answer" >
                             </label>
                     </div>
                   </ng-container>
                     <ng-template #rest>
                       <div class="col-2">
                             <label [for]="answer">{{answer}}<br/>
-                                  <input type="radio" [formControlName]="item._id" [value]="answer" >
+                                  <input type="radio" [formControlName]="item.question._id" [value]="answer" >
                               </label>
                       </div>
                     </ng-template>
@@ -56,14 +56,14 @@
                   <ng-container *ngIf="i==1; else rest">
                     <div class="col-4">
                           <label [for]="answer">{{answer}}<br/>
-                                <input type="radio" [formControlName]="item._id" [value]="answer">
+                                <input type="radio" [formControlName]="item.question._id" [value]="answer">
                             </label>
                     </div>
                   </ng-container>
                     <ng-template #rest>
                       <div class="col-2">
                             <label [for]="answer">{{answer}}<br/>
-                                  <input type="radio" [formControlName]="item._id" [value]="answer">
+                                  <input type="radio" [formControlName]="item.question._id" [value]="answer">
                               </label>
                       </div>
                     </ng-template>

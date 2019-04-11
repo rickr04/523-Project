@@ -45,7 +45,7 @@ export class Form implements OnInit {
 
 
         for (var i = 0; i < len; i++) {
-          
+
           if (isNaN(first[i]) && isNaN(second[i])) {
             if (first[i] > second[i]) {
               return 1;
@@ -107,9 +107,10 @@ getEnum(type: String){
 }
 
 buildForm() {
+
   let group = {};
   for (let i = 0; i < this.questions.length; i++) {
-    group[`${this.questions[i]._id}`] = '';
+    group[`${this.questions[i].question._id}`] = this.questions[i].answer;
   }
   this.saqForm = this.formBuilder.group(group);
   console.log(this.saqForm);
@@ -118,7 +119,7 @@ buildForm() {
 
 onSubmit() {
   console.log(this.saqForm.value);
-  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data) });
+  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
 
 }
 

@@ -85,7 +85,7 @@ module.exports = [
 		"_id": "1.1.7.c"
 	},
 	{
-		"questiontext": 'Do firewall and router configurations restrict connections between untrusted networks and any system in the cardholder data environment as follows: Note: An “untrusted network” is any network that is external to the networks belonging to the entity under review, and/or which is out of the entity’s ability to control or manage.',
+		"questiontext": 'Do firewall and router configurations restrict connections between untrusted networks and any system in the cardholder data environment as follows: &#13;&#10;Note: An “untrusted network” is any network that is external to the networks belonging to the entity under review, and/or which is out of the entity’s ability to control or manage.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "1.2"
@@ -157,7 +157,7 @@ module.exports = [
 		"_id": "1.3.6"
 	},
 	{
-		"questiontext": '(a) Are methods in place to prevent the disclosure of private IP addresses and routing information to the Internet?   Note: Methods to obscure IP addressing may include, but are not limited to:   * Network Address Translation (NAT)  * Placing servers containing cardholder data behind proxy servers/firewalls,  * Removal or filtering of route advertisements for private networks that employ registered addressing, Internal use of RFC1918 address space instead of registered addresses.',
+		"questiontext": '(a) Are methods in place to prevent the disclosure of private IP addresses and routing information to the Internet?   &#13;&#10;Note: Methods to obscure IP addressing may include, but are not limited to:   * Network Address Translation (NAT)  * Placing servers containing cardholder data behind proxy servers/firewalls,  * Removal or filtering of route advertisements for private networks that employ registered addressing, Internal use of RFC1918 address space instead of registered addresses.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "1.3.7.a"
@@ -283,7 +283,7 @@ module.exports = [
 		"_id": "2.2.2.b"
 	},
 	{
-		"questiontext": 'Are additional security features documented and implemented for any required services, protocols or daemons that are considered to be insecure?   Note: Where SSL/early TLS is used, the requirements in Appendix A2 must be completed.',
+		"questiontext": 'Are additional security features documented and implemented for any required services, protocols or daemons that are considered to be insecure?   &#13;&#10;Note: Where SSL/early TLS is used, the requirements in Appendix A2 must be completed.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "2.2.3"
@@ -325,7 +325,7 @@ module.exports = [
 		"_id": "2.2.5.c"
 	},
 	{
-		"questiontext": 'Is non-console administrative access encrypted as follows:   Note: Where SSL/early TLS is used, the requirements in Appendix A2 must be completed.',
+		"questiontext": 'Is non-console administrative access encrypted as follows:   &#13;&#10;Note: Where SSL/early TLS is used, the requirements in Appendix A2 must be completed.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "2.3"
@@ -439,7 +439,7 @@ module.exports = [
 		"_id": "3.2.d"
 	},
 	{
-		"questiontext": 'The full contents of any track (from the magnetic stripe located on the back of a card, equivalent data contained on a chip, or elsewhere) are not stored after authorization? This data is alternatively called full track, track, track 1, track 2, and magnetic-stripe data.   Note: In the normal course of business, the following data elements from the magnetic stripe may need to be retained:  * The cardholder’s name,  * Primary account number (PAN),  * Expiration date, and  * Service code  To minimize risk, store only these data elements as needed for business.',
+		"questiontext": 'The full contents of any track (from the magnetic stripe located on the back of a card, equivalent data contained on a chip, or elsewhere) are not stored after authorization? This data is alternatively called full track, track, track 1, track 2, and magnetic-stripe data.   &#13;&#10;Note: In the normal course of business, the following data elements from the magnetic stripe may need to be retained:  * The cardholder’s name,  * Primary account number (PAN),  * Expiration date, and  * Service code  To minimize risk, store only these data elements as needed for business.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.2.1"
@@ -457,19 +457,19 @@ module.exports = [
 		"_id": "3.2.3"
 	},
 	{
-		"questiontext": 'Is the PAN masked when displayed (the first six and last four digits are the maximum number of digits to be displayed) such that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN?   Note: This requirement does not supersede stricter requirements in place for displays of cardholder data—for example, legal or payment card brand requirements for point-of-sale (POS) receipts.',
+		"questiontext": 'Is the PAN masked when displayed (the first six and last four digits are the maximum number of digits to be displayed) such that only personnel with a legitimate business need can see more than the first six/last four digits of the PAN?   &#13;&#10;Note: This requirement does not supersede stricter requirements in place for displays of cardholder data—for example, legal or payment card brand requirements for point-of-sale (POS) receipts.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.3"
 	},
 	{
-		"questiontext": 'Is PAN rendered unreadable anywhere it is stored (including data repositories, portable digital media, backup media, and in audit logs), by using any of the following approaches? * One-way hashes based on strong cryptography (hash must be of the entire PAN) * Truncation (hashing cannot be used to replace the truncated segment of PAN) * Index tokens and pads (pads must be securely stored) * Strong cryptography with associated key management processes and procedures.   Note: It is a relatively trivial effort for a malicious individual to reconstruct original PAN data if they have access to both the truncated and hashed version of a PAN. Where hashed and truncated versions of the same PAN are present in an entity’s environment, additional controls must be in place to ensure that the hashed and truncated versions cannot be correlated to reconstruct the original PAN.',
+		"questiontext": 'Is PAN rendered unreadable anywhere it is stored (including data repositories, portable digital media, backup media, and in audit logs), by using any of the following approaches? * One-way hashes based on strong cryptography (hash must be of the entire PAN) * Truncation (hashing cannot be used to replace the truncated segment of PAN) * Index tokens and pads (pads must be securely stored) * Strong cryptography with associated key management processes and procedures.   &#13;&#10;Note: It is a relatively trivial effort for a malicious individual to reconstruct original PAN data if they have access to both the truncated and hashed version of a PAN. Where hashed and truncated versions of the same PAN are present in an entity’s environment, additional controls must be in place to ensure that the hashed and truncated versions cannot be correlated to reconstruct the original PAN.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.4"
 	},
 	{
-		"questiontext": 'If disk encryption (rather than file- or column-level database encryption) is used, is access managed as follows:   Note: This requirement applies in addition to all other PCI DSS encryption and key management requirements.',
+		"questiontext": 'If disk encryption (rather than file- or column-level database encryption) is used, is access managed as follows:   &#13;&#10;Note: This requirement applies in addition to all other PCI DSS encryption and key management requirements.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "3.4.1"
@@ -487,19 +487,19 @@ module.exports = [
 		"_id": "3.4.1.b"
 	},
 	{
-		"questiontext": '(c) Is cardholder data on removable media encrypted wherever stored?   Note: If disk encryption is not used to encrypt removable media, the data stored on this media will need to be rendered unreadable through some other method.',
+		"questiontext": '(c) Is cardholder data on removable media encrypted wherever stored?   &#13;&#10;Note: If disk encryption is not used to encrypt removable media, the data stored on this media will need to be rendered unreadable through some other method.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.4.1.c"
 	},
 	{
-		"questiontext": 'Are keys used to secure stored cardholder data protected against disclosure and misuse as follows:   Note: This requirement applies to keys used to encrypt stored cardholder data, and also applies to key-encrypting keys used to protect data-encrypting keys. Such key-encrypting keys must be at least as strong as the data-encrypting key.',
+		"questiontext": 'Are keys used to secure stored cardholder data protected against disclosure and misuse as follows:   &#13;&#10;Note: This requirement applies to keys used to encrypt stored cardholder data, and also applies to key-encrypting keys used to protect data-encrypting keys. Such key-encrypting keys must be at least as strong as the data-encrypting key.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "3.5"
 	},
 	{
-		"questiontext": 'For service providers only: Is a documented description of the cryptographic architecture maintained that includes: * Details of all algorithms, protocols, and keys used for the protection of cardholder data, including key strength and expiry date, * Description of the key usage for each key, * Inventory of any HSMs and other SCDs used for key management?   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: Is a documented description of the cryptographic architecture maintained that includes: * Details of all algorithms, protocols, and keys used for the protection of cardholder data, including key strength and expiry date, * Description of the key usage for each key, * Inventory of any HSMs and other SCDs used for key management?   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.5.1"
@@ -511,7 +511,7 @@ module.exports = [
 		"_id": "3.5.2"
 	},
 	{
-		"questiontext": 'Are secret and private cryptographic keys used to encrypt/decrypt cardholder data stored in one (or more) of the following forms at all times? * Encrypted with a key-encrypting key that is at least as strong as the data-encrypting key, and that is stored separately from the data-encrypting key * Within a secure cryptographic device (such as a hardware (host) security module (HSM) or PTS-approved point-of-interaction device) * As at least two full-length key components or key shares, in accordance with an industry-accepted method.   Note: It is not required that public keys be stored in one of these forms.',
+		"questiontext": 'Are secret and private cryptographic keys used to encrypt/decrypt cardholder data stored in one (or more) of the following forms at all times? * Encrypted with a key-encrypting key that is at least as strong as the data-encrypting key, and that is stored separately from the data-encrypting key * Within a secure cryptographic device (such as a hardware (host) security module (HSM) or PTS-approved point-of-interaction device) * As at least two full-length key components or key shares, in accordance with an industry-accepted method.   &#13;&#10;Note: It is not required that public keys be stored in one of these forms.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.5.3"
@@ -583,7 +583,7 @@ module.exports = [
 		"_id": "3.6.5.c"
 	},
 	{
-		"questiontext": 'If manual clear-text key-management operations are used, do cryptographic key procedures include split knowledge and dual control of cryptographic keys as follows:  * Do split knowledge procedures require that key components are under the control of at least two people who only have knowledge of their own key components? AND * Do dual control procedures require that at least two people are required to perform any key management operations and no one person has access to the authentication materials (for example, passwords or keys) of another?   Note: Examples of manual key management operations include, but are not limited to: key generation, transmission, loading, storage and destruction.',
+		"questiontext": 'If manual clear-text key-management operations are used, do cryptographic key procedures include split knowledge and dual control of cryptographic keys as follows:  * Do split knowledge procedures require that key components are under the control of at least two people who only have knowledge of their own key components? AND * Do dual control procedures require that at least two people are required to perform any key management operations and no one person has access to the authentication materials (for example, passwords or keys) of another?   &#13;&#10;Note: Examples of manual key management operations include, but are not limited to: key generation, transmission, loading, storage and destruction.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.6.6"
@@ -607,7 +607,7 @@ module.exports = [
 		"_id": "3.7"
 	},
 	{
-		"questiontext": '(a) Are strong cryptography and security protocols used to safeguard sensitive cardholder data during transmission over open, public networks?   Note: Where SSL/early TLS is used, the requirements in Appendix A2 must be completed.   Examples of open, public networks include but are not limited to the Internet; wireless technologies, including 802.11 and Bluetooth; cellular technologies, for example, Global System for Mobile communications (GSM), Code division multiple access (CDMA); and General Packet Radio Service (GPRS).',
+		"questiontext": '(a) Are strong cryptography and security protocols used to safeguard sensitive cardholder data during transmission over open, public networks?   &#13;&#10;Note: Where SSL/early TLS is used, the requirements in Appendix A2 must be completed.   Examples of open, public networks include but are not limited to the Internet; wireless technologies, including 802.11 and Bluetooth; cellular technologies, for example, Global System for Mobile communications (GSM), Code division multiple access (CDMA); and General Packet Radio Service (GPRS).',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "4.1.a"
@@ -703,7 +703,7 @@ module.exports = [
 		"_id": "5.2.c"
 	},
 	{
-		"questiontext": 'Are all anti-virus mechanisms: * Actively running? * Unable to be disabled or altered by users?   Note: Anti-virus solutions may be temporarily disabled only if there is legitimate technical need, as authorized by management on a case-by-case basis. If anti-virus protection needs to be disabled for a specific purpose, it must be formally authorized. Additional security measures may also need to be implemented for the period of time during which anti-virus protection is not active.',
+		"questiontext": 'Are all anti-virus mechanisms: * Actively running? * Unable to be disabled or altered by users?   &#13;&#10;Note: Anti-virus solutions may be temporarily disabled only if there is legitimate technical need, as authorized by management on a case-by-case basis. If anti-virus protection needs to be disabled for a specific purpose, it must be formally authorized. Additional security measures may also need to be implemented for the period of time during which anti-virus protection is not active.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "5.3"
@@ -715,7 +715,7 @@ module.exports = [
 		"_id": "5.4"
 	},
 	{
-		"questiontext": 'Is there a process to identify security vulnerabilities, including the following: * Using reputable outside sources for vulnerability information? * Assigning a risk ranking to vulnerabilities that includes identification of all “high” risk and “critical” vulnerabilities?   Note: Risk rankings should be based on industry best practices as well as consideration of potential impact. For example, criteria for ranking vulnerabilities may include consideration of the CVSS base score and/or the classification by the vendor, and/or type of systems affected.   Methods for evaluating vulnerabilities and assigning risk ratings will vary based on an organization’s environment and risk assessment strategy. Risk rankings should, at a minimum, identify all vulnerabilities considered to be a “high risk” to the environment. In addition to the risk ranking, vulnerabilities may be considered “critical” if they pose an imminent threat to the environment, impact critical systems, and/or would result in a potential compromise if not addressed. Examples of critical systems may include security systems, public-facing devices and systems, databases, and other systems that store, process or transmit cardholder data.',
+		"questiontext": 'Is there a process to identify security vulnerabilities, including the following: * Using reputable outside sources for vulnerability information? * Assigning a risk ranking to vulnerabilities that includes identification of all “high” risk and “critical” vulnerabilities?   &#13;&#10;Note: Risk rankings should be based on industry best practices as well as consideration of potential impact. For example, criteria for ranking vulnerabilities may include consideration of the CVSS base score and/or the classification by the vendor, and/or type of systems affected.   Methods for evaluating vulnerabilities and assigning risk ratings will vary based on an organization’s environment and risk assessment strategy. Risk rankings should, at a minimum, identify all vulnerabilities considered to be a “high risk” to the environment. In addition to the risk ranking, vulnerabilities may be considered “critical” if they pose an imminent threat to the environment, impact critical systems, and/or would result in a potential compromise if not addressed. Examples of critical systems may include security systems, public-facing devices and systems, databases, and other systems that store, process or transmit cardholder data.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.1"
@@ -727,7 +727,7 @@ module.exports = [
 		"_id": "6.2.a"
 	},
 	{
-		"questiontext": '(b) Are critical security patches installed within one month of release?   Note: Critical security patches should be identified according to the risk ranking process defined in Requirement 6.1.',
+		"questiontext": '(b) Are critical security patches installed within one month of release?   &#13;&#10;Note: Critical security patches should be identified according to the risk ranking process defined in Requirement 6.1.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.2.b"
@@ -763,7 +763,7 @@ module.exports = [
 		"_id": "6.3.1"
 	},
 	{
-		"questiontext": 'Is all custom code reviewed prior to release to production or customers to identify any potential coding vulnerability (using either manual or automated processes as follows:  * Are code changes reviewed by individuals other than the originating code author, and by individuals who are knowledgeable about code review techniques and secure coding practices? * Do code reviews ensure code is developed according to secure coding guidelines? * Are appropriate corrections are implemented prior to release? * Are code review results are reviewed and approved by management prior to release?   Note: This requirement for code reviews applies to all custom code (both internal and public-facing), as part of the system development life cycle. Code reviews can be conducted by knowledgeable internal personnel or third parties. Public-facing web applications are also subject to additional controls, to address ongoing threats and vulnerabilities after implementation, as defined at PCI DSS Requirement 6.6.',
+		"questiontext": 'Is all custom code reviewed prior to release to production or customers to identify any potential coding vulnerability (using either manual or automated processes as follows:  * Are code changes reviewed by individuals other than the originating code author, and by individuals who are knowledgeable about code review techniques and secure coding practices? * Do code reviews ensure code is developed according to secure coding guidelines? * Are appropriate corrections are implemented prior to release? * Are code review results are reviewed and approved by management prior to release?   &#13;&#10;Note: This requirement for code reviews applies to all custom code (both internal and public-facing), as part of the system development life cycle. Code reviews can be conducted by knowledgeable internal personnel or third parties. Public-facing web applications are also subject to additional controls, to address ongoing threats and vulnerabilities after implementation, as defined at PCI DSS Requirement 6.6.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.3.2"
@@ -847,7 +847,7 @@ module.exports = [
 		"_id": "6.4.5.4"
 	},
 	{
-		"questiontext": 'Upon completion of a significant change, are all relevant PCI DSS requirements implemented on all new or changed systems and networks, and documentation updated as applicable?   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'Upon completion of a significant change, are all relevant PCI DSS requirements implemented on all new or changed systems and networks, and documentation updated as applicable?   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.4.6"
@@ -871,7 +871,7 @@ module.exports = [
 		"_id": "6.5.c"
 	},
 	{
-		"questiontext": 'Do coding techniques address injection flaws, particularly SQL injection?   Note: Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.',
+		"questiontext": 'Do coding techniques address injection flaws, particularly SQL injection?   &#13;&#10;Note: Also consider OS Command Injection, LDAP and XPath injection flaws as well as other injection flaws.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.5.1"
@@ -931,7 +931,7 @@ module.exports = [
 		"_id": "6.5.10"
 	},
 	{
-		"questiontext": 'For public-facing web applications, are new threats and vulnerabilities addressed on an ongoing basis, and are these applications protected against known attacks by applying either of the following methods?  * Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, as follows: - At least annually - After any changes - By an organization that specializes in application security - That, at a minimum, all vulnerabilities in Requirement 6.5 are included in the assessment - That all vulnerabilities are corrected - That the application is re-evaluated after the corrections   Note: This assessment is not the same as the vulnerability scans performed for Requirement 11.2. – OR – * Installing an automated technical solution that detects and prevents web-based attacks (for example, a web-application firewall) as follows: - Is situated in front of public-facing web applications to detect and prevent web-based attacks. - Is actively running and up to date as applicable. - Is generating audit logs. - Is configured to either block web-based attacks, or generate an alert that is immediately investigated',
+		"questiontext": 'For public-facing web applications, are new threats and vulnerabilities addressed on an ongoing basis, and are these applications protected against known attacks by applying either of the following methods?  * Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, as follows: - At least annually - After any changes - By an organization that specializes in application security - That, at a minimum, all vulnerabilities in Requirement 6.5 are included in the assessment - That all vulnerabilities are corrected - That the application is re-evaluated after the corrections   &#13;&#10;Note: This assessment is not the same as the vulnerability scans performed for Requirement 11.2. – OR – * Installing an automated technical solution that detects and prevents web-based attacks (for example, a web-application firewall) as follows: - Is situated in front of public-facing web applications to detect and prevent web-based attacks. - Is actively running and up to date as applicable. - Is generating audit logs. - Is configured to either block web-based attacks, or generate an alert that is immediately investigated',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.6"
@@ -1129,13 +1129,13 @@ module.exports = [
 		"_id": "8.2.6"
 	},
 	{
-		"questiontext": 'Is all individual non-console administrative access and all remote access to the CDE secured using multi-factor authentication, as follows:   Note: Multi-factor authentication requires that a minimum of two of the three authentication methods (see PCI DSS Requirement 8.2 for descriptions of authentication methods) be used for authentication. Using one factor twice (for example, using two separate passwords) is not considered multi-factor authentication.',
+		"questiontext": 'Is all individual non-console administrative access and all remote access to the CDE secured using multi-factor authentication, as follows:   &#13;&#10;Note: Multi-factor authentication requires that a minimum of two of the three authentication methods (see PCI DSS Requirement 8.2 for descriptions of authentication methods) be used for authentication. Using one factor twice (for example, using two separate passwords) is not considered multi-factor authentication.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "8.3"
 	},
 	{
-		"questiontext": 'Is multi-factor authentication incorporated for all non-console access into the CDE for personnel with administrative access?   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'Is multi-factor authentication incorporated for all non-console access into the CDE for personnel with administrative access?   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.3.1"
@@ -1213,7 +1213,7 @@ module.exports = [
 		"_id": "9.1"
 	},
 	{
-		"questiontext": '(a) Are either video cameras or access-control mechanisms (or both) in place to monitor individual physical access to sensitive areas?   Note: “Sensitive areas” refers to any data center, server room, or any area that houses systems that store, process, or transmit cardholder data. This excludes public-facing areas where only point-of-sale terminals are present such as the cashier areas in a retail store.',
+		"questiontext": '(a) Are either video cameras or access-control mechanisms (or both) in place to monitor individual physical access to sensitive areas?   &#13;&#10;Note: “Sensitive areas” refers to any data center, server room, or any area that houses systems that store, process, or transmit cardholder data. This excludes public-facing areas where only point-of-sale terminals are present such as the cashier areas in a retail store.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.1.1.a"
@@ -1417,7 +1417,7 @@ module.exports = [
 		"_id": "9.8.2"
 	},
 	{
-		"questiontext": 'Are devices that capture payment card data via direct physical interaction with the card protected against tampering and substitution as follows?   Note: This requirement applies to card-reading devices used in card-present transactions (that is, card swipe or dip) at the point of sale. This requirement is not intended to apply to manual key-entry components such as computer keyboards and POS keypads.',
+		"questiontext": 'Are devices that capture payment card data via direct physical interaction with the card protected against tampering and substitution as follows?   &#13;&#10;Note: This requirement applies to card-reading devices used in card-present transactions (that is, card swipe or dip) at the point of sale. This requirement is not intended to apply to manual key-entry components such as computer keyboards and POS keypads.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "9.9"
@@ -1459,7 +1459,7 @@ module.exports = [
 		"_id": "9.9.1.c"
 	},
 	{
-		"questiontext": '(a) Are device surfaces periodically inspected to detect tampering (for example, addition of card skimmers to devices), or substitution (for example, by checking the serial number or other device characteristics to verify it has not been swapped with a fraudulent device) as follows?   Note: Examples of signs that a device might have been tampered with or substituted include unexpected attachments or cables plugged into the device, missing or changed security labels, broken or differently colored casing, or changes to the serial number or other external markings.',
+		"questiontext": '(a) Are device surfaces periodically inspected to detect tampering (for example, addition of card skimmers to devices), or substitution (for example, by checking the serial number or other device characteristics to verify it has not been swapped with a fraudulent device) as follows?   &#13;&#10;Note: Examples of signs that a device might have been tampered with or substituted include unexpected attachments or cables plugged into the device, missing or changed security labels, broken or differently colored casing, or changes to the serial number or other external markings.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.9.2.a"
@@ -1597,7 +1597,7 @@ module.exports = [
 		"_id": "10.3.6"
 	},
 	{
-		"questiontext": 'Are all critical system clocks and times synchronized through use of time synchronization technology, and is the technology kept current?   Note: One example of time synchronization technology is Network Time Protocol (NTP).',
+		"questiontext": 'Are all critical system clocks and times synchronized through use of time synchronization technology, and is the technology kept current?   &#13;&#10;Note: One example of time synchronization technology is Network Time Protocol (NTP).',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.4"
@@ -1681,7 +1681,7 @@ module.exports = [
 		"_id": "10.5.5"
 	},
 	{
-		"questiontext": 'Are logs and security events for all system components reviewed to identify anomalies or suspicious activity as follows?   Note: Log harvesting, parsing, and alerting tools may be used to achieve compliance with Requirement 10.6.',
+		"questiontext": 'Are logs and security events for all system components reviewed to identify anomalies or suspicious activity as follows?   &#13;&#10;Note: Log harvesting, parsing, and alerting tools may be used to achieve compliance with Requirement 10.6.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "10.6"
@@ -1759,7 +1759,7 @@ module.exports = [
 		"_id": "10.8.b"
 	},
 	{
-		"questiontext": 'For service providers only: Are failures of any critical security controls responded to in a timely manner, as follows:   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: Are failures of any critical security controls responded to in a timely manner, as follows:   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "10.8.1"
@@ -1783,7 +1783,7 @@ module.exports = [
 		"_id": "10.9"
 	},
 	{
-		"questiontext": '(a) Are processes implemented for detection and identification of both authorized and unauthorized wireless access points on a quarterly basis?   Note: Methods that may be used in the process include, but are not limited to, wireless network scans, physical/logical inspections of system components and infrastructure, network access control (NAC), or wireless IDS/IPS.   Whichever methods are used, they must be sufficient to detect and identify any unauthorized devices.',
+		"questiontext": '(a) Are processes implemented for detection and identification of both authorized and unauthorized wireless access points on a quarterly basis?   &#13;&#10;Note: Methods that may be used in the process include, but are not limited to, wireless network scans, physical/logical inspections of system components and infrastructure, network access control (NAC), or wireless IDS/IPS.   Whichever methods are used, they must be sufficient to detect and identify any unauthorized devices.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.1.a"
@@ -1825,7 +1825,7 @@ module.exports = [
 		"_id": "11.1.2.b"
 	},
 	{
-		"questiontext": 'Are internal and external network vulnerability scans run at least quarterly and after any significant change in the network (such as new system component installations, changes in network topology, firewall rule modifications, product upgrades), as follows?   Note: Multiple scan reports can be combined for the quarterly scan process to show that all systems were scanned and all applicable vulnerabilities have been addressed. Additional documentation may be required to verify non-remediated vulnerabilities are in the process of being addressed.   For initial PCI DSS compliance, it is not required that four quarters of passing scans be completed if the assessor verifies 1) the most recent scan result was a passing scan, 2) the entity has documented policies and procedures requiring quarterly scanning, and 3) vulnerabilities noted in the scan results have been corrected as shown in a re-scan(s). For subsequent years after the initial PCI DSS review, four quarters of passing scans must have occurred.',
+		"questiontext": 'Are internal and external network vulnerability scans run at least quarterly and after any significant change in the network (such as new system component installations, changes in network topology, firewall rule modifications, product upgrades), as follows?   &#13;&#10;Note: Multiple scan reports can be combined for the quarterly scan process to show that all systems were scanned and all applicable vulnerabilities have been addressed. Additional documentation may be required to verify non-remediated vulnerabilities are in the process of being addressed.   For initial PCI DSS compliance, it is not required that four quarters of passing scans be completed if the assessor verifies 1) the most recent scan result was a passing scan, 2) the entity has documented policies and procedures requiring quarterly scanning, and 3) vulnerabilities noted in the scan results have been corrected as shown in a re-scan(s). For subsequent years after the initial PCI DSS review, four quarters of passing scans must have occurred.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "11.2"
@@ -1849,7 +1849,7 @@ module.exports = [
 		"_id": "11.2.1.c"
 	},
 	{
-		"questiontext": '(a) Are quarterly external vulnerability scans performed?   Note: Quarterly external vulnerability scans must be performed by an Approved Scanning Vendor (ASV), approved by the Payment Card Industry Security Standards Council (PCI SSC).  Refer to the ASV Program Guide published on the PCI SSC website for scan customer responsibilities, scan preparation, etc.',
+		"questiontext": '(a) Are quarterly external vulnerability scans performed?   &#13;&#10;Note: Quarterly external vulnerability scans must be performed by an Approved Scanning Vendor (ASV), approved by the Payment Card Industry Security Standards Council (PCI SSC).  Refer to the ASV Program Guide published on the PCI SSC website for scan customer responsibilities, scan preparation, etc.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.2.2.a"
@@ -1867,7 +1867,7 @@ module.exports = [
 		"_id": "11.2.2.c"
 	},
 	{
-		"questiontext": '(a) Are internal and external scans, and rescans as needed, performed after any significant change?   Note: Scans must be performed by qualified personnel.',
+		"questiontext": '(a) Are internal and external scans, and rescans as needed, performed after any significant change?   &#13;&#10;Note: Scans must be performed by qualified personnel.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.2.3.a"
@@ -1945,7 +1945,7 @@ module.exports = [
 		"_id": "11.3.4.c"
 	},
 	{
-		"questiontext": 'For service providers only: If segmentation is used:   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: If segmentation is used:   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "11.3.4.1"
@@ -1999,7 +1999,7 @@ module.exports = [
 		"_id": "11.5.a"
 	},
 	{
-		"questiontext": '(b) Is the change-detection mechanism configured to alert personnel to unauthorized modification (including changes, additions, and deletions) of critical system files, configuration files or content files, and do the tools perform critical file comparisons at least weekly?   Note: For change detection purposes, critical files are usually those that do not regularly change, but the modification of which could indicate a system compromise or risk of compromise. Change detection mechanisms such as file-integrity monitoring products usually come pre-configured with critical files for the related operating system. Other critical files, such as those for custom applications, must be evaluated and defined by the entity (that is the merchant or service provider).',
+		"questiontext": '(b) Is the change-detection mechanism configured to alert personnel to unauthorized modification (including changes, additions, and deletions) of critical system files, configuration files or content files, and do the tools perform critical file comparisons at least weekly?   &#13;&#10;Note: For change detection purposes, critical files are usually those that do not regularly change, but the modification of which could indicate a system compromise or risk of compromise. Change detection mechanisms such as file-integrity monitoring products usually come pre-configured with critical files for the related operating system. Other critical files, such as those for custom applications, must be evaluated and defined by the entity (that is the merchant or service provider).',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.5.b"
@@ -2041,7 +2041,7 @@ module.exports = [
 		"_id": "12.2.b"
 	},
 	{
-		"questiontext": 'Are usage policies for critical technologies developed to define proper use of these technologies and require the following:   Note: Examples of critical technologies include, but are not limited to, remote access and wireless technologies, laptops, tablets, removable electronic media, e-mail usage and Internet usage.',
+		"questiontext": 'Are usage policies for critical technologies developed to define proper use of these technologies and require the following:   &#13;&#10;Note: Examples of critical technologies include, but are not limited to, remote access and wireless technologies, laptops, tablets, removable electronic media, e-mail usage and Internet usage.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "12.3"
@@ -2179,7 +2179,7 @@ module.exports = [
 		"_id": "12.6.b"
 	},
 	{
-		"questiontext": '(a) Does the security awareness program provide multiple methods of communicating awareness and educating personnel (for example, posters, letters, memos, web based training, meetings, and promotions)?   Note: Methods can vary depending on the role of the personnel and their level of access to the cardholder data.',
+		"questiontext": '(a) Does the security awareness program provide multiple methods of communicating awareness and educating personnel (for example, posters, letters, memos, web based training, meetings, and promotions)?   &#13;&#10;Note: Methods can vary depending on the role of the personnel and their level of access to the cardholder data.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.6.1.a"
@@ -2203,7 +2203,7 @@ module.exports = [
 		"_id": "12.6.2"
 	},
 	{
-		"questiontext": 'Are potential personnel (see definition of “personnel” above) screened prior to hire to minimize the risk of attacks from internal sources?   Examples of background checks include previous employment history, criminal record, credit history and reference checks.   Note: For those potential personnel to be hired for certain positions, such as store cashiers who only have access to one card number at a time when facilitating a transaction, this requirement is a recommendation only.',
+		"questiontext": 'Are potential personnel (see definition of “personnel” above) screened prior to hire to minimize the risk of attacks from internal sources?   Examples of background checks include previous employment history, criminal record, credit history and reference checks.   &#13;&#10;Note: For those potential personnel to be hired for certain positions, such as store cashiers who only have access to one card number at a time when facilitating a transaction, this requirement is a recommendation only.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.7"
@@ -2221,7 +2221,7 @@ module.exports = [
 		"_id": "12.8.1"
 	},
 	{
-		"questiontext": 'Is a written agreement maintained that includes an acknowledgement that the service providers are responsible for the security of cardholder data the service providers possess or otherwise store, process, or transmit on behalf of the customer, or to the extent that they could impact the security of the customer’s cardholder data environment?   Note: The exact wording of an acknowledgement will depend on the agreement between the two parties, the details of the service being provided, and the responsibilities assigned to each party. The acknowledgement does not have to include the exact wording provided in this requirement.',
+		"questiontext": 'Is a written agreement maintained that includes an acknowledgement that the service providers are responsible for the security of cardholder data the service providers possess or otherwise store, process, or transmit on behalf of the customer, or to the extent that they could impact the security of the customer’s cardholder data environment?   &#13;&#10;Note: The exact wording of an acknowledgement will depend on the agreement between the two parties, the details of the service being provided, and the responsibilities assigned to each party. The acknowledgement does not have to include the exact wording provided in this requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.8.2"
@@ -2299,7 +2299,7 @@ module.exports = [
 		"_id": "12.10.6"
 	},
 	{
-		"questiontext": 'For service providers only: Are reviews performed at least quarterly to confirm personnel are following security policies and operational procedures, as follows:   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: Are reviews performed at least quarterly to confirm personnel are following security policies and operational procedures, as follows:   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 0,
 		"answers": [""],
 		"_id": "12.11"
@@ -2317,7 +2317,7 @@ module.exports = [
 		"_id": "12.11.b"
 	},
 	{
-		"questiontext": 'For service providers only: Is documentation of the quarterly review process maintained to include: * Documenting results of the reviews * Review and sign off of results by personnel assigned responsibility for the PCI DSS compliance program   Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: Is documentation of the quarterly review process maintained to include: * Documenting results of the reviews * Review and sign off of results by personnel assigned responsibility for the PCI DSS compliance program   &#13;&#10;Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.11.1"

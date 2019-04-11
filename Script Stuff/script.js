@@ -5,6 +5,8 @@ const SuperUser = require('../models/SuperUser');
 const mongoose = require('mongoose');
 const questions = require('./allQuestions.js');
 const allSAQs = require('./allSAQs.js');
+const dotenv = require('dotenv');
+dotenv.config()
 
 var db = mongoose.connection;
 mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
@@ -37,13 +39,13 @@ user.save(function(err) {
 questions.forEach((question, index, array) => {
   let tempQuest = new Question(question);
   tempQuest.save((err, quest) => {
-    if (err) { 
+    if (err) {
 			console.log(err)
 		} else if (index + 1 == array.length) {
 			allSAQs.forEach((saq, index, array) => {
 				let tempSAQ = new SAQTemplate(saq);
 				tempSAQ.save((err) => {
-					if (err) { 
+					if (err) {
 						console.log(err)
 					} else if (index + 1 == array.length) {
 						mongoose.connection.close();

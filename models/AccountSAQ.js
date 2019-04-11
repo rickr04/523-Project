@@ -46,11 +46,12 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
       JSONvar["Contact Name"] = superuser.fname + '' + superuser.lname;
       JSONvar["Telephone"] = superuser.telephone;
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
-
+        var setCheck = new Set();
+        setCheck.add("Yes").add("No").add("N/A").add("Yes with CCW");
         if (err) {
           callback(err);
         } else {
-          if (item.question.answertype == 1 && item.answer != '') {
+          if (item.question.answertype == 1 && item.answer != '' && setCheck.has(item.answer)) {
             JSONvar[item.question._id+item.answer]="X";
           } else if (item.question.answertype == 2) {
             JSONvar[item.question._id] = item.answer;

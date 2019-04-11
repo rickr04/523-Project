@@ -107,9 +107,10 @@ getEnum(type: String){
 }
 
 buildForm() {
+
   let group = {};
   for (let i = 0; i < this.questions.length; i++) {
-    group[`${this.questions[i].question._id}`] = '';
+    group[`${this.questions[i].question._id}`] = this.questions[i].answer;
   }
   this.saqForm = this.formBuilder.group(group);
   console.log(this.saqForm);

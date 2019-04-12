@@ -36,8 +36,8 @@ export class UserService  {
         return this.http.post<Response>(this._url+"/login", {email, password});
     }
 
-    register( password: string, email:string, address:string, company:string, telephone:string, fname:string, lname:string) {
-        return this.http.post<Response>(this._url+"/register", {password, email, address, company, telephone, fname, lname}, { observe: 'response' });
+    register( password: string, email:string, address:string, company:string, telephone:string, fname:string, lname:string):Observable<Response> {
+        return this.http.post<Response>(this._url+"/register", {password, email, address, company, telephone, fname, lname});
     }
 
       callCheckAuth(): Observable<ResponseA>{

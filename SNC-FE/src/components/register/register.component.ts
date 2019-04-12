@@ -74,8 +74,8 @@ export class Register implements OnInit {
       this.skeleForm.controls.fname.value,
       this.skeleForm.controls.lname.value,
     ).subscribe(data => {
+      localStorage.setItem('_id', data.data._id),
       this.auth.callCheckAuth().subscribe(data => {
-        localStorage.setItem('_id', data.data._id),
           this.auth.isAuthenticated(),
           this.router.navigateByUrl('/account'),
           this.router.navigateByUrl('/account')

@@ -1027,6 +1027,12 @@ module.exports = [
 		"_id": "8.1.3"
 	},
 	{
+		"questiontext": 'Are inactive user accounts either removed or disabled within 90 days?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "8.1.4"
+	},
+	{
 		"questiontext": 'Are accounts used by third parties to access, support, or maintain system components via remote access enabled only during the time period needed and disabled when not in use?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
@@ -1525,9 +1531,9 @@ module.exports = [
 		"_id": "10.2.2"
 	},
 	{
-		"questiontext": ' ',
-		"answertype": 0,
-		"answers": [""],
+		"questiontext": 'Access to all audit trails?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.2.3"
 	},
 	{
@@ -2263,10 +2269,52 @@ module.exports = [
 		"_id": "12.10.1.a"
 	},
 	{
-		"questiontext": 'Does the plan address the following, at a minimum:  * Roles, responsibilities, and communication and contact strategies in the event of a compromise including notification of the payment brands, at a minimum? * Specific incident response procedures? * Business recovery and continuity procedures? * Data backup processes? * Analysis of legal requirements for reporting compromises? * Coverage and responses of all critical system components? * Reference or inclusion of incident response procedures from the payment brands?',
+		"questiontext": 'Does the plan address the following, at a minimum:',
+		"answertype": 0,
+		"answers": [""],
+		"_id": "12.10.1.b"
+	},
+	{
+		"questiontext": 'Roles, responsibilities, and communication and contact strategies in the event of a compromise including notification of the payment brands, at a minimum',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
-		"_id": "12.10.1.b"
+		"_id": "12.10.1.b.1"
+	},
+	{
+		"questiontext": 'Specific incident response procedures?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "12.10.1.b.2"
+	},
+	{
+		"questiontext": 'Business recovery and continuity procedures?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "12.10.1.b.3"
+	},
+	{
+		"questiontext": 'Data backup processes?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "12.10.1.b.4"
+	},
+	{
+		"questiontext": 'Analysis of legal requirements for reporting compromises?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "12.10.1.b.5"
+	},
+	{
+		"questiontext": 'Coverage and responses of all critical system components?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "12.10.1.b.6"
+	},
+	{
+		"questiontext": 'Reference or inclusion of incident response procedures from the payment brands?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
+		"_id": "12.10.1.b.7"
 	},
 	{
 		"questiontext": 'Is the plan reviewed and tested at least annually, including all elements listed in Requirement 12.10.1?',

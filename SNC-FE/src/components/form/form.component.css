@@ -38,3 +38,9 @@ font-size: 24px;
     margin: 0;
   display: table;
 }
+.sticky{
+bottom:0;
+position: -webkit-sticky; /* Safari */
+position: sticky;
+
+}

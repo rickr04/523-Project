@@ -265,6 +265,10 @@ router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
         if (err) {
           return res.json({success: false, message: err.message});
         } else {
+          if(req.body.action == "save"){
+            return res.json({success: true, message: "Success"});
+          }
+          else{
           req.body.answers = acctJSON;
           s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:req.params.templateid+'.pdf'}, req.body, (err, data) => {
             if (err) {
@@ -280,6 +284,7 @@ router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
             }
           });
         }
+      }
       });
     }
   });

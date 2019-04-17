@@ -157,7 +157,7 @@ module.exports = [
 		"_id": "1.3.6"
 	},
 	{
-		"questiontext": 'Are methods in place to prevent the disclosure of private IP addresses and routing information to the Internet?    <br/><br/> Note: Methods to obscure IP addressing may include, but are not limited to:   * Network Address Translation (NAT)  * Placing servers containing cardholder data behind proxy servers/firewalls,  * Removal or filtering of route advertisements for private networks that employ registered addressing, Internal use of RFC1918 address space instead of registered addresses.',
+		"questiontext": 'Are methods in place to prevent the disclosure of private IP addresses and routing information to the Internet?    <br/><br/> Note: Methods to obscure IP addressing may include, but are not limited to:   <br/>- Network Address Translation (NAT)  <br/>- Placing servers containing cardholder data behind proxy servers/firewalls,  <br/>- Removal or filtering of route advertisements for private networks that employ registered addressing, Internal use of RFC1918 address space instead of registered addresses.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "1.3.7.a"
@@ -181,7 +181,7 @@ module.exports = [
 		"_id": "1.4.b"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for managing firewalls: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for managing firewalls: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "1.5"
@@ -253,7 +253,7 @@ module.exports = [
 		"_id": "2.2.c"
 	},
 	{
-		"questiontext": 'Do system configuration standards include all of the following:  * Changing of all vendor-supplied defaults and elimination of unnecessary default accounts? * Implementing only one primary function per server to prevent functions that require different security levels from co-existing on the same server? * Enabling only necessary services, protocols, daemons, etc., as required for the function of the system? * Implementing additional security features for any required services, protocols or daemons that are considered to be insecure? * Configuring system security parameters to prevent misuse? * Removing all unnecessary functionality, such as scripts, drivers, features, subsystems, file systems, and unnecessary web servers?',
+		"questiontext": 'Do system configuration standards include all of the following:  <br/>- Changing of all vendor-supplied defaults and elimination of unnecessary default accounts? <br/>- Implementing only one primary function per server to prevent functions that require different security levels from co-existing on the same server? <br/>- Enabling only necessary services, protocols, daemons, etc., as required for the function of the system? <br/>- Implementing additional security features for any required services, protocols or daemons that are considered to be insecure? <br/>- Configuring system security parameters to prevent misuse? <br/>- Removing all unnecessary functionality, such as scripts, drivers, features, subsystems, file systems, and unnecessary web servers?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "2.2.d"
@@ -367,7 +367,7 @@ module.exports = [
 		"_id": "2.4.b"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for managing vendor defaults and other security parameters:  * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for managing vendor defaults and other security parameters:  <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "2.5"
@@ -439,7 +439,7 @@ module.exports = [
 		"_id": "3.2.d"
 	},
 	{
-		"questiontext": 'The full contents of any track (from the magnetic stripe located on the back of a card, equivalent data contained on a chip, or elsewhere) are not stored after authorization? This data is alternatively called full track, track, track 1, track 2, and magnetic-stripe data.    <br/><br/> Note: In the normal course of business, the following data elements from the magnetic stripe may need to be retained:  * The cardholder’s name,  * Primary account number (PAN),  * Expiration date, and  * Service code  To minimize risk, store only these data elements as needed for business.',
+		"questiontext": 'The full contents of any track (from the magnetic stripe located on the back of a card, equivalent data contained on a chip, or elsewhere) are not stored after authorization? This data is alternatively called full track, track, track 1, track 2, and magnetic-stripe data.    <br/><br/> Note: In the normal course of business, the following data elements from the magnetic stripe may need to be retained:  <br/>- The cardholder’s name,  <br/>- Primary account number (PAN),  <br/>- Expiration date, and  <br/>- Service code  To minimize risk, store only these data elements as needed for business.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.2.1"
@@ -463,7 +463,7 @@ module.exports = [
 		"_id": "3.3"
 	},
 	{
-		"questiontext": 'Is PAN rendered unreadable anywhere it is stored (including data repositories, portable digital media, backup media, and in audit logs), by using any of the following approaches? * One-way hashes based on strong cryptography (hash must be of the entire PAN) * Truncation (hashing cannot be used to replace the truncated segment of PAN) * Index tokens and pads (pads must be securely stored) * Strong cryptography with associated key management processes and procedures.    <br/><br/> Note: It is a relatively trivial effort for a malicious individual to reconstruct original PAN data if they have access to both the truncated and hashed version of a PAN. Where hashed and truncated versions of the same PAN are present in an entity’s environment, additional controls must be in place to ensure that the hashed and truncated versions cannot be correlated to reconstruct the original PAN.',
+		"questiontext": 'Is PAN rendered unreadable anywhere it is stored (including data repositories, portable digital media, backup media, and in audit logs), by using any of the following approaches? <br/>- One-way hashes based on strong cryptography (hash must be of the entire PAN) <br/>- Truncation (hashing cannot be used to replace the truncated segment of PAN) <br/>- Index tokens and pads (pads must be securely stored) <br/>- Strong cryptography with associated key management processes and procedures.    <br/><br/> Note: It is a relatively trivial effort for a malicious individual to reconstruct original PAN data if they have access to both the truncated and hashed version of a PAN. Where hashed and truncated versions of the same PAN are present in an entity’s environment, additional controls must be in place to ensure that the hashed and truncated versions cannot be correlated to reconstruct the original PAN.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.4"
@@ -499,7 +499,7 @@ module.exports = [
 		"_id": "3.5"
 	},
 	{
-		"questiontext": 'For service providers only: Is a documented description of the cryptographic architecture maintained that includes: * Details of all algorithms, protocols, and keys used for the protection of cardholder data, including key strength and expiry date, * Description of the key usage for each key, * Inventory of any HSMs and other SCDs used for key management?    <br/><br/> Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: Is a documented description of the cryptographic architecture maintained that includes: <br/>- Details of all algorithms, protocols, and keys used for the protection of cardholder data, including key strength and expiry date, <br/>- Description of the key usage for each key, <br/>- Inventory of any HSMs and other SCDs used for key management?    <br/><br/> Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.5.1"
@@ -511,7 +511,7 @@ module.exports = [
 		"_id": "3.5.2"
 	},
 	{
-		"questiontext": 'Are secret and private cryptographic keys used to encrypt/decrypt cardholder data stored in one (or more) of the following forms at all times? * Encrypted with a key-encrypting key that is at least as strong as the data-encrypting key, and that is stored separately from the data-encrypting key * Within a secure cryptographic device (such as a hardware (host) security module (HSM) or PTS-approved point-of-interaction device) * As at least two full-length key components or key shares, in accordance with an industry-accepted method.    <br/><br/> Note: It is not required that public keys be stored in one of these forms.',
+		"questiontext": 'Are secret and private cryptographic keys used to encrypt/decrypt cardholder data stored in one (or more) of the following forms at all times? <br/>- Encrypted with a key-encrypting key that is at least as strong as the data-encrypting key, and that is stored separately from the data-encrypting key <br/>- Within a secure cryptographic device (such as a hardware (host) security module (HSM) or PTS-approved point-of-interaction device) <br/>- As at least two full-length key components or key shares, in accordance with an industry-accepted method.    <br/><br/> Note: It is not required that public keys be stored in one of these forms.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.5.3"
@@ -524,8 +524,8 @@ module.exports = [
 	},
 	{
 		"questiontext": 'Are all key-management processes and procedures fully documented and implemented for cryptographic keys used for encryption of cardholder data?',
-		"answertype": 0,
-		"answers": [""],
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.6.a"
 	},
 	{
@@ -583,7 +583,7 @@ module.exports = [
 		"_id": "3.6.5.c"
 	},
 	{
-		"questiontext": 'If manual clear-text key-management operations are used, do cryptographic key procedures include split knowledge and dual control of cryptographic keys as follows:  * Do split knowledge procedures require that key components are under the control of at least two people who only have knowledge of their own key components? AND * Do dual control procedures require that at least two people are required to perform any key management operations and no one person has access to the authentication materials (for example, passwords or keys) of another?    <br/><br/> Note: Examples of manual key management operations include, but are not limited to: key generation, transmission, loading, storage and destruction.',
+		"questiontext": 'If manual clear-text key-management operations are used, do cryptographic key procedures include split knowledge and dual control of cryptographic keys as follows:  <br/>- Do split knowledge procedures require that key components are under the control of at least two people who only have knowledge of their own key components? AND <br/>- Do dual control procedures require that at least two people are required to perform any key management operations and no one person has access to the authentication materials (for example, passwords or keys) of another?    <br/><br/> Note: Examples of manual key management operations include, but are not limited to: key generation, transmission, loading, storage and destruction.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.6.6"
@@ -601,7 +601,7 @@ module.exports = [
 		"_id": "3.6.8"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for protecting stored cardholder data: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for protecting stored cardholder data: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "3.7"
@@ -631,7 +631,7 @@ module.exports = [
 		"_id": "4.1.d"
 	},
 	{
-		"questiontext": 'For TLS implementations, is TLS enabled whenever cardholder data is transmitted or received?  For example, for browser-based implementations:  * “HTTPS” appears as the browser Universal Record Locator (URL) protocol, and  * Cardholder data is only requested if “HTTPS” appears as part of the URL.',
+		"questiontext": 'For TLS implementations, is TLS enabled whenever cardholder data is transmitted or received?  For example, for browser-based implementations:  <br/>- “HTTPS” appears as the browser Universal Record Locator (URL) protocol, and  <br/>- Cardholder data is only requested if “HTTPS” appears as part of the URL.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "4.1.e"
@@ -655,7 +655,7 @@ module.exports = [
 		"_id": "4.2.b"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for encrypting transmissions of cardholder data: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for encrypting transmissions of cardholder data: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "4.3"
@@ -703,19 +703,19 @@ module.exports = [
 		"_id": "5.2.c"
 	},
 	{
-		"questiontext": 'Are all anti-virus mechanisms: * Actively running? * Unable to be disabled or altered by users?    <br/><br/> Note: Anti-virus solutions may be temporarily disabled only if there is legitimate technical need, as authorized by management on a case-by-case basis. If anti-virus protection needs to be disabled for a specific purpose, it must be formally authorized. Additional security measures may also need to be implemented for the period of time during which anti-virus protection is not active.',
+		"questiontext": 'Are all anti-virus mechanisms: <br/>- Actively running? <br/>- Unable to be disabled or altered by users?    <br/><br/> Note: Anti-virus solutions may be temporarily disabled only if there is legitimate technical need, as authorized by management on a case-by-case basis. If anti-virus protection needs to be disabled for a specific purpose, it must be formally authorized. Additional security measures may also need to be implemented for the period of time during which anti-virus protection is not active.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "5.3"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for protecting systems against malware: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for protecting systems against malware: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "5.4"
 	},
 	{
-		"questiontext": 'Is there a process to identify security vulnerabilities, including the following: * Using reputable outside sources for vulnerability information? * Assigning a risk ranking to vulnerabilities that includes identification of all “high” risk and “critical” vulnerabilities?    <br/><br/> Note: Risk rankings should be based on industry best practices as well as consideration of potential impact. For example, criteria for ranking vulnerabilities may include consideration of the CVSS base score and/or the classification by the vendor, and/or type of systems affected.   Methods for evaluating vulnerabilities and assigning risk ratings will vary based on an organization’s environment and risk assessment strategy. Risk rankings should, at a minimum, identify all vulnerabilities considered to be a “high risk” to the environment. In addition to the risk ranking, vulnerabilities may be considered “critical” if they pose an imminent threat to the environment, impact critical systems, and/or would result in a potential compromise if not addressed. Examples of critical systems may include security systems, public-facing devices and systems, databases, and other systems that store, process or transmit cardholder data.',
+		"questiontext": 'Is there a process to identify security vulnerabilities, including the following: <br/>- Using reputable outside sources for vulnerability information? <br/>- Assigning a risk ranking to vulnerabilities that includes identification of all “high” risk and “critical” vulnerabilities?    <br/><br/> Note: Risk rankings should be based on industry best practices as well as consideration of potential impact. For example, criteria for ranking vulnerabilities may include consideration of the CVSS base score and/or the classification by the vendor, and/or type of systems affected.   Methods for evaluating vulnerabilities and assigning risk ratings will vary based on an organization’s environment and risk assessment strategy. Risk rankings should, at a minimum, identify all vulnerabilities considered to be a “high risk” to the environment. In addition to the risk ranking, vulnerabilities may be considered “critical” if they pose an imminent threat to the environment, impact critical systems, and/or would result in a potential compromise if not addressed. Examples of critical systems may include security systems, public-facing devices and systems, databases, and other systems that store, process or transmit cardholder data.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.1"
@@ -763,7 +763,7 @@ module.exports = [
 		"_id": "6.3.1"
 	},
 	{
-		"questiontext": 'Is all custom code reviewed prior to release to production or customers to identify any potential coding vulnerability (using either manual or automated processes as follows:  * Are code changes reviewed by individuals other than the originating code author, and by individuals who are knowledgeable about code review techniques and secure coding practices? * Do code reviews ensure code is developed according to secure coding guidelines? * Are appropriate corrections are implemented prior to release? * Are code review results are reviewed and approved by management prior to release?    <br/><br/> Note: This requirement for code reviews applies to all custom code (both internal and public-facing), as part of the system development life cycle. Code reviews can be conducted by knowledgeable internal personnel or third parties. Public-facing web applications are also subject to additional controls, to address ongoing threats and vulnerabilities after implementation, as defined at PCI DSS Requirement 6.6.',
+		"questiontext": 'Is all custom code reviewed prior to release to production or customers to identify any potential coding vulnerability (using either manual or automated processes as follows:  <br/>- Are code changes reviewed by individuals other than the originating code author, and by individuals who are knowledgeable about code review techniques and secure coding practices? <br/>- Do code reviews ensure code is developed according to secure coding guidelines? <br/>- Are appropriate corrections are implemented prior to release? <br/>- Are code review results are reviewed and approved by management prior to release?    <br/><br/> Note: This requirement for code reviews applies to all custom code (both internal and public-facing), as part of the system development life cycle. Code reviews can be conducted by knowledgeable internal personnel or third parties. Public-facing web applications are also subject to additional controls, to address ongoing threats and vulnerabilities after implementation, as defined at PCI DSS Requirement 6.6.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.3.2"
@@ -805,7 +805,7 @@ module.exports = [
 		"_id": "6.4.4"
 	},
 	{
-		"questiontext": 'Are change-control procedures documented and require the following? * Documentation of impact * Documented change control approval by authorized parties * Functionality testing to verify that the change does not adversely impact the security of the system * Back-out procedures',
+		"questiontext": 'Are change-control procedures documented and require the following? <br/>- Documentation of impact <br/>- Documented change control approval by authorized parties <br/>- Functionality testing to verify that the change does not adversely impact the security of the system <br/>- Back-out procedures',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.4.5.a"
@@ -907,55 +907,55 @@ module.exports = [
 		"_id": "6.5.6"
 	},
 	{
-		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  * Do coding techniques address cross-site scripting (XSS) vulnerabilities?',
+		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  <br/>- Do coding techniques address cross-site scripting (XSS) vulnerabilities?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.5.7"
 	},
 	{
-		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  * Do coding techniques address improper access control such as insecure direct object references, failure to restrict URL access, directory traversal, and failure to restrict user access to functions?',
+		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  <br/>- Do coding techniques address improper access control such as insecure direct object references, failure to restrict URL access, directory traversal, and failure to restrict user access to functions?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.5.8"
 	},
 	{
-		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  * Do coding techniques address cross-site request forgery (CSRF)?',
+		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  <br/>- Do coding techniques address cross-site request forgery (CSRF)?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.5.9"
 	},
 	{
-		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  * Do coding techniques address broken authentication and session management?',
+		"questiontext": 'For web applications and application interfaces (internal or external), are applications developed based on secure coding guidelines to protect applications from the following additional vulnerabilities:  <br/>- Do coding techniques address broken authentication and session management?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.5.10"
 	},
 	{
-		"questiontext": 'For public-facing web applications, are new threats and vulnerabilities addressed on an ongoing basis, and are these applications protected against known attacks by applying either of the following methods?  * Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, as follows: - At least annually - After any changes - By an organization that specializes in application security - That, at a minimum, all vulnerabilities in Requirement 6.5 are included in the assessment - That all vulnerabilities are corrected - That the application is re-evaluated after the corrections    <br/><br/> Note: This assessment is not the same as the vulnerability scans performed for Requirement 11.2. – OR – * Installing an automated technical solution that detects and prevents web-based attacks (for example, a web-application firewall) as follows: - Is situated in front of public-facing web applications to detect and prevent web-based attacks. - Is actively running and up to date as applicable. - Is generating audit logs. - Is configured to either block web-based attacks, or generate an alert that is immediately investigated',
+		"questiontext": 'For public-facing web applications, are new threats and vulnerabilities addressed on an ongoing basis, and are these applications protected against known attacks by applying either of the following methods?  <br/>- Reviewing public-facing web applications via manual or automated application vulnerability security assessment tools or methods, as follows: - At least annually - After any changes - By an organization that specializes in application security - That, at a minimum, all vulnerabilities in Requirement 6.5 are included in the assessment - That all vulnerabilities are corrected - That the application is re-evaluated after the corrections    <br/><br/> Note: This assessment is not the same as the vulnerability scans performed for Requirement 11.2. – OR – <br/>- Installing an automated technical solution that detects and prevents web-based attacks (for example, a web-application firewall) as follows: - Is situated in front of public-facing web applications to detect and prevent web-based attacks. - Is actively running and up to date as applicable. - Is generating audit logs. - Is configured to either block web-based attacks, or generate an alert that is immediately investigated',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.6"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for developing and maintaining secure systems and applications: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for developing and maintaining secure systems and applications: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "6.7"
 	},
 	{
-		"questiontext": 'Is access to system components and cardholder data limited to only those individuals whose jobs require such access, as follows:',
-		"answertype": 0,
-		"answers": [""],
+		"questiontext": 'Is access to system components and cardholder data limited to only those individuals whose jobs require such access, as follows: <br/>- Defining access needs and privilege assignments for each role <br/>- Restriction of access to privileged user IDs to least privileges necessary to perform job responsibilities, <br/>- Assignment of access based on individual personnel’s job classification and function <br/>- Documented approval (electronically or in writing) by authorized parties for all access, including listing of specific privileges approved',
+		"answertype": 1,
+		"answers":["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "7.1"
 	},
 	{
-		"questiontext": 'Are access needs for each role defined, including: * System components and data resources that each role needs to access for their job function? * Level of privilege required (for example, user, administrator, etc.) for accessing resources?',
+		"questiontext": 'Are access needs for each role defined, including: <br/>- System components and data resources that each role needs to access for their job function? <br/>- Level of privilege required (for example, user, administrator, etc.) for accessing resources?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "7.1.1"
 	},
 	{
-		"questiontext": 'Is access to privileged user IDs restricted as follows: * To least privileges necessary to perform job responsibilities? * Assigned only to roles that specifically require that privileged access?',
+		"questiontext": 'Is access to privileged user IDs restricted as follows: <br/>- To least privileges necessary to perform job responsibilities? <br/>- Assigned only to roles that specifically require that privileged access?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "7.1.2"
@@ -997,7 +997,7 @@ module.exports = [
 		"_id": "7.2.3"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for restricting access to cardholder data: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for restricting access to cardholder data: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "7.3"
@@ -1069,7 +1069,7 @@ module.exports = [
 		"_id": "8.1.8"
 	},
 	{
-		"questiontext": 'In addition to assigning a unique ID, is one or more of the following methods employed to authenticate all users?  * Something you know, such as a password or passphrase * Something you have, such as a token device or smart card * Something you are, such as a biometric',
+		"questiontext": 'In addition to assigning a unique ID, is one or more of the following methods employed to authenticate all users?  <br/>- Something you know, such as a password or passphrase <br/>- Something you have, such as a token device or smart card <br/>- Something you are, such as a biometric',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.2"
@@ -1093,7 +1093,7 @@ module.exports = [
 		"_id": "8.2.2"
 	},
 	{
-		"questiontext": 'Are user password parameters configured to require passwords/passphrases meet the following? * A minimum password length of at least seven characters * Contain both numeric and alphabetic characters  Alternatively, the passwords/passphrases must have complexity and strength at least equivalent to the parameters specified above.',
+		"questiontext": 'Are user password parameters configured to require passwords/passphrases meet the following? <br/>- A minimum password length of at least seven characters <br/>- Contain both numeric and alphabetic characters  Alternatively, the passwords/passphrases must have complexity and strength at least equivalent to the parameters specified above.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.2.3.a"
@@ -1159,13 +1159,13 @@ module.exports = [
 		"_id": "8.4.a"
 	},
 	{
-		"questiontext": 'Do authentication policies and procedures include the following? * Guidance on selecting strong authentication credentials * Guidance for how users should protect their authentication credentials * Instructions not to reuse previously used passwords * Instructions that users should change passwords if there is any suspicion the password could be compromised',
+		"questiontext": 'Do authentication policies and procedures include the following? <br/>- Guidance on selecting strong authentication credentials <br/>- Guidance for how users should protect their authentication credentials <br/>- Instructions not to reuse previously used passwords <br/>- Instructions that users should change passwords if there is any suspicion the password could be compromised',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.4.b"
 	},
 	{
-		"questiontext": 'Are group, shared, or generic accounts, passwords, or other authentication methods prohibited as follows: * Generic user IDs and accounts are disabled or removed; * Shared user IDs for system administration activities and other critical functions do not exist; and * Shared and generic user IDs are not used to administer any system components?',
+		"questiontext": 'Are group, shared, or generic accounts, passwords, or other authentication methods prohibited as follows: <br/>- Generic user IDs and accounts are disabled or removed; <br/>- Shared user IDs for system administration activities and other critical functions do not exist; and <br/>- Shared and generic user IDs are not used to administer any system components?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.5"
@@ -1177,7 +1177,7 @@ module.exports = [
 		"_id": "8.5.1"
 	},
 	{
-		"questiontext": 'Where other authentication mechanisms are used (for example, physical or logical security tokens, smart cards, and certificates, etc.), is the use of these mechanisms assigned as follows? * Authentication mechanisms must be assigned to an individual account and not shared among multiple accounts * Physical and/or logical controls must be in place to ensure only the intended account can use that mechanism to gain access',
+		"questiontext": 'Where other authentication mechanisms are used (for example, physical or logical security tokens, smart cards, and certificates, etc.), is the use of these mechanisms assigned as follows? <br/>- Authentication mechanisms must be assigned to an individual account and not shared among multiple accounts <br/>- Physical and/or logical controls must be in place to ensure only the intended account can use that mechanism to gain access',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.6"
@@ -1207,7 +1207,7 @@ module.exports = [
 		"_id": "8.7.c"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for identification and authentication: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for identification and authentication: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "8.8"
@@ -1255,7 +1255,7 @@ module.exports = [
 		"_id": "9.1.3"
 	},
 	{
-		"questiontext": 'Are procedures developed to easily distinguish between onsite personnel and visitors, which include: * Identifying onsite personnel and visitors (for example, assigning badges),& Changing access requirements, and * Revoking terminated onsite personnel and expired visitor identification (such as ID badges)   For the purposes of Requirement 9, “onsite personnel” refers to full-time and part-time employees, temporary employees, contractors and consultants who are physically present on the entity’s premises.   A “visitor” refers to a vendor, guest of any onsite personnel, service workers, or anyone who needs to enter the facility for a short duration, usually not more than one day.',
+		"questiontext": 'Are procedures developed to easily distinguish between onsite personnel and visitors, which include: <br/>- Identifying onsite personnel and visitors (for example, assigning badges),& Changing access requirements, and <br/>- Revoking terminated onsite personnel and expired visitor identification (such as ID badges)   For the purposes of Requirement 9, “onsite personnel” refers to full-time and part-time employees, temporary employees, contractors and consultants who are physically present on the entity’s premises.   A “visitor” refers to a vendor, guest of any onsite personnel, service workers, or anyone who needs to enter the facility for a short duration, usually not more than one day.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.2.a"
@@ -1273,7 +1273,7 @@ module.exports = [
 		"_id": "9.2.c"
 	},
 	{
-		"questiontext": 'Is physical access to sensitive areas controlled for onsite personnel, as follows: * Is access authorized and based on individual job function? * Is access revoked immediately upon termination * Upon termination, are all physical access mechanisms, such as keys, access cards, etc., returned or disabled?',
+		"questiontext": 'Is physical access to sensitive areas controlled for onsite personnel, as follows: <br/>- Is access authorized and based on individual job function? <br/>- Is access revoked immediately upon termination <br/>- Upon termination, are all physical access mechanisms, such as keys, access cards, etc., returned or disabled?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.3"
@@ -1393,7 +1393,7 @@ module.exports = [
 		"_id": "9.8.a"
 	},
 	{
-		"questiontext": 'Is there a periodic media destruction policy that defines requirements for the following?  * Hard-copy materials must be crosscut shredded, incinerated, or pulped such that there is reasonable assurance the hard-copy materials cannot be reconstructed. * Storage containers used for materials that are to be destroyed must be secured. * Cardholder data on electronic media must be rendered unrecoverable (e.g. via a secure wipe program in accordance with industry-accepted standards for secure deletion, or by physically destroying the media).',
+		"questiontext": 'Is there a periodic media destruction policy that defines requirements for the following?  <br/>- Hard-copy materials must be crosscut shredded, incinerated, or pulped such that there is reasonable assurance the hard-copy materials cannot be reconstructed. <br/>- Storage containers used for materials that are to be destroyed must be secured. <br/>- Cardholder data on electronic media must be rendered unrecoverable (e.g. via a secure wipe program in accordance with industry-accepted standards for secure deletion, or by physically destroying the media).',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.8.b"
@@ -1447,7 +1447,7 @@ module.exports = [
 		"_id": "9.9.c"
 	},
 	{
-		"questiontext": 'Does the list of devices include the following?  * Make, model of device * Location of device (for example, the address of the site or facility where the device is located) * Device serial number',
+		"questiontext": 'Does the list of devices include the following?  <br/>- Make, model of device <br/>- Location of device (for example, the address of the site or facility where the device is located) <br/>- Device serial number',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.9.1.a"
@@ -1483,7 +1483,7 @@ module.exports = [
 		"_id": "9.9.3"
 	},
 	{
-		"questiontext": 'Do training materials for personnel at point-of-sale locations include the following?  * Verify the identity of any third-party persons claiming to be repair or maintenance personnel, prior to granting them access to modify or troubleshoot devices. * Do not install, replace, or return devices without verification. * Be aware of suspicious behavior around devices (for example, attempts by unknown persons to unplug or open devices). * Report suspicious behavior and indications of device tampering or substitution to appropriate personnel (for example, to a manager or security officer).',
+		"questiontext": 'Do training materials for personnel at point-of-sale locations include the following?  <br/>- Verify the identity of any third-party persons claiming to be repair or maintenance personnel, prior to granting them access to modify or troubleshoot devices. <br/>- Do not install, replace, or return devices without verification. <br/>- Be aware of suspicious behavior around devices (for example, attempts by unknown persons to unplug or open devices). <br/>- Report suspicious behavior and indications of device tampering or substitution to appropriate personnel (for example, to a manager or security officer).',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.9.3.a"
@@ -1495,7 +1495,7 @@ module.exports = [
 		"_id": "9.9.3.b"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for restricting physical access to cardholder data: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for restricting physical access to cardholder data: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "9.10"
@@ -1519,9 +1519,9 @@ module.exports = [
 		"_id": "10.2"
 	},
 	{
-		"questiontext": ' ',
-		"answertype": 0,
-		"answers": [""],
+		"questiontext": 'All individual user accesses to cardholder data?',
+		"answertype": 1,
+		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.2.1"
 	},
 	{
@@ -1693,13 +1693,13 @@ module.exports = [
 		"_id": "10.6"
 	},
 	{
-		"questiontext": 'Are written policies and procedures defined for reviewing the following at least daily, either manually or via log tools?  * All security events * Logs of all system components that store, process, or transmit CHD and/or SAD * Logs of all critical system components * Logs of all servers and system components that perform security functions (for example, firewalls, intrusion-detection systems/intrusion-prevention systems (IDS/IPS), authentication servers, e-commerce redirection servers, etc.)',
+		"questiontext": 'Are written policies and procedures defined for reviewing the following at least daily, either manually or via log tools?  <br/>- All security events <br/>- Logs of all system components that store, process, or transmit CHD and/or SAD <br/>- Logs of all critical system components <br/>- Logs of all servers and system components that perform security functions (for example, firewalls, intrusion-detection systems/intrusion-prevention systems (IDS/IPS), authentication servers, e-commerce redirection servers, etc.)',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.6.1.a"
 	},
 	{
-		"questiontext": 'Are the following logs and security events reviewed at least daily, either manually or via log tools?  * All security events * Logs of all system components that store, process, or transmit CHD and/or SAD * Logs of all critical system components * Logs of all servers and system components that perform security functions (for example, firewalls, intrusion-detection systems/intrusion-prevention systems (IDS/IPS), authentication servers, e-commerce redirection servers, etc.)',
+		"questiontext": 'Are the following logs and security events reviewed at least daily, either manually or via log tools?  <br/>- All security events <br/>- Logs of all system components that store, process, or transmit CHD and/or SAD <br/>- Logs of all critical system components <br/>- Logs of all servers and system components that perform security functions (for example, firewalls, intrusion-detection systems/intrusion-prevention systems (IDS/IPS), authentication servers, e-commerce redirection servers, etc.)',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.6.1.b"
@@ -1753,7 +1753,7 @@ module.exports = [
 		"_id": "10.8"
 	},
 	{
-		"questiontext": 'Are processes implemented for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of:  * Firewalls * IDS/IPS * FIM * Anti-virus * Physical access controls * Logical access controls * Audit logging mechanisms * Segmentation controls (if used)',
+		"questiontext": 'Are processes implemented for the timely detection and reporting of failures of critical security control systems, including but not limited to failure of:  <br/>- Firewalls <br/>- IDS/IPS <br/>- FIM <br/>- Anti-virus <br/>- Physical access controls <br/>- Logical access controls <br/>- Audit logging mechanisms <br/>- Segmentation controls (if used)',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.8.a"
@@ -1771,19 +1771,19 @@ module.exports = [
 		"_id": "10.8.1"
 	},
 	{
-		"questiontext": 'Are processes for responding to critical security control failures defined and implemented, and include: * Restoring security functions * Identifying and documenting the duration (date and time start to end) of the security failure * Identifying and documenting cause(s) of failure, including root cause, and documenting remediation required to address root cause * Identifying and addressing any security issues that arose during the failure * Implementing controls to prevent cause of failure from reoccurring * Resuming monitoring of security controls?',
+		"questiontext": 'Are processes for responding to critical security control failures defined and implemented, and include: <br/>- Restoring security functions <br/>- Identifying and documenting the duration (date and time start to end) of the security failure <br/>- Identifying and documenting cause(s) of failure, including root cause, and documenting remediation required to address root cause <br/>- Identifying and addressing any security issues that arose during the failure <br/>- Implementing controls to prevent cause of failure from reoccurring <br/>- Resuming monitoring of security controls?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.8.1.a"
 	},
 	{
-		"questiontext": 'Are failures in critical security controls documented, including: * Identification of cause(s) of the failure, including root cause * Duration (date and time start and end) of the security failure * Details of the remediation required to address the root cause?',
+		"questiontext": 'Are failures in critical security controls documented, including: <br/>- Identification of cause(s) of the failure, including root cause <br/>- Duration (date and time start and end) of the security failure <br/>- Details of the remediation required to address the root cause?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.8.1.b"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for monitoring all access to network resources and cardholder data: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for monitoring all access to network resources and cardholder data: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "10.9"
@@ -1795,7 +1795,7 @@ module.exports = [
 		"_id": "11.1.a"
 	},
 	{
-		"questiontext": 'Does the methodology detect and identify any unauthorized wireless access points, including at least the following?  * WLAN cards inserted into system components; * Portable or mobile devices attached to system components to create a wireless access point (for example, by USB, etc.); and * Wireless devices attached to a network port or network device.',
+		"questiontext": 'Does the methodology detect and identify any unauthorized wireless access points, including at least the following?  <br/>- WLAN cards inserted into system components; <br/>- Portable or mobile devices attached to system components to create a wireless access point (for example, by USB, etc.); and <br/>- Wireless devices attached to a network port or network device.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.1.b"
@@ -1879,7 +1879,7 @@ module.exports = [
 		"_id": "11.2.3.a"
 	},
 	{
-		"questiontext": 'Does the scan process include rescans until:  * For external scans, no vulnerabilities exist that are scored 4.0 or higher by the CVSS, * For internal scans, a passing result is obtained or all “high-risk” vulnerabilities as defined in PCI DSS Requirement 6.1 are resolved?',
+		"questiontext": 'Does the scan process include rescans until:  <br/>- For external scans, no vulnerabilities exist that are scored 4.0 or higher by the CVSS, <br/>- For internal scans, a passing result is obtained or all “high-risk” vulnerabilities as defined in PCI DSS Requirement 6.1 are resolved?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.2.3.b"
@@ -1891,7 +1891,7 @@ module.exports = [
 		"_id": "11.2.3.c"
 	},
 	{
-		"questiontext": 'Does the penetration-testing methodology include the following?  * Is based on industry-accepted penetration testing approaches (for example, NIST SP800-115) * Includes coverage for the entire CDE perimeter and critical systems * Includes testing from both inside and outside the network * Includes testing to validate any segmentation and scope-reduction controls * Defines application-layer penetration tests to include, at a minimum, the vulnerabilities listed in Requirement 6.5 * Defines network-layer penetration tests to include components that support network functions as well as operating systems * Includes review and consideration of threats and vulnerabilities experienced in the last 12 months * Specifies retention of penetration testing results and remediation activities results',
+		"questiontext": 'Does the penetration-testing methodology include the following?  <br/>- Is based on industry-accepted penetration testing approaches (for example, NIST SP800-115) <br/>- Includes coverage for the entire CDE perimeter and critical systems <br/>- Includes testing from both inside and outside the network <br/>- Includes testing to validate any segmentation and scope-reduction controls <br/>- Defines application-layer penetration tests to include, at a minimum, the vulnerabilities listed in Requirement 6.5 <br/>- Defines network-layer penetration tests to include components that support network functions as well as operating systems <br/>- Includes review and consideration of threats and vulnerabilities experienced in the last 12 months <br/>- Specifies retention of penetration testing results and remediation activities results',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.3"
@@ -1939,7 +1939,7 @@ module.exports = [
 		"_id": "11.3.4.a"
 	},
 	{
-		"questiontext": 'Does penetration testing to verify segmentation controls meet the following?  * Performed at least annually and after any changes to segmentation controls/methods * Covers all segmentation controls/methods in use * Verifies that segmentation methods are operational and effective, and isolate all out-of-scope systems from systems in the CDE.',
+		"questiontext": 'Does penetration testing to verify segmentation controls meet the following?  <br/>- Performed at least annually and after any changes to segmentation controls/methods <br/>- Covers all segmentation controls/methods in use <br/>- Verifies that segmentation methods are operational and effective, and isolate all out-of-scope systems from systems in the CDE.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.3.4.b"
@@ -1981,7 +1981,7 @@ module.exports = [
 		"_id": "11.3.4.1.d"
 	},
 	{
-		"questiontext": 'Are intrusion-detection and/or intrusion-prevention techniques that detect and/or prevent intrusions into the network in place to monitor all traffic: * At the perimeter of the cardholder data environment, and * At critical points in the cardholder data environment.',
+		"questiontext": 'Are intrusion-detection and/or intrusion-prevention techniques that detect and/or prevent intrusions into the network in place to monitor all traffic: <br/>- At the perimeter of the cardholder data environment, and <br/>- At critical points in the cardholder data environment.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.4.a"
@@ -1999,7 +1999,7 @@ module.exports = [
 		"_id": "11.4.c"
 	},
 	{
-		"questiontext": 'Is a change-detection mechanism (for example, file-integrity monitoring tools) deployed to detect unauthorized modification (including changes, additions, and deletions) of critical system files, configuration files, or content files?   Examples of files that should be monitored include:  * System executables  * Application executables  * Configuration and parameter files  * Centrally stored, historical or archived, log, and audit files  * Additional critical files determined by entity (for example, through risk assessment or other means)',
+		"questiontext": 'Is a change-detection mechanism (for example, file-integrity monitoring tools) deployed to detect unauthorized modification (including changes, additions, and deletions) of critical system files, configuration files, or content files?   Examples of files that should be monitored include:  <br/>- System executables  <br/>- Application executables  <br/>- Configuration and parameter files  <br/>- Centrally stored, historical or archived, log, and audit files  <br/>- Additional critical files determined by entity (for example, through risk assessment or other means)',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.5.a"
@@ -2017,7 +2017,7 @@ module.exports = [
 		"_id": "11.5.1"
 	},
 	{
-		"questiontext": 'Are security policies and operational procedures for security monitoring and testing: * Documented * In use * Known to all affected parties?',
+		"questiontext": 'Are security policies and operational procedures for security monitoring and testing: <br/>- Documented <br/>- In use <br/>- Known to all affected parties?',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "11.6"
@@ -2035,7 +2035,7 @@ module.exports = [
 		"_id": "12.1.1"
 	},
 	{
-		"questiontext": 'Is an annual risk assessment process implemented that * Identifies critical assets, threats, and vulnerabilities, and * Results in a formal, documented analysis of risk?   Examples of risk assessment methodologies include but are not limited to OCTAVE, ISO 27005 and NIST SP 800-30.',
+		"questiontext": 'Is an annual risk assessment process implemented that <br/>- Identifies critical assets, threats, and vulnerabilities, and <br/>- Results in a formal, documented analysis of risk?   Examples of risk assessment methodologies include but are not limited to OCTAVE, ISO 27005 and NIST SP 800-30.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.2.a"
@@ -2353,7 +2353,7 @@ module.exports = [
 		"_id": "12.11"
 	},
 	{
-		"questiontext": 'Do reviews cover the following processes:  * Daily log reviews * Firewall rule-set reviews * Applying configuration standards to new systems * Responding to security alerts * Change management processes',
+		"questiontext": 'Do reviews cover the following processes:  <br/>- Daily log reviews <br/>- Firewall rule-set reviews <br/>- Applying configuration standards to new systems <br/>- Responding to security alerts <br/>- Change management processes',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.11.a"
@@ -2365,7 +2365,7 @@ module.exports = [
 		"_id": "12.11.b"
 	},
 	{
-		"questiontext": 'For service providers only: Is documentation of the quarterly review process maintained to include: * Documenting results of the reviews * Review and sign off of results by personnel assigned responsibility for the PCI DSS compliance program    <br/><br/> Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
+		"questiontext": 'For service providers only: Is documentation of the quarterly review process maintained to include: <br/>- Documenting results of the reviews <br/>- Review and sign off of results by personnel assigned responsibility for the PCI DSS compliance program    <br/><br/> Note: This requirement is a best practice until January 31, 2018, after which it becomes a requirement.',
 		"answertype": 1,
 		"answers": ["Yes", "Yes with CCW", "No", "N/A"],
 		"_id": "12.11.1"

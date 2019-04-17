@@ -24,7 +24,7 @@
 
             <ng-container *ngIf="item.question.answers.length == 1; else empty">
               <th scope="row"></th>
-              <td class="form-header">{{item.question.questiontext}}</td>
+              <td class="form-header"  [innerHTML]="item.question.questiontext"></td>
               <td></td>
             </ng-container>
 

@@ -16,6 +16,7 @@ import { Saq } from '@components/saq/saq.component';
 import { Form } from '@components/form/form.component';
 import { Details } from '@components/details/details.component';
 import { Password } from '@components/password/password.component';
+import { Ccw } from '@components/ccw/ccw.component';
 
 
 
@@ -34,7 +35,8 @@ import { Password } from '@components/password/password.component';
     Demo,
     Saq,
     Form,
-    Details
+    Details,
+    Ccw
   ],
   imports: [
     BrowserModule,

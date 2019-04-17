@@ -34,11 +34,18 @@ export class Login implements OnInit {
   submitted = false;
   skeleForm: FormGroup;
   ngOnInit() {
-    this.skeleForm = this.formBuilder.group({
-      // Ask about naming conventions
-      email: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]]
-    });
+    this.auth.callCheckAuth().subscribe(data=>{
+      if(data.data[0] == "true"){
+      this.router.navigateByUrl('/account')
+    }else{
+      this.skeleForm = this.formBuilder.group({
+        // Ask about naming conventions
+        email: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(8)]]
+      });
+    }
+  })
+
 
 
   }

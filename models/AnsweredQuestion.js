@@ -14,10 +14,11 @@ const AnsweredQuestionSchema = new mongoose.Schema({
     required: true,
     ref: 'SuperUser'
   },
-  ccw: {
-    type: Object
-  }
-  
+  ccw: [{
+    header: {type: String},
+    response: {type: String}
+  }]
+
 });
 
 const AnsweredQuestion = mongoose.model('AnsweredQuestion', AnsweredQuestionSchema);

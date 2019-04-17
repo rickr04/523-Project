@@ -8,12 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'app-saq',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+  selector: 'app-ccw',
+  templateUrl: './ccw.component.html',
+  styleUrls: ['./ccw.component.css'],
   providers: [SAQService],
 })
-export class Form implements OnInit {
+export class Ccw implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +31,7 @@ export class Form implements OnInit {
   headers = ["Requirement", "Constraints", "Objective", "Identified Risk", "Compensating Controls", "Testing of Controls", "Maintence of Controls"];
 
   ngOnInit() {
-    this.type = this.route.snapshot.paramMap.get('type');
+    this.type = "a";//this.route.snapshot.paramMap.get('type');
 
     this.loaded = false;
 

@@ -10,6 +10,8 @@ import { Saq } from '@components/saq/saq.component';
 import { Form } from '@components/form/form.component';
 import { Details } from '@components/details/details.component';
 import { Password } from '@components/password/password.component';
+import { Ccw } from '@components/ccw/ccw.component';
+
 
 
 
@@ -27,6 +29,7 @@ const routes: Routes = [
   { path: 'account', component: Account, canActivate: [AuthGuardService] },
   { path: 'account/details', component: Details, canActivate: [AuthGuardService] },
   { path: 'account/details/password', component: Password, canActivate: [AuthGuardService] },
+  { path: 'account/details/ccw', component: Ccw, canActivate: [AuthGuardService] },
    { path: 'account/pci', component: Pci, canActivate: [AuthGuardService] },
    {path: 'account/pci/saq/:type', component: Saq, canActivate: [AuthGuardService]},
    {path: 'account/pci/saq/:type/form', component: Form, canActivate: [AuthGuardService]}

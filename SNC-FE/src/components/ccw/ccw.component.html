@@ -1,104 +1,55 @@
-<div *ngIf="loaded">
-  <form [formGroup]="saqForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
-    <h2 class="card-header oswald-head  text-center">
-      Please Fill Out All Fields
-    </h2>
-    <div class="form-group card-body justify-content-center">
-
-      <!-- <input type="text" formControlName="fname" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
-    <div *ngIf="form.fname.errors" class="invalid-feedback">
-      <div *ngIf="form.fname.errors.required">Answer is required</div>
-    </div> -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" width="15%">ID</th>
-            <th scope="col" width="50%">Question</th>
-            <th scope="col" width="35%">Answer</th>
-
-          </tr>
-        </thead>
-        <tbody>
-
-        <ng-container *ngFor="let item of questions; let i = index">
-            <tr>
-            <ng-container *ngIf="item.question.answers.length == 1; else empty">
-              <th scope="row"></th>
-              <td class="form-header"  [innerHTML]="item.question.questiontext"></td>
-              <td></td>
-            </ng-container>
-
-            <ng-template #empty>
-              <th scope="row">{{item.question._id}}</th>
-              <td  [innerHTML]="item.question.questiontext">
-
-            </td>
-              <td>
-                <div class="d-flex">
-                <ng-container *ngFor="let answer of item.question.answers; let i = index" class="row">
-
-                <ng-container *ngIf="answer == item.answer; else notchecked">
-                  <ng-container *ngIf="i==1; else rest">
-                    <div class="col-4">
-                          <label [for]="answer">{{answer}}<br/>
-                                <input type="radio" [formControlName]="item.question._id" [value]="answer" >
-                            </label>
-                    </div>
-                  </ng-container>
-                    <ng-template #rest>
-                      <div class="col-2">
-                            <label [for]="answer">{{answer}}<br/>
-                                  <input type="radio" [formControlName]="item.question._id" [value]="answer" >
-                              </label>
-                      </div>
-                    </ng-template>
-                  </ng-container>
-
-                  <ng-template #notchecked>
-                  <ng-container *ngIf="i==1; else rest">
-                    <div class="col-4">
-                          <label [for]="answer">{{answer}}<br/>
-                                <input type="radio" [formControlName]="item.question._id" [value]="answer">
-                            </label>
-                    </div>
-                  </ng-container>
-                    <ng-template #rest>
-                      <div class="col-2">
-                            <label [for]="answer">{{answer}}<br/>
-                                  <input type="radio" [formControlName]="item.question._id" [value]="answer">
-                              </label>
-                      </div>
-                    </ng-template>
-                    </ng-template>
-
-                </ng-container>
-                </div>
-              </td>
-            </ng-template>
-          </tr>
-
-
-          </ng-container>
-
-        </tbody>
-      </table>
+<ng-container *ngIf="loaded==false">
+  <div class="">
+    <div class="lds-ring centered">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-
-    <div class="form-group">
-      <button class="btn btn-main">Submit</button>
-    </div>
-  </form>
-  <ng-container *ngFor="let item of questions; let i = index">
-
-    <div *ngIf="keys.includes(item.question._id)">
-      <p>HEY</p>
-      </div>
-    </ng-container>
-    
-  <div class="sticky float-right">
-    <button (click)="onSave()" class="btn btn-acclight">Save</button>
   </div>
-  <div *ngIf="withCCW">
-
-</div>
-</div>
+</ng-container>
+<div *ngIf="loaded">
+  <div *ngIf="loaded">
+    <form [formGroup]="ccwForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+      <h2 class="card-header oswald-head text-center"> Please Fill Out All Fields </h2>
+      <div class="row justify-content-center">
+        <h4 class="text-center">This is the information required for each field<br />Please follow accordingly</h4>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <h5>Constraints</h5>
+          <p>List constraints precluding compliance with the original requirement.</p>
+        </div>
+        <div class="col-2">
+          <h5>Objective</h5>
+          <p>Define the objective of the original control; identify the objective met by the compensating control.<p>
+        </div>
+        <div class="col-2">
+          <h5>Identified Risk</h5>
+          <p>Identify any additional risk posed by the lack of the original control.</p>
+        </div>
+        <div class="col-2">
+          <h5>Compensating Controls</h5>
+          <p>Define the compensating controls and explain how they address the objectives of the original control and the increased risk, if any.</p>
+        </div>
+        <div class="col-2">
+          <h5>Testing of Controls</h5>
+          <p>Define how the compensating controls were validated and tested.</p>
+        </div>
+        <div class="col-2">
+          <h5>Maintence of Controls</h5>
+          <p>Define process and controls in place to maintain compensating controls.</p>
+        </div>
+      </div>
+      <div class="form-group card-body justify-content-center">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+          <ngb-panel title="CCW Requirements">
+            <ng-template ngbPanelContent> Hey </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div>
+      <div class="form-group"> <button class="btn btn-main">Submit</button> </div>
+    </form>
+    <div class="sticky float-right"> <button (click)="onSave()" class="btn btn-acclight">Save</button> </div>
+    <div *ngIf="withCCW"> </div>
+  </div>

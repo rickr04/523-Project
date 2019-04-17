@@ -28,21 +28,27 @@ export class Login implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private skeleService: UserService,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
 
   ) { }
   submitted = false;
+  loaded: boolean;
   skeleForm: FormGroup;
   ngOnInit() {
+    this.loaded=false;
     this.auth.callCheckAuth().subscribe(data=>{
       if(data.data[0] == "true"){
-      this.router.navigateByUrl('/account')
+
+      this.router.navigateByUrl('/account');
+
     }else{
+
       this.skeleForm = this.formBuilder.group({
         // Ask about naming conventions
         email: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(8)]]
       });
+      this.loaded=true;
     }
   })
 

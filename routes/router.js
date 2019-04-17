@@ -15,14 +15,12 @@ const mongoose = require('mongoose');
 const Mail = require('../services/email-send');
 const fetch = require("node-fetch");
 
-
 var corsOptions = {
   credentials: true,
   origin: 'http://localhost:4200',
   httpOnly: false,
   secure: false,
 };
-
 
 router.options('*', cors())
 router.use(cors());
@@ -70,47 +68,41 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
   });
 });
 
-
-
-
-
-
 // Superuser login
 router.post('/api/login', cors(corsOptions), (req, res, next) => {
-var superuserdata = {
-  email: req.body.email,
-  password: req.body.password
-}
-
-SuperUser.authenticate(superuserdata.email, superuserdata.password, function(error, superuser) {
-  if (error || !superuser) {
-
-    var err = new Error('Wrong username or password.');
-    err.status = 401;
-    return next(error);
-  } else {
-    req.session.superuserId = superuser._id;
-
-    return res.status(err ? 500 : 200).send(err ? err :
-      {
-      message: "Super User has been logged in",
-      data: superuser
-    });
+  var superuserdata = {
+    email: req.body.email,
+    password: req.body.password
   }
-});
+
+  SuperUser.authenticate(superuserdata.email, superuserdata.password, function(error, superuser) {
+    if (error || !superuser) {
+
+      var err = new Error('Wrong username or password.');
+      err.status = 401;
+      return next(error);
+    } else {
+      req.session.superuserId = superuser._id;
+
+      return res.status(err ? 500 : 200).send(err ? err :
+        {
+        message: "Super User has been logged in",
+        data: superuser
+      });
+    }
+  });
 });
 
 //get superuser information
 router.get('/api/superuser/find/:_id', cors(corsOptions),function(req, res, next){
-SuperUser.findById(req.params._id).exec((err, superuser) => {
-  if (err) {
-    return res.json({success: false, message: err.message});
-  } else {
-    return res.json({success: true, data: superuser});
-  }
+  SuperUser.findById(req.params._id).exec((err, superuser) => {
+    if (err) {
+      return res.json({success: false, message: err.message});
+    } else {
+      return res.json({success: true, data: superuser});
+    }
+  });
 });
-
-})
 
 //check if authenticated
 router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
@@ -119,19 +111,15 @@ router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
   if(req.session.superuserId){
     err.status = 200;
     auth = "true";
-  }else{
+  } else {
     err.status = 401;
     auth = "false";
   }
-
   return res.json({status: err.status, data: [auth]});
-
 });
 
 router.post('/api/superuser/update/password', cors(corsOptions), (req, res, next) => {
   if (req.session && req.body._id == req.session.superuserId) {
-
-
     SuperUser.findById(req.body._id, function(err, superuser){
       if(err){
         var err = new Error('SuperUser Not Found');

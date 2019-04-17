@@ -17,6 +17,8 @@ import { Form } from '@components/form/form.component';
 import { Details } from '@components/details/details.component';
 import { Password } from '@components/password/password.component';
 import { Ccw } from '@components/ccw/ccw.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -43,6 +45,8 @@ import { Ccw } from '@components/ccw/ccw.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgbModule
+
 
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],

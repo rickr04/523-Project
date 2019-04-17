@@ -1,66 +1,75 @@
-<div class="jumbotron2">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 d-flex  justify-content-center">
-        <div class=" align-items-center">
-          <h1 class="oswald-head text-center">SAQ {{typeTemplate}} Portal</h1>
-          <br/>
-          <div *ngIf="typeTemplate == 'A'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'AEP'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'B'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'BIP'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'C'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'CVT'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'P2PE'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'D Merchant'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div *ngIf="typeTemplate == 'D Service'">
-          <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
-          </div>
-          <div class="container">
-            <div class="btn-holder">
-            <div class="text-center">
-              <div class="d-inline">
-              <p class="text-center"><button class="btn btn-acclight" id="regbutton" routerLink="form" routerLinkActive="active">Complete SAQ {{typeTemplate}}</button>
-              &nbsp;
-              <button class="btn btn-accdark" id="regbutton" (click)="flip()" routerLinkActive="active">View Previous Forms</button>
-              </div>
-              <div *ngIf="view">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">SAQ {{typeTemplate}} PDF's</th>
-                      <th scope="col">Date and Time</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let key of keys; let i = index" (click)="servePDF(i)">
-                      <th scope="row" (click)="servePDF(i)">{{key.split('/')[1]}}</th>
-                      <th >{{getTime(i)}}</th>
-                    </tr>
-                  </tbody>
-                </table>
+<ng-container *ngIf="load==false">
+  <div class="">
+    <div class="lds-ring centered">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ng-container>
+<div *ngIf="load">
+  <div class="jumbotron3">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <div class=" align-items-center">
+            <h1 class="oswald-head text-center">SAQ {{typeTemplate}} Portal</h1> <br />
+            <div *ngIf="typeTemplate == 'A'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'AEP'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'B'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'BIP'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'C'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'CVT'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'P2PE'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'D Merchant'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div *ngIf="typeTemplate == 'D Service'">
+              <h4 class="oswald-tag text-center">SAQ {{typeTemplate}} filler that explains what is is, why it is, why its important need many if statements</h4>
+            </div>
+            <div class="container">
+              <div class="btn-holder">
+                <div class="text-center">
+                  <div class="d-inline">
+                    <p class="text-center"><button class="btn btn-acclight" id="regbutton" routerLink="form" routerLinkActive="active">Complete SAQ {{typeTemplate}}</button> &nbsp; <button class="btn btn-accdark" id="regbutton" (click)="flip()"
+                        routerLinkActive="active">View Previous Forms</button>
+                  </div>
+                  <div *ngIf="view">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">SAQ {{typeTemplate}} PDF's</th>
+                          <th scope="col">Date and Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let key of keys; let i = index" (click)="servePDF(i)">
+                          <th scope="row" (click)="servePDF(i)">{{key.split('/')[1]}}</th>
+                          <th>{{getTime(i)}}</th>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-          </div>
-          </div>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

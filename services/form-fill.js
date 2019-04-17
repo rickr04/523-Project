@@ -651,7 +651,7 @@ function fillForm(writer,data, options) {
 const streams = require('memory-streams');
 const fs = require('fs');
 
-module.exports.editForm = (PDFData, formData, callback) => {
+const editForm = (PDFData, formData, callback) => {
     // Allows to read PDF from stream
     let inputStream = new hummus.PDFRStreamForBuffer(PDFData.Body);
     let outputStream = new streams.WritableStream();
@@ -670,6 +670,9 @@ module.exports.editForm = (PDFData, formData, callback) => {
     const newDocument = outputStream.toBuffer();
     callback(null, newDocument);
 }
+module.exports = editForm;
+
+
 
 // This is useless right now.
 module.exports.editCCW = (PDF, ccw, callback) => {

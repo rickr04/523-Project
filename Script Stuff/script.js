@@ -22,6 +22,7 @@ db.once('open', function () {
 
 let user = new SuperUser({
     "email":"admin",
+    "issuper": true,
     "password":"password",
     "fname":"test",
     "lname":"test",

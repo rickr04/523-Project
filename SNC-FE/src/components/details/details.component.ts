@@ -8,12 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '@services/user.service';
 
 
-
-
-
-
-
-
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -31,12 +25,10 @@ export class Details implements OnInit {
   superinfo: any[];
   loaded: boolean;
 
-
   ngOnInit() {
     this.loaded=false;
     this.superuser.getSuper().subscribe(data => {this.superinfo = data.data,   this.loaded=true, console.log(this.superinfo)});
 
   }
-
 
 }

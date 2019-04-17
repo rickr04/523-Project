@@ -27,6 +27,7 @@ export class Saq implements OnInit {
     private saq: SAQService,
 
   ) { }
+  load: boolean = false;
   loaded: boolean;
   view: boolean;
   type:string;
@@ -38,6 +39,7 @@ export class Saq implements OnInit {
 
 
   ngOnInit() {
+    this.load = true;
     this.view=false;
     this.type = this.route.snapshot.paramMap.get('type');
 

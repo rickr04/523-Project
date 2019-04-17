@@ -7,22 +7,12 @@ import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TestService } from '@services/test.service';
 
-
-
-
-
-
-
-
-//import { LaserCutterService } from '@services/lasercutter.service';
-
 @Component({
   selector: 'account-root',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
   providers: [TestService],
 })
-
 
 export class Account implements OnInit {
 
@@ -31,15 +21,6 @@ export class Account implements OnInit {
     private route: ActivatedRoute,
   ) { }
 
-
-  ngOnInit() {
-
-
-
-  }
-
-
-
-
+  ngOnInit() {  }
 
 }

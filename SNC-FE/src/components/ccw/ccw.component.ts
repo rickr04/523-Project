@@ -78,7 +78,7 @@ export class Ccw implements OnInit {
 
       console.log(data),
         //  this.questions = data.data,
-        this.buildForm()
+        this.buildCCWForm()
     });
   }
 
@@ -105,22 +105,7 @@ export class Ccw implements OnInit {
     }
   }
 
-  buildForm() {
 
-    let group = {};
-    for (let i = 0; i < this.questions.length; i++) {
-      group[`${this.questions[i].question._id}`] = this.questions[i].answer;
-      if (this.questions[i].answer == "Yes with CCW") {
-        this.keys.push(this.questions[i].question._id);
-      }
-    }
-    console.log(this.keys);
-    this.saqForm = this.formBuilder.group(group);
-    console.log(this.saqForm);
-    this.loaded = true;
-    //console.log(this.questions);
-    this.buildCCWForm();
-  }
 
   buildCCWForm() {
     let group = {};
@@ -135,6 +120,7 @@ export class Ccw implements OnInit {
 
   this.ccwForm = this.formBuilder.group(group);
   console.log(this.ccwForm);
+  this.loaded=true;
 }
 
 onSubmit() {

@@ -28,7 +28,6 @@ export class Form implements OnInit {
   enum = SAQEnum;
   questions: any[];
   keys = [];
-  headers = ["Requirement", "Constraints", "Objective", "Identified Risk", "Compensating Controls", "Testing of Controls", "Maintence of Controls"];
 
   ngOnInit() {
     this.type = this.route.snapshot.paramMap.get('type');
@@ -109,51 +108,27 @@ export class Form implements OnInit {
 
     let group = {};
     for (let i = 0; i < this.questions.length; i++) {
-      group[`${this.questions[i].question._id}`] = this.questions[i].answer;
+      group[`${this.questions[i].question._id}`] = "Yes";//this.questions[i].answer;
       if (this.questions[i].answer == "Yes with CCW") {
         this.keys.push(this.questions[i].question._id);
       }
     }
-    console.log(this.keys);
+
     this.saqForm = this.formBuilder.group(group);
-    console.log(this.saqForm);
+
     this.loaded = true;
     //console.log(this.questions);
-    this.buildCCWForm();
   }
 
-  buildCCWForm() {
-    let group = {};
-        for (let i = 0; i < this.questions.length; i++) {
-          if (this.questions[i].answer == "Yes with CCW") {
-            for (let j = 0; j < this.headers.length; j++) {
-              //console.log(`${this.questions[i].question._id}_${this.headers[j]}`);
-              group[`${this.questions[i].question._id}_${this.headers[j]}`] =  this.questions[i].ccw.response;
-        }
-        }
-      }
 
-  this.ccwForm = this.formBuilder.group(group);
-  console.log(this.ccwForm);
-}
 
 onSubmit() {
-  this.keys=[];
-for (let key in this.saqForm.value) {
-  if(this.saqForm.value[key]=="Yes with CCW"){
-      this.keys.push(key);
-  }
-};
+
   this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
 }
 
 onSave() {
-  this.keys=[];
-for (let key in this.saqForm.value) {
-  if(this.saqForm.value[key]=="Yes with CCW"){
-      this.keys.push(key);
-  }
-};
+
 
   this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
 }

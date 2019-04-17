@@ -1,104 +1,66 @@
+<ng-container *ngIf="loaded==false">
+  <div class="">
+    <div class="lds-ring centered">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ng-container>
 <div *ngIf="loaded">
   <form [formGroup]="saqForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
-    <h2 class="card-header oswald-head  text-center">
-      Please Fill Out All Fields
-    </h2>
+    <h2 class="card-header oswald-head text-center"> Please Fill Out All Fields </h2>
     <div class="form-group card-body justify-content-center">
-
-      <!-- <input type="text" formControlName="fname" placeholder="First Name"  class="form-control form-control-lg"  [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
-    <div *ngIf="form.fname.errors" class="invalid-feedback">
-      <div *ngIf="form.fname.errors.required">Answer is required</div>
-    </div> -->
       <table class="table">
         <thead>
           <tr>
             <th scope="col" width="15%">ID</th>
             <th scope="col" width="50%">Question</th>
             <th scope="col" width="35%">Answer</th>
-
           </tr>
         </thead>
         <tbody>
-
-        <ng-container *ngFor="let item of questions; let i = index">
+          <ng-container *ngFor="let item of questions; let i = index">
             <tr>
-            <ng-container *ngIf="item.question.answers.length == 1; else empty">
-              <th scope="row"></th>
-              <td class="form-header"  [innerHTML]="item.question.questiontext"></td>
-              <td></td>
-            </ng-container>
-
-            <ng-template #empty>
-              <th scope="row">{{item.question._id}}</th>
-              <td  [innerHTML]="item.question.questiontext">
-
-            </td>
-              <td>
-                <div class="d-flex">
-                <ng-container *ngFor="let answer of item.question.answers; let i = index" class="row">
-
-                <ng-container *ngIf="answer == item.answer; else notchecked">
-                  <ng-container *ngIf="i==1; else rest">
-                    <div class="col-4">
-                          <label [for]="answer">{{answer}}<br/>
-                                <input type="radio" [formControlName]="item.question._id" [value]="answer" >
-                            </label>
-                    </div>
-                  </ng-container>
-                    <ng-template #rest>
-                      <div class="col-2">
-                            <label [for]="answer">{{answer}}<br/>
-                                  <input type="radio" [formControlName]="item.question._id" [value]="answer" >
-                              </label>
-                      </div>
-                    </ng-template>
-                  </ng-container>
-
-                  <ng-template #notchecked>
-                  <ng-container *ngIf="i==1; else rest">
-                    <div class="col-4">
-                          <label [for]="answer">{{answer}}<br/>
-                                <input type="radio" [formControlName]="item.question._id" [value]="answer">
-                            </label>
-                    </div>
-                  </ng-container>
-                    <ng-template #rest>
-                      <div class="col-2">
-                            <label [for]="answer">{{answer}}<br/>
-                                  <input type="radio" [formControlName]="item.question._id" [value]="answer">
-                              </label>
-                      </div>
-                    </ng-template>
-                    </ng-template>
-
-                </ng-container>
-                </div>
-              </td>
-            </ng-template>
-          </tr>
-
-
+              <ng-container *ngIf="item.question.answers.length == 1; else empty">
+                <th scope="row"></th>
+                <td class="form-header" [innerHTML]="item.question.questiontext"></td>
+                <td></td>
+              </ng-container>
+              <ng-template #empty>
+                <th scope="row">{{item.question._id}}</th>
+                <td [innerHTML]="item.question.questiontext"> </td>
+                <td>
+                  <div class="d-flex">
+                    <ng-container *ngFor="let answer of item.question.answers; let i = index" class="row">
+                      <ng-container *ngIf="answer == item.answer; else notchecked">
+                        <ng-container *ngIf="i==1; else rest">
+                          <div class="col-4"> <label [for]="answer">{{answer}}<br /> <input type="radio" [formControlName]="item.question._id" [value]="answer"> </label> </div>
+                        </ng-container>
+                        <ng-template #rest>
+                          <div class="col-2"> <label [for]="answer">{{answer}}<br /> <input type="radio" [formControlName]="item.question._id" [value]="answer"> </label> </div>
+                        </ng-template>
+                      </ng-container>
+                      <ng-template #notchecked>
+                        <ng-container *ngIf="i==1; else rest">
+                          <div class="col-4"> <label [for]="answer">{{answer}}<br /> <input type="radio" [formControlName]="item.question._id" [value]="answer"> </label> </div>
+                        </ng-container>
+                        <ng-template #rest>
+                          <div class="col-2"> <label [for]="answer">{{answer}}<br /> <input type="radio" [formControlName]="item.question._id" [value]="answer"> </label> </div>
+                        </ng-template>
+                      </ng-template>
+                    </ng-container>
+                  </div>
+                </td>
+              </ng-template>
+            </tr>
           </ng-container>
-
         </tbody>
       </table>
     </div>
-
-    <div class="form-group">
-      <button class="btn btn-main">Submit</button>
-    </div>
+    <div class="form-group"> <button class="btn btn-main">Submit</button> </div>
   </form>
-  <ng-container *ngFor="let item of questions; let i = index">
-
-    <div *ngIf="keys.includes(item.question._id)">
-      <p>HEY</p>
-      </div>
-    </ng-container>
-    
-  <div class="sticky float-right">
-    <button (click)="onSave()" class="btn btn-acclight">Save</button>
-  </div>
-  <div *ngIf="withCCW">
-
-</div>
+  <div class="sticky float-right"> <button (click)="onSave()" class="btn btn-acclight">Save</button> </div>
+  <div *ngIf="withCCW"></div>
 </div>

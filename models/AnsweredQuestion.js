@@ -23,3 +23,13 @@ const AnsweredQuestionSchema = new mongoose.Schema({
 
 const AnsweredQuestion = mongoose.model('AnsweredQuestion', AnsweredQuestionSchema);
 module.exports = AnsweredQuestion;
+
+module.exports.getCCW = (userid, callback) => {
+  AnsweredQuestion.find({superuserid: mongoose.Types.ObjectId(userid), answer: "Yes with CCW"}).populate('question').exec((err, questions) => {
+    if (err) {
+      return callback(err);
+    } else {
+      callback(err, questions);
+    }
+  });
+}

@@ -14,6 +14,7 @@ const s3Handling = require('../services/file-upload');
 const mongoose = require('mongoose');
 const Mail = require('../services/email-send');
 const fetch = require("node-fetch");
+const AnsweredQuestion = require('../models/AnsweredQuestion')
 
 var corsOptions = {
   credentials: true,
@@ -339,6 +340,16 @@ router.get('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
           return res.json({success: true, data: populatedSAQ.answeredquestions});
         }
       });
+    }
+  });
+});
+
+router.get('/api/SAQ/:_id/getccw', (req, res, next) => {
+  AnsweredQuestion.getCCW(req.params._id, (err, answers) => {
+    if (err) {
+      return res.json({success: false, message: err.message});
+    } else {
+      return res.json({success: true, data: answers});
     }
   });
 });

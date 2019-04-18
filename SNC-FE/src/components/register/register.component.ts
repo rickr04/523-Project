@@ -35,7 +35,7 @@ export class Register implements OnInit {
   ) { }
   skeleForm: FormGroup;
   notMatch = false;
-
+  loaded:boolean=true;
   questions = ["first", "last", "email", "address", "company", "phone", "password", "passConf"];
   submitted = false;
 
@@ -77,8 +77,12 @@ export class Register implements OnInit {
       localStorage.setItem('_id', data.data._id),
       this.auth.callCheckAuth().subscribe(data => {
           this.auth.isAuthenticated(),
-          this.router.navigateByUrl('/account'),
-          this.router.navigateByUrl('/account')
+          this.loaded=false;
+          this.delay(3000).then(any=>{
+            this.router.navigateByUrl('/account'),
+            this.router.navigateByUrl('/account')
+            });
+
       }
       )
     }
@@ -86,7 +90,9 @@ export class Register implements OnInit {
 
 
   }
-
+  async delay(ms: number) {
+      await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  }
   get form() { return this.skeleForm.controls };
 
   confirmPassword(form: FormGroup) {

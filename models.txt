@@ -2,7 +2,7 @@ Current Schemas for backend models (Mainly used to help me build the front end m
 
 Users:
 
-SuperUser {
+SuperUser (This most likely should be renamed to just User, but would mean editing a lot of code) {
   email: String,
   password: String,
   fname: String,
@@ -10,35 +10,37 @@ SuperUser {
   address: String,
   company: String,
   telephone: String,
-  subusers: Array of ObjectIds referencing SubUsers
-}
-
-SubUser {
-  email: String,
-  password: String,
-  fname: String,
-  lname: String,
-  telephone: String,
-  superuserid: ObjectId referencing SuperUser
+  issuper: Boolean (True if Super, False if Sub),
+  superuser: ObjectId referencing another SuperUser (Only relevant for SubUsers),
+  subusers: Array of ObjectIds referencing SubUser (Only relevant for SuperUsers),
+  saqtemplates: Array of Strings referencing SAQTemplate (Only relevant for SubUsers)
+  businessinfo: Object containing info that is relevant to the business and used to fill out SAQs (Only relevant for SuperUsers)
 }
 
 SAQ Stuff:
 
 Question {
   questiontext: String,
-  answertype: Number (0 for free-response, 1 for MC),
-  answers: [String] (Only relevant for answertype 1, basically the choices),
+  answertype: Number (0 for free-response, 1 for MC, 2 for free-response),
+  answers: [String] (Only relevant for answertype 1, basically the possible choices),
   _id: Manually set ID to help us better track questions (This one is a string while every other ID is an ObjectId)
 }
 
 SAQTemplate {
-  name: String,
+  _id: Manually set string ID.
   questions: Array of ID strings referencing questions
 }
 
-Account SAQ {
+AccountSAQ {
   superuserid: ObjectId referencing superuserid
   name: String,
   questionsandanswers: JSON object,
-  templateid: ObjectId referencing SAQ template
+  templateid: String ID referencing SAQ template
+}
+
+AnsweredQuestion {
+  question: String ID referencing Question,
+  answer: String,
+  superuserid: ObjectId referencing supersers
+  ccw: Array of JSON objects relevant to questions answered "Yes with CCW"
 }

@@ -32,7 +32,13 @@ var AccountSAQSchema = new mongoose.Schema({
 var AccountSAQ = mongoose.model('AccountSAQ', AccountSAQSchema);
 module.exports = AccountSAQ;
 
+/**
+ * Gets JSON of account SAQ answers and CCW to build PDFs and excel sheets.
+ * @param {string} AccountSAQId - The ID of the Account SAQ
+ * @param {getAccountSAQJSONCallback} callback
+ */
 module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
+  // First we get the account SAQ and populate its fields
   AccountSAQ.findById(AccountSAQId).populate({
     path: 'answeredquestions',
     populate: {path: 'question'}
@@ -40,45 +46,71 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
     if (err) {
       callback(err)
     } else {
+      // Check to make sure answers are valid for PDF filling
       var setCheck = new Set();
       setCheck.add("Yes").add("No").add("N/A").add("Yes with CCW");
       let superuser = populatedSAQ.superuserid;
       let JSONforFill = [];
+      // If businessinfo exists, the we add it to the JSON for filling
       if (typeof superuser.businessinfo === 'object') JSONforFill = superuser.businessinfo;
-      let JSONforCCW = [];
+      let CCW = [];
+      // Add company info to JSON
       JSONforFill["Company Name"] = superuser.company;
       JSONforFill["Contact Name"] = superuser.fname + '' + superuser.lname;
       JSONforFill["Telephone"] = superuser.telephone;
+
+      // Iterate through all the answers to format the JSON correctly
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
         if (err) {
           callback(err);
         } else {
+          // If answer type is multiple choice [id+answer] = "X"
           if (item.question.answertype == 1 && item.answer != '' && setCheck.has(item.answer)) {
             JSONforFill[item.question._id+item.answer]="X";
-            if (item.answer == "Yes with CCW") JSONforCCW.push(item.ccw);
+            if (item.answer == "Yes with CCW") CCW.push(item.ccw);
+            // If it's fill in the blank [_id]=answer
           } else if (item.question.answertype == 2) {
             JSONforFill[item.question._id] = item.answer;
           }
-          if (index + 1 == array.length) callback(err, JSONforFill, JSONforCCW);
+          /**
+           * Callback passing the JSONforFill and the array of CCW obejcts
+           * @callback getAccountSAQJSONCallback
+           * @param {error} err
+           * @param {JSON} JSONforFill - JSON needed for PDF filling
+           * @param {array} CCW - Array of CCW JSONs
+           */
+          if (index + 1 == array.length) callback(err, JSONforFill, CCW);
         }
       });
     }
   });
 }
 
-module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {  
+/**
+ * Helper function that builds a new AccountSAQ and its relevant AnsweredQuestions.
+ * @param {string} templateID - The SAQ template ID
+ * @param {string} userID - The SuperUser ID
+ * @param {string} name - What you want to name the new AccountSAQ
+ * @param {buildAccountSAQCallback} callback
+ */
+let buildAccountSAQ = (templateID, userID, name, callback) => {  
   let questionIDs = [];
+  // Get and populate the relevant SAQTemplate
   SAQTemplate.findById(templateID).populate('questions').exec((err, question) => {
     if (err) {
       callback(err);
     } else {
+      // Iterate through each question
       question.questions.forEach((item, index, array) => {
+        // First check if AnsweredQuestion for that question exists for that userID
         AnsweredQuestion.findOne({question: item._id, superuserid: userID}).exec((err, tempAns) => {
           if (err) {
             callback(err);
           } else {
+            // If AnswereQuestion exists, push it to the array
             if (tempAns != null) {
               questionIDs.push(tempAns._id);
+              // If loop is done then create and save the AccountSAQ
               if (questionIDs.length == array.length) {
                 // Need to put this in a function most likely
                 let newAccountSAQ = new AccountSAQ({
@@ -95,6 +127,7 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                   }
                 });
               }
+            // If AnsweredQuestion does not exist, then create one for that userID, save it, and push it's ID to the array
             } else {
               let newAnswered = new AnsweredQuestion({
                 question: item._id,
@@ -104,8 +137,8 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                 if (err) {
                   callback(err);
                 } else {
-                  // Need to put this in a function most likely
                   questionIDs.push(savedAnswer._id);
+                  // If loop is done then create and save AccountSAQ
                   if (questionIDs.length == array.length) {
                     let newAccountSAQ = new AccountSAQ({
                       superuserid: userID,
@@ -117,6 +150,12 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
                       if (err) {
                         callback(err)
                       } else {
+                        /**
+                        * Callback passing the new AccountSAQ
+                        * @callback buildAccountSAQCallback
+                        * @param {error} err 
+                        * @param {AccountSAQ} newAccountSAQ - Newly created AccountSAQ object
+                        */
                         callback(err, newAccountSAQ);
                       }
                     });
@@ -144,7 +183,7 @@ module.exports.getAccountSAQ =  (tempID, userID, callback) => {
           if (saq) {
             callback(err, saq);
           } else {
-            AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
+            buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
               if (err) {
                 callback(err);
               } else {
@@ -188,7 +227,7 @@ module.exports.createAndUpdateSAQ = (tempID, userID, answers, callback) => {
           if (ansq) {
             updateSAQAnswers(ansq, answers, callback);
           } else {
-            AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
+            buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
               if (err) {
                 callback(err);
               } else {

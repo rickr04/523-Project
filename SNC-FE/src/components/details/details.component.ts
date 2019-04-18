@@ -24,13 +24,18 @@ export class Details implements OnInit {
   ) { }
   superinfo: any[];
   loaded: boolean;
-  subIDs: any[];
-  subs: any[];
+  subIDs: any[] =[];
+  subs: any[] =[];
 
   ngOnInit() {
     var temp =[];
     this.loaded=false;
     this.superuser.getSuper().subscribe(data => {this.superinfo = data.data; this.subIDs = data.data.subusers;
+      if(this.subIDs.length == 0){
+        this.loaded=true;
+        console.log("here");
+      }
+      else{
       for(let sub in this.subIDs){
         this.superuser.getUser(this.subIDs[sub]).subscribe(data=>{
 
@@ -43,6 +48,7 @@ export class Details implements OnInit {
                 this.loaded=true;
         }});
       };
+    }
 
 
       });

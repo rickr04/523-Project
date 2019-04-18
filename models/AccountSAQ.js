@@ -130,26 +130,6 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
   });
 }
 
-module.exports.createAndUpdateSAQ = (tempID, userID, answers, callback) => {
-  AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
-    if (err) {
-      callback(err);
-    } else {
-      if (ansq) {
-        updateSAQAnswers(ansq, answers, callback);
-      } else {
-        AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
-          if (err) {
-            callback(err);
-          } else {
-            updateSAQAnswers(ansq, answers, callback);
-          }
-        });
-      }
-    }
-  });
-}
-
 module.exports.getAccountSAQ =  (tempID, userID, callback) => {
   AccountSAQ.findOne({superuserid: userID, templateid: tempID}).exec((err, saq) => {
     if (err) {

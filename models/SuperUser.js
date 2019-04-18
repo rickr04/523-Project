@@ -46,7 +46,7 @@ var SuperUserSchema = new mongoose.Schema({
     ref: 'superuser'
   }],
   saqtemplates: [{
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'SAQTemplate'
   }],
   businessinfo: {
@@ -67,6 +67,21 @@ SuperUserSchema.pre('save', function (next) {
       next();
   })
 });
+
+SuperUserSchema.post('save', (sub, next) => {
+  console.log(sub);
+  if (!sub.issuper) {
+    SuperUser.findOneAndUpdate({_id: sub.superuser}, {$push: {subusers: sub._id}}).exec((err, super1) => {
+      if (err) {
+        next(err)
+      } else {
+        next();
+      }
+    });
+  } else {
+    next();
+  }
+})
 
 SuperUserSchema.statics.authenticate = function (email, password, callback) {
   SuperUser.findOne({ email: email })
@@ -90,22 +105,17 @@ SuperUserSchema.statics.authenticate = function (email, password, callback) {
 
 const SuperUser = module.exports = mongoose.model('SuperUser', SuperUserSchema);
 
-module.exports.addSuper = function(newSuper, callback) {  
-  bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newSuper.password, salt, (err, hash) => {
-          if (err) {
-            return callback(err);
-          } else {
-            newSuper.password = hash;
-            newSuper.save((err, sup) => {
-              if (err) {
-                callback(err);
-              } else {
-                if (!sup.issuper) SuperUser.findOneAndUpdate({_id: sup.superuser}, {$push: {subusers: sup._id}});
-                callback(err, sup);
-              }
-            });
-          }
-      });
+module.exports.SAQAssignments = (id, callback) => {
+  SuperUser.findById(id).exec((err, user) => {
+    if (err) {
+      callback(err);
+    } else {
+      console.log(user);
+      if (user.issuper) {
+        callback(err, true);
+      } else {
+        callback(err, user.saqtemplates);
+      }
+    }
   });
 }

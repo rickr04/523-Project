@@ -35,7 +35,8 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
     password: req.body.password,
     address: req.body.address,
     company: req.body.company,
-    telephone: req.body.telephone
+    telephone: req.body.telephone,
+    issuper: true
   }
 
   var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
@@ -66,6 +67,62 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
         data: superuser
     });
   }
+  });
+});
+
+// Subuser registration
+router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
+  var superUserData = {
+    email: req.body.email,
+    fname: req.body.fname,
+    lname: req.body.lname,
+    password: req.body.password,
+    address: req.body.address,
+    company: req.body.company,
+    telephone: req.body.telephone,
+    saqtemplates: req.body.saqtemplates,
+    issuper: false,
+    superuser: req.params._id
+  }
+  var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
+
+//Needs to be async for fetch call
+  SuperUser.create(superUserData,  function(error, superuser) {
+    if (error) {
+      return next(error);
+    } else {
+      if (!sup.issuper) SuperUser.findOneAndUpdate({_id: sup.superuser}, {$push: {subusers: sup._id}});
+      req.session.superuserId = superuser._id;
+
+      //this is ugly nested for now
+      var mailData = {
+        type: "register",
+        email: req.body.email,
+        name: req.body.fname,
+        company: req.body.company
+      }
+      Mail.sendMail(mailData, (err) => {
+        if (err) {
+          return next(err);
+        }
+      });
+
+
+      return res.status(error ? 500 : 200).send(error ? error : {
+        message: "Sub User has been registered",
+        data: superuser
+    });
+  }
+  });
+});
+
+router.get('/api/saqassignments/:_id', cors(corsOptions), (req, res, next) => {
+  SuperUser.SAQAssignments(req.params._id, (err, saqs) => {
+    if (err) {
+      return res.json({success: false, message: err.message});
+    } else {
+      return res.json({success: true, data: saqs});
+    }
   });
 });
 

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
-const SAQTemplate = require('./SAQTemplate.js');
-const AnsweredQuestion = require('./AnsweredQuestion.js');
+const SAQTemplate = require('./SAQTemplate');
+const AnsweredQuestion = require('./AnsweredQuestion');
+const Users = require('./SuperUser');
 
 var AccountSAQSchema = new mongoose.Schema({
   superuserid: {
@@ -65,7 +66,7 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
   });
 }
 
-module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
+module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {  
   let questionIDs = [];
   SAQTemplate.findById(templateID).populate('questions').exec((err, question) => {
     if (err) {
@@ -131,22 +132,29 @@ module.exports.buildAccountSAQ = (templateID, userID, name, callback) => {
 }
 
 module.exports.getAccountSAQ =  (tempID, userID, callback) => {
-  AccountSAQ.findOne({superuserid: userID, templateid: tempID}).exec((err, saq) => {
+  Users.findById(userID).exec((err, user) => {
     if (err) {
       callback(err);
     } else {
-      if (saq) {
-        callback(err, saq);
-      } else {
-        AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
-          if (err) {
-            callback(err);
-          } else {
+      if (!user.issuper) userID = user.superuser;
+      AccountSAQ.findOne({superuserid: userID, templateid: tempID}).exec((err, saq) => {
+        if (err) {
+          callback(err);
+        } else {
+          if (saq) {
             callback(err, saq);
+          } else {
+            AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
+              if (err) {
+                callback(err);
+              } else {
+                callback(err, saq);
+              }
+            });
           }
-        });
-      }
-    }
+        }
+      });
+    }  
   });
 }
 
@@ -168,21 +176,28 @@ let updateSAQAnswers = (ansq, answers, callback) => {
 }
 
 module.exports.createAndUpdateSAQ = (tempID, userID, answers, callback) => {
-  AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
+  Users.findById(userID).exec((err, user) => {
     if (err) {
       callback(err);
     } else {
-      if (ansq) {
-        updateSAQAnswers(ansq, answers, callback);
-      } else {
-        AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
-          if (err) {
-            callback(err);
-          } else {
+      if (!user.issuper) userID = user.superuser;
+      AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
+        if (err) {
+          callback(err);
+        } else {
+          if (ansq) {
             updateSAQAnswers(ansq, answers, callback);
+          } else {
+            AccountSAQ.buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
+              if (err) {
+                callback(err);
+              } else {
+                updateSAQAnswers(ansq, answers, callback);
+              }
+            });
           }
-        });
-      }
+        }
+      });
     }
   });
 }

@@ -108,7 +108,7 @@ export class Form implements OnInit {
 
     let group = {};
     for (let i = 0; i < this.questions.length; i++) {
-      group[`${this.questions[i].question._id}`] = "Yes";//this.questions[i].answer;
+      group[`${this.questions[i].question._id}`] = this.questions[i].answer;
       if (this.questions[i].answer == "Yes with CCW") {
         this.keys.push(this.questions[i].question._id);
       }

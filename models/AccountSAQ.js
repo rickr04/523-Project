@@ -1,8 +1,14 @@
+/** @module models/AccountSAQ */
+
 var mongoose = require('mongoose');
 const SAQTemplate = require('./SAQTemplate');
 const AnsweredQuestion = require('./AnsweredQuestion');
 const Users = require('./SuperUser');
 
+/**
+ * @class AccountSAQ
+ * @param {ObjectID} superuserid - ID referencing superuserid
+ */
 var AccountSAQSchema = new mongoose.Schema({
   superuserid: {
     type: mongoose.Schema.Types.ObjectId,
@@ -34,6 +40,8 @@ module.exports = AccountSAQ;
 
 /**
  * Gets JSON of account SAQ answers and CCW to build PDFs and excel sheets.
+ * @function getAccountSAQJSON
+ * @memberof module:models/AccountSAQ
  * @param {string} AccountSAQId - The ID of the Account SAQ
  * @param {getAccountSAQJSONCallback} callback
  */
@@ -170,18 +178,35 @@ let buildAccountSAQ = (templateID, userID, name, callback) => {
   });
 }
 
+/**
+ * Gets the account SAQ associated with a user and template
+ * @param {string} tempID - The SAQ template ID
+ * @param {string} userID - The ID of the user
+ * @param {getAccountSAQCallback} callback
+ */
 module.exports.getAccountSAQ =  (tempID, userID, callback) => {
+  // First we get user to check if they are a SuperUser
   Users.findById(userID).exec((err, user) => {
     if (err) {
       callback(err);
     } else {
+      // If they aren't a Super, we set the userID to that of the associated SuperUser
       if (!user.issuper) userID = user.superuser;
+      // We find the AccountSAQ associated with the SuperUser ID and template ID
       AccountSAQ.findOne({superuserid: userID, templateid: tempID}).exec((err, saq) => {
         if (err) {
           callback(err);
         } else {
+          // If the AccountSAQ already exists, we pass if to the callback
           if (saq) {
+            /**
+             * Callback passing the new AccountSAQ
+             * @callback getAccountSAQCallback
+             * @param {error} err
+             * @param {AccountSAQ} saq - The SAQ associated with the account
+             */
             callback(err, saq);
+          // If not we build a new one and pass the new one to the callback
           } else {
             buildAccountSAQ(tempID, userID, tempID + userID, (err, saq) => {
               if (err) {
@@ -197,35 +222,61 @@ module.exports.getAccountSAQ =  (tempID, userID, callback) => {
   });
 }
 
-let updateSAQAnswers = (ansq, answers, callback) => {
-  ansq.answeredquestions.forEach((item, index, array) => {
+/**
+ * Helper function that updates account SAQ with new answers
+ * @param {AccountSAQ} acctSAQ - The AccountSAQ to be updated
+ * @param {JSON} answers  - JSON with answer fields set to the new answers
+ * @param {updateSAQAnswersCallback} callback 
+ */
+let updateSAQAnswers = (acctSAQ, answers, callback) => {
+  // Loop through each question
+  acctSAQ.answeredquestions.forEach((item, index, array) => {
+    // If that question field does not exist in answers, we do nothing
     if (typeof answers[item.question] === 'undefined') {
-      if (index + 1 == array.length) callback(null, AccountSAQ.findById(ansq._id));
+      if (index + 1 == array.length) callback(err, acctSAQ._id);
+    // If it does exist in answers, then we update the AnsweredQuestion and save.
     } else {
       item.answer = answers[item.question];
       item.save((err) => {
         if (err) {
           callback(err);
         } else if (index + 1 == array.length) {
-          callback(null, ansq._id);
+          /**
+           * @callback updateSAQAnswersCallback
+           * @param {error} err
+           * @param {string} acctSAQ.id - The ID of the account SAQ we are updating
+           */
+          callback(err, acctSAQ._id);
         }
       });
     }
   });
 }
 
+/**
+ * Creates/Updates an SAQ with new answers
+ * @param {string} tempID - The ID of the SAQ template
+ * @param {string} userID - The user ID
+ * @param {JSON} answers - JSON with answer fields set to the new answers
+ * @param {createAndUpdateSAQCallback} callback 
+ */
 module.exports.createAndUpdateSAQ = (tempID, userID, answers, callback) => {
+  // First we need to get the user to check if they are a SuperUser
   Users.findById(userID).exec((err, user) => {
     if (err) {
       callback(err);
     } else {
+       // If they aren't a Super, we set the userID to that of the associated SuperUser
       if (!user.issuper) userID = user.superuser;
+      // Try to get a populated AccountSAQ
       AccountSAQ.findOne({superuserid: userID, templateid: tempID}).populate('answeredquestions').exec((err, ansq) => {
         if (err) {
           callback(err);
         } else {
+          // If the AccountSAQ exists already, we call updateSAQAnswers
           if (ansq) {
             updateSAQAnswers(ansq, answers, callback);
+          // If it doesn't, we create an SAQ and then update it's answers.
           } else {
             buildAccountSAQ(tempID, userID, tempID + userID, (err, ansq) => {
               if (err) {

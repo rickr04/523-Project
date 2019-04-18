@@ -64,4 +64,12 @@ export class UserService  {
         localStorage.removeItem('_id');
     }
 
+    subuser( password: string, email:string,  telephone:string, fname:string, lname:string, saqtemplates:string[]):Observable<Response> {
+        return this.http.post<Response>(this._url+"/registersub/"+this.getFromLocal(), {password, email, telephone, fname, lname,saqtemplates});
+    }
+    getUser(_id:string):Observable<Response> {
+        return this.http.get<Response>(this._url+"/superuser/find/"+_id);
+    }
+
+
 }

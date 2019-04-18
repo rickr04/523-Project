@@ -1,0 +1,80 @@
+<ng-container *ngIf="loaded==false">
+  <div class="">
+    <div class="container-fluid centered">
+      <div class="row justify-content-center">
+        <h3 class="text-center">Subuser Registration Successful</h3>
+      </div>
+      <div class="row justify-content-center">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="loaded">
+  <div class="jumbotron2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 d-flex ml-auto justify-content-center">
+          <div class=" align-items-center">
+            <ng-container>
+              <form [formGroup]="subuserForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
+                <h2 class="card-header oswald-head text-center"> Enter Subuser Information </h2>
+                <div class="form-group card-body text-center justify-content-center"> <input type="text" formControlName="fname" placeholder="First Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
+                  <div *ngIf="form.fname.errors" class="invalid-feedback">
+                    <div *ngIf="form.fname.errors.required">Answer is required</div>
+                  </div> <input type="text" formControlName="lname" placeholder="Last Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.lname.errors } " />
+                  <div *ngIf="form.lname.errors" class="invalid-feedback">
+                    <div *ngIf="form.lname.errors.required">Answer is required</div>
+                  </div> <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+                  <div *ngIf="form.email.errors" class="invalid-feedback">
+                    <div *ngIf="form.email.errors.required">Answer is required</div>
+                  </div> <input type="text" formControlName="telephone" placeholder="Phone Number" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.telephone.errors }" />
+                  <div *ngIf="form.telephone.errors" class="invalid-feedback">
+                    <div *ngIf="form.telephone.errors.required">Answer is required</div>
+                  </div> <input type="password" formControlName="password" placeholder="Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+                  <div *ngIf="form.password.errors" class="invalid-feedback">
+                    <div *ngIf="form.password.errors.required">Answer is required</div>
+                  </div> <input type="password" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.passConf.errors }" />
+                  <div *ngIf="form.passConf.errors" class="invalid-feedback">
+                    <div *ngIf="form.passConf.errors.required">Answer is required</div>
+                    <div *ngIf="notMatch">Passwords Do Not Match</div>
+                  </div>
+                  <br/>
+                  <h6 class="text-center">Assign SAQ's to Subuser</h6>
+                  <div  class="d-flex justify-content-center text-center">
+
+                  <div class="mx-auto"  *ngFor="let saq of saqs; let i = index">
+                    <ng-container *ngIf="i<5">
+                    <div class="mx-auto" >
+                    <input class="mx-auto" type="checkbox" (change)="onChange(saq, $event.target.checked)"><br/> {{saq}}<br/>
+                    </div>
+                    </ng-container>
+                  </div>
+                  </div>
+                  <br/>
+                    <div  class="d-flex">
+                  <div class="mx-auto"  *ngFor="let saq of saqs; let i = index">
+                    <ng-container *ngIf="i>4">
+                    <div class="mx-auto" >
+                    <input class="mx-auto" type="checkbox" (change)="onChange(saq, $event.target.checked)"><br/> {{saq}}<br/>
+                    </div>
+                    </ng-container>
+                  </div>
+                  </div>
+
+                </div>
+                <div class="form-group"> <button class="btn btn-main">Register</button> </div>
+              </form>
+              <div class="justify-content-center text-center"> <button class="btn btn-acclight" id="regbutton" (click)="goBack()" routerLinkActive="active">Go Back</button> </div>
+            </ng-container> <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -24,10 +24,28 @@ export class Details implements OnInit {
   ) { }
   superinfo: any[];
   loaded: boolean;
+  subIDs: any[];
+  subs: any[];
 
   ngOnInit() {
+    var temp =[];
     this.loaded=false;
-    this.superuser.getSuper().subscribe(data => {this.superinfo = data.data,   this.loaded=true, console.log(this.superinfo)});
+    this.superuser.getSuper().subscribe(data => {this.superinfo = data.data; this.subIDs = data.data.subusers;
+      for(let sub in this.subIDs){
+        this.superuser.getUser(this.subIDs[sub]).subscribe(data=>{
+
+          temp.push(data.data);
+
+        if(Number(sub) == this.subIDs.length-1){
+              this.subs = temp;
+                 console.log(this.subs);
+                  console.log(this.superinfo);
+                this.loaded=true;
+        }});
+      };
+
+
+      });
 
   }
 

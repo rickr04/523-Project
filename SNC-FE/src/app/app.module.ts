@@ -17,6 +17,7 @@ import { Form } from '@components/form/form.component';
 import { Details } from '@components/details/details.component';
 import { Password } from '@components/password/password.component';
 import { Ccw } from '@components/ccw/ccw.component';
+import { Subuser } from '@components/subuser/subuser.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -38,7 +39,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     Saq,
     Form,
     Details,
-    Ccw
+    Ccw,
+    Subuser
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,6 @@
 
             </div>
             <div class="col-md-8 justify-content-center">
-              <h4 class="text-center oswald">SuperUser Details</h4>
               <br />
               <div class="card">
                 <h4 class="card-header text-center">Personal Details</h4>
@@ -96,21 +95,19 @@
                 </div>
                 <br />
                 <div class="justify-content-center">
-                  <h5 class="text-center">SubUsers:&nbsp;</h5>
-                  <ng-container *ngIf="superinfo.subusers.length==0; else notempty">
-                    <ul>
-                      <li>
-                      No SubUsers
-                      </li>
-                    </ul>
+                  <h4 class="card-header text-center">Subusers</h4>
+                    <br />
+                  <ng-container *ngIf="subs.length==0; ">
+                    <h5 class="text-center">No Subusers</h5>
                   </ng-container>
-                  <ng-template *notempty>
-                  <ul>
-                    <li *ngFor="let sub of superinfo.subusers; let i = index">
-                      {{ sub }}
-                    </li>
-                  </ul>
-                  </ng-template>
+
+                  <ng-container *ngIf="subs.length>0">
+
+                    <ng-container *ngFor="let sub of subs; let i = index">
+                      <h5 class="text-center">{{sub.fname}} {{sub.lname}}</h5>
+                    </ng-container>
+                  </ng-container>
+                  <p class="text-center"><a class="btn btn-acclight" id="regbutton" routerLink="./subuser" role="button">Add Subuser</a></p>
                 </div>
               </div>
             </div>

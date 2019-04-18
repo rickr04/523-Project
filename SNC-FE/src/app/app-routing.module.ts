@@ -11,6 +11,8 @@ import { Form } from "@components/form/form.component";
 import { Details } from "@components/details/details.component";
 import { Password } from "@components/password/password.component";
 import { Ccw } from "@components/ccw/ccw.component";
+import { Subuser } from '@components/subuser/subuser.component';
+
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -26,6 +28,11 @@ const routes: Routes = [
   {
     path: "account/details/password",
     component: Password,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: "account/details/subuser",
+    component: Subuser,
     canActivate: [AuthGuardService]
   },
   {

@@ -1,5 +1,33 @@
-/**
- * This code (with the exception of the editForm function) is taken from the following repo: {@link https://github.com/galkahana/HummusJSSamples/tree/master/filling-form-values} <br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/form-fill.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/form-fill.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This code (with the exception of the editForm function) is taken from the following repo: {@link https://github.com/galkahana/HummusJSSamples/tree/master/filling-form-values} &lt;br>&lt;br>
  * It allows us to fill out PDF form fields using Hummus.
  * @module
  * @requires {@link https://www.npmjs.com/package/hummus}
@@ -52,7 +80,7 @@ function defaultTerminalFieldWrite(handles,fieldDictionary) {
  * Set its ON appearance as the value, and set all radio buttons appearance to off, but the selected one which should be on
  */
 function updateOptionButtonValue(handles,fieldDictionary,value) {
-    var isWidget =  fieldDictionary.exists('Subtype') && (fieldDictionary.queryObject('Subtype').toString() == 'Widget');
+    var isWidget =  fieldDictionary.exists('Subtype') &amp;&amp; (fieldDictionary.queryObject('Subtype').toString() == 'Widget');
 
     if(isWidget || ! fieldDictionary.exists('Kids')) {
         // this radio button has just one option and its in the widget. also means no kids
@@ -106,7 +134,7 @@ function updateOptionButtonValue(handles,fieldDictionary,value) {
         var fieldsReferences = writeKidsAndEndObject(handles,modifiedDict,kidsArray);
 
         // recreate widget kids, turn on or off based on their relation to the target value
-        for(var i=0;i<fieldsReferences.length;++i) {
+        for(var i=0;i&lt;fieldsReferences.length;++i) {
             var fieldReference = fieldsReferences[i];
             var sourceField;
 
@@ -143,7 +171,7 @@ function updateOptionButtonValue(handles,fieldDictionary,value) {
 
 function getOriginalTextFieldAppearanceStreamCode(handles, fieldDictionary) {
     // get the single appearance stream for the text, field. we'll use it to recreate the new one
-    var appearanceInField =  fieldDictionary.exists('Subtype') && (fieldDictionary.queryObject('Subtype').toString() == 'Widget') || !fieldDictionary.exists('Kids');
+    var appearanceInField =  fieldDictionary.exists('Subtype') &amp;&amp; (fieldDictionary.queryObject('Subtype').toString() == 'Widget') || !fieldDictionary.exists('Kids');
     var appearanceParent = null;
     if(appearanceInField) {
         appearanceParent = fieldDictionary;
@@ -276,7 +304,7 @@ function writeAppearanceXObjectForText(handles,formId,fieldsDictionary,text,inhe
             // copy all but the keys that exist already
             var dr = handles.reader.queryDictionaryObject(handles.acroformDict,'DR').toPDFDictionary().toJSObject();
                 Object.getOwnPropertyNames(dr).forEach(function(element,index,array) {
-                    if (element !== 'ProcSet' && (!textOptions || element !== 'Font')) {
+                    if (element !== 'ProcSet' &amp;&amp; (!textOptions || element !== 'Font')) {
                         args.pageResourcesDictionaryContext.writeKey(element);
                         handles.copyingContext.copyDirectObjectAsIs(dr[element]);
                     }
@@ -358,7 +386,7 @@ function updateTextValue(handles,fieldDictionary,value,isRich,inheritedPropertie
         value = {v:value,rv:value};
     }
 
-    var appearanceInField =  fieldDictionary.exists('Subtype') && (fieldDictionary.queryObject('Subtype').toString() == 'Widget') || !fieldDictionary.exists('Kids');
+    var appearanceInField =  fieldDictionary.exists('Subtype') &amp;&amp; (fieldDictionary.queryObject('Subtype').toString() == 'Widget') || !fieldDictionary.exists('Kids');
     var fieldsToRemove = {'V':-1};
     if(appearanceInField) {
         // add skipping AP if in field (and not in a child widget)
@@ -386,7 +414,7 @@ function updateTextValue(handles,fieldDictionary,value,isRich,inheritedPropertie
 }
 
 function updateChoiceValue(handles,fieldDictionary,value,inheritedProperties) {
-    var appearanceInField =  fieldDictionary.exists('Subtype') && (fieldDictionary.queryObject('Subtype').toString() == 'Widget') || !fieldDictionary.exists('Kids');
+    var appearanceInField =  fieldDictionary.exists('Subtype') &amp;&amp; (fieldDictionary.queryObject('Subtype').toString() == 'Widget') || !fieldDictionary.exists('Kids');
     var fieldsToRemove = {'V':-1};
     if(appearanceInField) {
         // add skipping AP if in field (and not in a child widget)
@@ -435,7 +463,7 @@ function updateFieldWithValue(handles,fieldDictionary,value,inheritedProperties)
     // the rest is fairly type dependent, so let's check the type
     switch(fieldType) {
         case 'Btn': {
-			if((flags>>16) & 1)
+			if((flags>>16) &amp; 1)
 			{
 				// push button. can't write a value. forget it.
                defaultTerminalFieldWrite(handles,fieldDictionary);
@@ -443,13 +471,13 @@ function updateFieldWithValue(handles,fieldDictionary,value,inheritedProperties)
 			else
 			{
                 // checkbox or radio button
-                updateOptionButtonValue(handles,fieldDictionary,(flags>>15) & 1 ? value : (value ? 0:null));
+                updateOptionButtonValue(handles,fieldDictionary,(flags>>15) &amp; 1 ? value : (value ? 0:null));
 			}
             break;
         }
         case 'Tx': {
             // rich or plain text
-            updateTextValue(handles,fieldDictionary,value,(flags>>25) & 1,inheritedProperties);
+            updateTextValue(handles,fieldDictionary,value,(flags>>25) &amp; 1,inheritedProperties);
             break;
         }
         case 'Ch': {
@@ -730,3 +758,26 @@ module.exports.editCCW = (PDF, ccw, callback) => {
     let newDocument = out.toBuffer();
     callback(null, newDocument);
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-models_AccountSAQ.html">models/AccountSAQ</a></li><li><a href="module-models_AnsweredQuestion.html">models/AnsweredQuestion</a></li><li><a href="module-models_Question.html">models/Question</a></li><li><a href="module-models_SAQTemplate.html">models/SAQTemplate</a></li><li><a href="module-models_SuperUser.html">models/SuperUser</a></li><li><a href="module-routes_router.html">routes/router</a></li><li><a href="module-services_file-upload.html">services/file-upload</a></li><li><a href="module-services_form-fill.html">services/form-fill</a></li></ul><h3>Classes</h3><ul><li><a href="module-models_AccountSAQ-AccountSAQ.html">AccountSAQ</a></li><li><a href="module-models_AnsweredQuestion-AnsweredQuestion.html">AnsweredQuestion</a></li><li><a href="module-models_Question-Question.html">Question</a></li><li><a href="module-models_SAQTemplate-SAQTemplate.html">SAQTemplate</a></li><li><a href="module-models_SuperUser-SuperUser.html">SuperUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Apr 19 2019 18:55:25 GMT-0500 (GMT-05:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+    "source": {
+        "include": ["./models/", "./routes/", "./services/"],
+        "exclude": ["./SNC-FE/"]
+    }
+}

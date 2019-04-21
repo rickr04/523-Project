@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: routes/router.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: routes/router.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Express router.
  * @module
  * @requires {@link https://www.npmjs.com/package/express}
@@ -73,59 +101,48 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
 
 // Subuser registration
 router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
+  var superUserData = {
+    email: req.body.email,
+    fname: req.body.fname,
+    lname: req.body.lname,
+    password: req.body.password,
+    address: req.body.address,
+    company: req.body.company,
+    telephone: req.body.telephone,
+    saqtemplates: req.body.saqtemplates,
+    issuper: false,
+    superuser: req.params._id
+  }
+  var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
 
-  SuperUser.findById(req.params._id).exec((err, superuser) => {
-    if (err) {
-      return res.json({success: false, message: err.message});
+//Needs to be async for fetch call
+  SuperUser.create(superUserData,  function(error, superuser) {
+    if (error) {
+      return next(error);
     } else {
-      var superUserData = {
+      if (!sup.issuper) SuperUser.findOneAndUpdate({_id: sup.superuser}, {$push: {subusers: sup._id}});
+      req.session.superuserId = superuser._id;
+
+      //this is ugly nested for now
+      var mailData = {
+        type: "register",
         email: req.body.email,
-        fname: req.body.fname,
-        lname: req.body.lname,
-        password: req.body.password,
-        address: superuser.address,
-        company: superuser.company,
-        telephone: req.body.telephone,
-        saqtemplates: req.body.saqtemplates,
-        issuper: false,
-        superuser: req.params._id
-      };
-
-        var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
-
-      //Needs to be async for fetch call
-        SuperUser.create(superUserData,  function(error, sup) {
-          if (error) {
-            return next(error);
-          } else {
-            if (!sup.issuper) SuperUser.findOneAndUpdate({_id: sup.superuser}, {$push: {subusers: sup._id}});
-            req.session.superuserId = superuser._id;
-
-            //this is ugly nested for now
-            var mailData = {
-              type: "register",
-              email: req.body.email,
-              name: req.body.fname,
-              company: req.body.company
-            }
-            Mail.sendMail(mailData, (err) => {
-              if (err) {
-                return next(err);
-              }
-            });
-
-
-            return res.status(error ? 500 : 200).send(error ? error : {
-              message: "Sub User has been registered",
-              data: superuser
-          });
+        name: req.body.fname,
+        company: req.body.company
+      }
+      Mail.sendMail(mailData, (err) => {
+        if (err) {
+          return next(err);
         }
-        });
+      });
 
-    }
+
+      return res.status(error ? 500 : 200).send(error ? error : {
+        message: "Sub User has been registered",
+        data: superuser
+    });
+  }
   });
-
-
 });
 
 router.get('/api/saqassignments/:_id', cors(corsOptions), (req, res, next) => {
@@ -189,7 +206,7 @@ router.get('/api/superuser/auth', cors(corsOptions),function(req, res, next){
 });
 
 router.post('/api/superuser/update/password', cors(corsOptions), (req, res, next) => {
-  if (req.session && req.body._id == req.session.superuserId) {
+  if (req.session &amp;&amp; req.body._id == req.session.superuserId) {
     SuperUser.findById(req.body._id, function(err, superuser){
       if(err){
         var err = new Error('SuperUser Not Found');
@@ -232,7 +249,7 @@ JSON format passed needs to be as follows:
 }
 */
 router.post('/api/:_id/create', cors(corsOptions), (req, res, next) => {
-  if (req.session && req.params._id == req.session.superuserId) {
+  if (req.session &amp;&amp; req.params._id == req.session.superuserId) {
     let subUserData = new SubUser();
     SubUser.addSub(subUserData, (err, savedSub) => {
       if (err) {
@@ -434,3 +451,26 @@ router.get('/api/test/accountSAQ', (req, res, next) => {
 });
 
 module.exports = router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-models_AccountSAQ.html">models/AccountSAQ</a></li><li><a href="module-models_AnsweredQuestion.html">models/AnsweredQuestion</a></li><li><a href="module-models_Question.html">models/Question</a></li><li><a href="module-models_SAQTemplate.html">models/SAQTemplate</a></li><li><a href="module-models_SuperUser.html">models/SuperUser</a></li><li><a href="module-routes_router.html">routes/router</a></li><li><a href="module-services_file-upload.html">services/file-upload</a></li><li><a href="module-services_form-fill.html">services/form-fill</a></li></ul><h3>Classes</h3><ul><li><a href="module-models_AccountSAQ-AccountSAQ.html">AccountSAQ</a></li><li><a href="module-models_AnsweredQuestion-AnsweredQuestion.html">AnsweredQuestion</a></li><li><a href="module-models_Question-Question.html">Question</a></li><li><a href="module-models_SAQTemplate-SAQTemplate.html">SAQTemplate</a></li><li><a href="module-models_SuperUser-SuperUser.html">SuperUser</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Apr 19 2019 18:55:25 GMT-0500 (GMT-05:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -48,7 +48,7 @@ module.exports = AccountSAQ;
  * @callback module:models/AccountSAQ~getAccountSAQJSONCallback
  * @param {error} err
  * @param {JSON} JSONforFill - JSON needed for PDF filling
- * @param {array} CCW - Array of CCW JSONs
+ * @param {array} ccw - Array of CCW JSONs
  */
 
 /**
@@ -73,7 +73,7 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
       let JSONforFill = [];
       // If businessinfo exists, the we add it to the JSON for filling
       if (typeof superuser.businessinfo === 'object') JSONforFill = superuser.businessinfo;
-      let CCW = [];
+      let ccw = [];
       // Add company info to JSON
       JSONforFill["Company Name"] = superuser.company;
       JSONforFill["Contact Name"] = superuser.fname + '' + superuser.lname;
@@ -87,12 +87,12 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
           // If answer type is multiple choice [id+answer] = "X"
           if (item.question.answertype == 1 && item.answer != '' && setCheck.has(item.answer)) {
             JSONforFill[item.question._id+item.answer]="X";
-            if (item.answer == "Yes with CCW") CCW.push(item.ccw);
+            if (item.answer == "Yes with CCW") ccw.push(item.ccw);
             // If it's fill in the blank [_id]=answer
           } else if (item.question.answertype == 2) {
             JSONforFill[item.question._id] = item.answer;
           }
-          if (index + 1 == array.length) callback(err, JSONforFill, CCW);
+          if (index + 1 == array.length) callback(err, JSONforFill, ccw);
         }
       });
     }

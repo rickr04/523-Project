@@ -4,7 +4,7 @@
  * @requires {@link https://www.npmjs.com/package/aws-sdk}
  */
 const AWS = require('aws-sdk');
-const editForm = require('../services/form-fill');
+const formFill = require('../services/form-fill');
 
 AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -26,7 +26,7 @@ module.exports = {
             if (err) {
                 callback(err, null);
             } else {
-                editForm(data, reqbody.answers, callback);
+                formFill.editForm(data, reqbody.answers, callback);
             }
         });
     },

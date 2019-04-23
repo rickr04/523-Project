@@ -79,8 +79,8 @@ export class Register implements OnInit {
           this.auth.isAuthenticated(),
           this.loaded=false;
           this.delay(3000).then(any=>{
-            this.router.navigateByUrl('/account'),
-            this.router.navigateByUrl('/account')
+            this.router.navigateByUrl('/home'),
+            this.router.navigateByUrl('/home')
             });
 
       }

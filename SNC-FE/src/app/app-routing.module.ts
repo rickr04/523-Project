@@ -8,46 +8,46 @@ import { Pci } from "@components/pci/pci.component";
 import { AuthGuardService } from "@services/authguard.service";
 import { Saq } from "@components/saq/saq.component";
 import { Form } from "@components/form/form.component";
-import { Details } from "@components/details/details.component";
+import { Welcome } from "@components/welcome/welcome.component";
 import { Password } from "@components/password/password.component";
 import { Ccw } from "@components/ccw/ccw.component";
 import { Subuser } from '@components/subuser/subuser.component';
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "home", component: Home },
+  { path: "", redirectTo: "/welcome", pathMatch: "full" },
+  { path: "welcome", component: Welcome },
   { path: "login", component: Login },
   { path: "register", component: Register },
-  { path: "account", component: Account, canActivate: [AuthGuardService] },
+  { path: "home", component: Home, canActivate: [AuthGuardService] },
   {
-    path: "account/details",
-    component: Details,
+    path: "account",
+    component: Account,
     canActivate: [AuthGuardService]
   },
   {
-    path: "account/details/password",
+    path: "account/password",
     component: Password,
     canActivate: [AuthGuardService]
   },
   {
-    path: "account/details/subuser",
+    path: "account/subuser",
     component: Subuser,
     canActivate: [AuthGuardService]
   },
+  { path: "pci", component: Pci, canActivate: [AuthGuardService] },
   {
-    path: "account/details/ccw",
+    path: "pci/ccw",
     component: Ccw,
     canActivate: [AuthGuardService]
   },
-  { path: "account/pci", component: Pci, canActivate: [AuthGuardService] },
   {
-    path: "account/pci/saq/:type",
+    path: "pci/saq/:type",
     component: Saq,
     canActivate: [AuthGuardService]
   },
   {
-    path: "account/pci/saq/:type/form",
+    path: "pci/saq/:type/form",
     component: Form,
     canActivate: [AuthGuardService]
   }

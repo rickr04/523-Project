@@ -39,7 +39,7 @@ export class Login implements OnInit {
     this.auth.callCheckAuth().subscribe(data=>{
       if(data.data[0] == "true"){
 
-      this.router.navigateByUrl('/account');
+      this.router.navigateByUrl('/home');
 
     }else{
 

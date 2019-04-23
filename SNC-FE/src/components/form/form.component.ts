@@ -120,17 +120,17 @@ export class Form implements OnInit {
     //console.log(this.questions);
   }
 
-
+submitting: boolean = false;
 
 onSubmit() {
-
-  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
+  this.submitting = true;
+  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data),this.submitting=false, this.router.navigate(['../'], { relativeTo: this.route }); });
 }
 
 onSave() {
+this.submitting = true;
 
-
-  this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
+  this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data),this.submitting=false, this.router.navigate(['../'], { relativeTo: this.route }); });
 }
 
 }

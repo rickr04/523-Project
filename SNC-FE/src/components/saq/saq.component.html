@@ -59,7 +59,12 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let key of keys; let i = index" (click)="servePDF(i)">
+                          <ng-container *ngIf="!clicked; else temp">
                           <th scope="row" (click)="servePDF(i)">{{key.split('/')[1]}}</th>
+                          </ng-container>
+                          <ng-template #temp>
+                            <th scope="row">{{key.split('/')[1]}}</th>
+                          </ng-template>
                           <th>{{getTime(i)}}</th>
                         </tr>
                       </tbody>

@@ -14,11 +14,12 @@ import { Demo } from '@components/demo/demo.component';
 import { RouterModule } from '@angular/router';
 import { Saq } from '@components/saq/saq.component';
 import { Form } from '@components/form/form.component';
-import { Details } from '@components/details/details.component';
 import { Password } from '@components/password/password.component';
 import { Ccw } from '@components/ccw/ccw.component';
 import { Subuser } from '@components/subuser/subuser.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { Welcome } from "@components/welcome/welcome.component";
+
 
 
 
@@ -38,7 +39,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     Demo,
     Saq,
     Form,
-    Details,
+    Welcome,
     Ccw,
     Subuser
   ],

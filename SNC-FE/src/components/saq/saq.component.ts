@@ -32,6 +32,7 @@ export class Saq implements OnInit {
   view: boolean;
   type:string;
   saqForm: FormGroup;
+  clicked:boolean=false;
   enum = SAQEnum;
   questions: any[];
   keys:any[];
@@ -84,9 +85,11 @@ export class Saq implements OnInit {
 
  }
 servePDF(index: any){
+  this.clicked=true;
   var key = this.keys[index];
   var fileName = key.split('/');
   this.saq.getForm(key).subscribe(data=>{
+    this.clicked=false;
     var newBlob = new Blob([data], { type: "application/pdf" });
 
       FileSaver.saveAs(newBlob, fileName[1]);

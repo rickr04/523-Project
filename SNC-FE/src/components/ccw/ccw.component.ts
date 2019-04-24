@@ -28,14 +28,15 @@ export class Ccw implements OnInit {
   enum = SAQEnum;
   questions: any[];
   keys = [];
-  headers = ["Requirement", "Constraints", "Objective", "Identified Risk", "Compensating Controls", "Testing of Controls", "Maintence of Controls"];
+  headers = ["Constraints", "Objective", "Identified Risk", "Compensating Controls", "Testing of Controls", "Maintenance of Controls"];
 
   ngOnInit() {
     this.type = "a";//this.route.snapshot.paramMap.get('type');
 
     this.loaded = false;
 
-    this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
+    this.saq.getCCW().subscribe(data => {
+
 
       this.questions = data.data.sort((n1, n2) => {
         var first = n1.question._id.split(".");
@@ -76,7 +77,7 @@ export class Ccw implements OnInit {
         return 0;
       });
 
-      console.log(data),
+      console.log(this.questions),
         //  this.questions = data.data,
         this.buildCCWForm()
     });
@@ -109,39 +110,69 @@ export class Ccw implements OnInit {
 
   buildCCWForm() {
     let group = {};
-        for (let i = 0; i < this.questions.length; i++) {
-          if (this.questions[i].answer == "Yes with CCW") {
-            for (let j = 0; j < this.headers.length; j++) {
-              //console.log(`${this.questions[i].question._id}_${this.headers[j]}`);
-              group[`${this.questions[i].question._id}_${this.headers[j]}`] =  this.questions[i].ccw.response;
+    for (let i = 0; i < this.questions.length; i++) {
+      if (this.questions[i].answer == "Yes with CCW") {
+        //  for (let j = 0; j < this.headers.length; j++) {
+        //console.log(`${this.questions[i].question._id}_${this.headers[j]}`);
+        //group[`${this.questions[i].question._id}_${this.headers[j]}`] =  this.questions[i].ccw.response;
+        group[`${this.questions[i].question._id}_${this.headers[0]}`] = this.questions[i].ccw.response;
+        group[`${this.questions[i].question._id}_${this.headers[1]}`] = this.questions[i].ccw.response;
+        group[`${this.questions[i].question._id}_${this.headers[2]}`] = this.questions[i].ccw.response;
+        group[`${this.questions[i].question._id}_${this.headers[3]}`] = this.questions[i].ccw.response;
+        group[`${this.questions[i].question._id}_${this.headers[4]}`] = this.questions[i].ccw.response;
+        group[`${this.questions[i].question._id}_${this.headers[5]}`] = this.questions[i].ccw.response;
+        //}
+      }
+    }
+
+    this.ccwForm = this.formBuilder.group(group);
+    console.log(this.ccwForm);
+    this.loaded = true;
+  }
+
+  onSubmit() {
+  console.log(this.ccwForm);
+    let currentQuestion = ""
+    let array = [];
+    let group = {};
+    Object.keys(this.ccwForm.controls).forEach(key => {
+
+
+      if (key.split("_")[0] == currentQuestion) {
+        group[`${key.split("_")[1]}`] = this.ccwForm.controls[key].value;
+
+      }
+      else{
+          if(currentQuestion !== ""){
+            array.push(group);
         }
-        }
+
+          currentQuestion = key.split("_")[0];
+
+        group = {};
+      group[`Requirement`] = key.split("_")[0];
+      group[`Constraints`] = this.ccwForm.controls[key].value;
       }
 
-  this.ccwForm = this.formBuilder.group(group);
-  console.log(this.ccwForm);
-  this.loaded=true;
-}
+    });
+    array.push(group);
 
-onSubmit() {
-  this.keys=[];
-for (let key in this.saqForm.value) {
-  if(this.saqForm.value[key]=="Yes with CCW"){
-      this.keys.push(key);
+
+    let temparray = [];
+    for(let i = 0; i < array.length; i++){
+      Object.keys(array[i]).forEach(key => {
+        temparray.push({header: key, response: array[i][key]})
+    });
+
+    this.saq.submitCCW(temparray).subscribe(data=>{console.log(data)})
+
+    temparray=[];
+  };
+
+
+
   }
-};
-  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
-}
 
-onSave() {
-  this.keys=[];
-for (let key in this.saqForm.value) {
-  if(this.saqForm.value[key]=="Yes with CCW"){
-      this.keys.push(key);
-  }
-};
 
-  this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.router.navigate(['../'], { relativeTo: this.route }); });
-}
 
 }

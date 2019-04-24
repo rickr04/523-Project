@@ -5,6 +5,7 @@ import { SAQEnum } from '@models/saqEnum.enum';
 import * as FileSaver from 'file-saver';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '@services/user.service';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -17,7 +18,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-saq',
   templateUrl: './saq.component.html',
   styleUrls: ['./saq.component.css'],
-  providers: [SAQService],
+  providers: [SAQService, UserService],
 })
 export class Saq implements OnInit {
 
@@ -25,11 +26,12 @@ export class Saq implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private saq: SAQService,
+    private user: UserService
 
   ) { }
   load: boolean = false;
-  loaded: boolean;
-  view: boolean;
+  access: boolean=false;
+  view: boolean=false;
   type:string;
   saqForm: FormGroup;
   clicked:boolean=false;
@@ -40,11 +42,21 @@ export class Saq implements OnInit {
 
 
   ngOnInit() {
-    this.load = true;
-    this.view=false;
     this.type = this.route.snapshot.paramMap.get('type');
+    this.user.getSuper().subscribe(data=>{
+      let superuser = data.data.issuper;
+      let set = new Set(data.data.saqtemplates);
+      if(!superuser && !set.has(this.getEnum(this.type))){
+        this.access=false;
+        this.load = true;
+      }else{
+      this.access=true;
+      this.load = true;
+      this.view=false;
 
-    this.loaded = false;
+    }
+  });
+
 
     this.getEnum(this.type);
   }

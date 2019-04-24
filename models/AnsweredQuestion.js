@@ -47,7 +47,7 @@ module.exports = AnsweredQuestion;
  * @param {string} userid
  * @param {getCCWCallback} callback
  */
-module.exports.getCCW = (userid, callback) => {
+module.exports.getCCW = (userID, callback) => {
   // Get user to see if they are super
   Users.findById(userID).exec((err, user) => {
     if (err) {
@@ -55,9 +55,9 @@ module.exports.getCCW = (userid, callback) => {
     } else {
       // If they aren't a Super, we set the userID to that of the associated SuperUser
       if (!user.issuper) userID = user.superuser;
-      
+
       // Query based on userid and answer
-      AnsweredQuestion.find({superuserid: mongoose.Types.ObjectId(userid), answer: "Yes with CCW"}).populate('question').exec((err, questions) => {
+      AnsweredQuestion.find({superuserid: mongoose.Types.ObjectId(userID), answer: "Yes with CCW"}).populate('question').exec((err, questions) => {
         if (err) {
           return callback(err);
         } else {

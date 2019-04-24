@@ -9,6 +9,15 @@
   </div>
 </ng-container>
 <div *ngIf="loaded">
+  <ng-container *ngIf="access==false; else accessblock">
+    <div class="centered justify-content-center text-center">
+      <h3 class="oswald text-center">Looks you don't have access to this SAQ</h3>
+      <h3 class="oswald text-center">Please contact your superuser if you think this was a mistake</h3>
+      <button class="btn btn-main text-center" routerLink="../../../">Go Back</button>
+    </div>
+
+  </ng-container>
+  <ng-template #accessblock>
   <form [formGroup]="saqForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
     <h2 class="card-header oswald-head text-center"> Please Fill Out All Fields </h2>
     <div class="form-group card-body justify-content-center">
@@ -74,4 +83,5 @@
   </form>
   <div class="sticky float-left"> <button (click)="onSave()" class="btn btn-acclight">Save</button> </div>
   <div *ngIf="withCCW"></div>
+</ng-template>
 </div>

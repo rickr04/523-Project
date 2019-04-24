@@ -4,6 +4,8 @@ import { AuthenticationService } from '@services/auth.service';
 import { SAQEnum } from '@models/saqEnum.enum';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '@services/user.service';
+
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -11,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-saq',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
-  providers: [SAQService],
+  providers: [SAQService, UserService],
 })
 export class Form implements OnInit {
 
@@ -20,9 +22,11 @@ export class Form implements OnInit {
     private router: Router,
     private saq: SAQService,
     private formBuilder: FormBuilder,
+    private user: UserService
   ) { }
-  loaded: boolean;
+  loaded: boolean = false;
   type: string;
+    access: boolean=false;
   saqForm: FormGroup;
   ccwForm: FormGroup;
   enum = SAQEnum;
@@ -31,54 +35,67 @@ export class Form implements OnInit {
 
   ngOnInit() {
     this.type = this.route.snapshot.paramMap.get('type');
+    this.user.getSuper().subscribe(data=>{
+      let superuser = data.data.issuper;
+      let set = new Set(data.data.saqtemplates);
+      if(!superuser && !set.has(this.getEnum(this.type))){
+        this.access=false;
+        this.loaded = true;
+      }else{
+        this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
 
-    this.loaded = false;
-
-    this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
-
-      this.questions = data.data.sort((n1, n2) => {
-        var first = n1.question._id.split(".");
-        var second = n2.question._id.split(".");
-        var len = Math.max(first.length, second.length);
+          this.questions = data.data.sort((n1, n2) => {
+            var first = n1.question._id.split(".");
+            var second = n2.question._id.split(".");
+            var len = Math.max(first.length, second.length);
 
 
-        for (var i = 0; i < len; i++) {
+            for (var i = 0; i < len; i++) {
 
-          if (isNaN(first[i]) && isNaN(second[i])) {
-            if (first[i] > second[i]) {
-              return 1;
+              if (isNaN(first[i]) && isNaN(second[i])) {
+                if (first[i] > second[i]) {
+                  return 1;
+                }
+                else if (first[i] < second[i]) {
+                  return -1;
+                }
+              }
+              else if (isNaN(first[i]) && !isNaN(second[i])) {
+                return -1;
+              }
+              else if (!isNaN(first[i]) && isNaN(second[i])) {
+                return 1;
+              }
+              else {
+                if (Number(first[i]) > Number(second[i])) {
+                  return 1;
+                }
+                if (Number(first[i]) < Number(second[i])) {
+                  return -1;
+                }
+
+              }
+
+
             }
-            else if (first[i] < second[i]) {
-              return -1;
-            }
-          }
-          else if (isNaN(first[i]) && !isNaN(second[i])) {
-            return -1;
-          }
-          else if (!isNaN(first[i]) && isNaN(second[i])) {
-            return 1;
-          }
-          else {
-            if (Number(first[i]) > Number(second[i])) {
-              return 1;
-            }
-            if (Number(first[i]) < Number(second[i])) {
-              return -1;
-            }
-
-          }
 
 
-        }
+            return 0;
+          });
+
+          console.log(data),
+            //  this.questions = data.data,
+            this.buildForm()
+        });
+      this.access=true;
 
 
-        return 0;
-      });
 
-      console.log(data),
-        //  this.questions = data.data,
-        this.buildForm()
-    });
+    }
+  });
+
+
+
   }
 
   getEnum(type: String) {

@@ -46,7 +46,7 @@ export class Saq implements OnInit {
     this.user.getSuper().subscribe(data=>{
       let superuser = data.data.issuper;
       let set = new Set(data.data.saqtemplates);
-      if(superuser && !set.has(this.getEnum(this.type))){
+      if(!superuser && !set.has(this.getEnum(this.type))){
         this.access=false;
         this.load = true;
       }else{

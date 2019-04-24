@@ -41,12 +41,59 @@
           <p>Define process and controls in place to maintain compensating controls.</p>
         </div>
       </div>
+      <div class="row jutify-content-center">
+        <div class="col-1">
+          </div>
+      <div class="col-10">
       <div class="form-group card-body justify-content-center">
         <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-          <ngb-panel title="CCW Requirements">
-            <ng-template ngbPanelContent> Hey </ng-template>
-          </ngb-panel>
+          <ul>
+            <ng-container *ngFor="let question of questions; let i = index">
+              <ngb-panel>
+                <ng-template ngbPanelTitle>
+                  <h5 class="oswald">{{question.question._id}}</h5>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="row">
+
+                    <div class="col-4">
+                      <label for="question.question._id+'_'+headers[0]">{{headers[0]}}</label>
+                      <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[0]"></textarea>
+                    </div>
+                    <div class="col-4">
+                      <label for="question.question._id+'_'+headers[0]">{{headers[1]}}</label>
+                      <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[1]"></textarea>
+                    </div>
+                    <div class="col-4">
+                      <label for="question.question._id+'_'+headers[0]">{{headers[2]}}</label>
+                      <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[2]"></textarea>
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+
+                    <div class="col-4">
+                      <label for="question.question._id+'_'+headers[0]">{{headers[3]}}</label>
+                      <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[3]"></textarea>
+                    </div>
+                    <div class="col-4">
+                      <label for="question.question._id+'_'+headers[0]">{{headers[4]}}</label>
+                      <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[4]"></textarea>
+                    </div>
+                    <div class="col-4">
+                      <label for="question.question._id+'_'+headers[0]">{{headers[5]}}</label>
+                      <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[5]"></textarea>
+                    </div>
+                  </div>
+
+
+                </ng-template>
+              </ngb-panel>
+            </ng-container>
+          </ul>
         </ngb-accordion>
+      </div>
+      </div>
       </div>
       <div class="form-group"> <button class="btn btn-main">Submit</button> </div>
     </form>

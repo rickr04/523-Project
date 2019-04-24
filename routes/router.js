@@ -422,7 +422,9 @@ router.get('/api/SAQ/:_id/getccw', (req, res, next) => {
     }
   });
 });
-
+router.post('/api/SAQ/:_id/submitccw', (req, res, next) => {
+  ///for mark
+});
 router.get('/api/test/accountSAQ', (req, res, next) => {
   AccountSAQ.getAccountSAQJSON(req.body.id, (err, newJSON) => {
     if (err) {

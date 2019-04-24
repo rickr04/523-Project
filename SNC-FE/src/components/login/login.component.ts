@@ -69,8 +69,8 @@ export class Login implements OnInit {
       localStorage.setItem('_id', data.data._id),
         this.auth.callCheckAuth().subscribe(data => {
           this.auth.isAuthenticated(),
-            this.router.navigateByUrl('/account'),
-            this.router.navigateByUrl('/account')
+            this.router.navigateByUrl('/home'),
+            this.router.navigateByUrl('/home')
         })
     });
 

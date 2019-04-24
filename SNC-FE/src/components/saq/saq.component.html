@@ -9,6 +9,15 @@
   </div>
 </ng-container>
 <div *ngIf="load">
+<ng-container *ngIf="access==false; else accessblock">
+  <div class="centered justify-content-center text-center">
+    <h3 class="oswald text-center">Looks you don't have access to this SAQ</h3>
+    <h3 class="oswald text-center">Please contact your superuser if you think this was a mistake</h3>
+    <button class="btn btn-main text-center" routerLink="../../">Go Back</button>
+  </div>
+
+</ng-container>
+<ng-template #accessblock>
   <div class="jumbotron3">
     <div class="container-fluid">
       <div class="row">
@@ -78,4 +87,5 @@
       </div>
     </div>
   </div>
+  </ng-template>
 </div>

@@ -164,7 +164,7 @@ export class Ccw implements OnInit {
         temparray.push({header: key, response: array[i][key]})
     });
 
-    this.saq.submitCCW(temparray).subscribe(data=>{console.log(data)})
+    this.saq.submitCCW(temparray, temparray[0].response).subscribe(data=>{console.log(data)})
 
     temparray=[];
   };

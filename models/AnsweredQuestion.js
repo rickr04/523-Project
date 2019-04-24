@@ -67,3 +67,20 @@ module.exports.getCCW = (userID, callback) => {
     }
   });
 }
+
+module.exports.answerCCW = (userID, questionID, ccwArray, callback) => {
+  Users.findById(userID).exec((err, user) => {
+    if (err) {
+      return callback(err);
+    } else {
+      // If they aren't a Super, we set the userID to that of the associated SuperUser
+      if (!user.issuper) userID = user.superuser;
+
+      // Query based on userid and answer
+      AnsweredQuestion.findOneAndUpdate({superuserid: mongoose.Types.ObjectId(userID), question: questionID}, {ccw: ccwArray}, {new: true}, (err, doc) => {
+        callback(err, doc);
+      });
+    }
+  });
+}
+

@@ -48,8 +48,8 @@ getCCW(): Observable<Response>{
   return this.http.get<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/getccw');
 }
 
-submitCCW(ccw: any[]): Observable<Response>{
-  return this.http.post<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/submitccw', {data: ccw});
+submitCCW(ccw: any[], id: string): Observable<Response>{
+  return this.http.post<Response>(this._url+"/SAQ/"+this.getFromLocal()+'/submitccw', {_id: id, data: ccw});
 }
 
 getForm(key: String): Observable<ArrayBuffer>{

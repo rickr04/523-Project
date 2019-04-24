@@ -422,9 +422,18 @@ router.get('/api/SAQ/:_id/getccw', (req, res, next) => {
     }
   });
 });
+
 router.post('/api/SAQ/:_id/submitccw', (req, res, next) => {
-  ///for mark
+  req.body.data.shift();
+  AnsweredQuestion.answerCCW(req.params._id, req.body._id, req.body.data, (err, quest) => {
+    if (err) {
+      return res.json({success: false, message: err.message});
+    } else {
+      return res.json({success: true, data: quest});
+    }
+  });
 });
+
 router.get('/api/test/accountSAQ', (req, res, next) => {
   AccountSAQ.getAccountSAQJSON(req.body.id, (err, newJSON) => {
     if (err) {

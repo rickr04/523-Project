@@ -24,11 +24,18 @@ let user = new SuperUser({
     "email":"admin",
     "issuper": true,
     "password":"password",
-    "fname":"test",
-    "lname":"test",
-    "address":"test",
-    "company":"test",
-    "telephone":"test",
+    "fname":"first",
+    "lname":"last",
+    "address":"street",
+    "company":"company",
+    "telephone":"555-555-5555",
+    "businessinfo":{
+      "city":"city",
+      "state":"state",
+      "zipcode":"12345",
+      "url":"www.website.com",
+      "dba": "a business"
+    }
 });
 
 user.save(function(err) {

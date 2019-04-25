@@ -16,40 +16,124 @@
   </div>
 </ng-container>
 <ng-container *ngIf="loaded">
-  <div class="jumbotron2">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 d-flex ml-auto justify-content-center">
+<div class="row jumbotron2">
+  <div class="col-1">
+  </div>
+    <div class="col-10">
           <div class=" align-items-center">
             <ng-container>
               <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
                 <h2 class="card-header oswald-head text-center"> Please Fill Out All Fields </h2>
-                <div class="form-group card-body text-center justify-content-center"> <input type="text" formControlName="fname" placeholder="First Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
+                <div class="form-group card-body text-center justify-content-center">
+                <div class="d-flex">
+                <div class="col-6">
+                 <input type="text" formControlName="fname" placeholder="First Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.fname.errors }" />
                   <div *ngIf="form.fname.errors" class="invalid-feedback">
                     <div *ngIf="form.fname.errors.required">Answer is required</div>
-                  </div> <input type="text" formControlName="lname" placeholder="Last Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.lname.errors } " />
+                  </div>
+                </div>
+                <div class="col-6">
+                   <input type="text" formControlName="lname" placeholder="Last Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.lname.errors } " />
                   <div *ngIf="form.lname.errors" class="invalid-feedback">
                     <div *ngIf="form.lname.errors.required">Answer is required</div>
-                  </div> <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
-                  <div *ngIf="form.email.errors" class="invalid-feedback">
-                    <div *ngIf="form.email.errors.required">Answer is required</div>
-                  </div> <input type="text" formControlName="address" placeholder="Address" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.address.errors }" />
-                  <div *ngIf="form.address.errors" class="invalid-feedback">
-                    <div *ngIf="form.address.errors.required">Answer is required</div>
-                  </div> <input type="text" formControlName="company" placeholder="Company Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.company.errors }" />
-                  <div *ngIf="form.company.errors" class="invalid-feedback">
-                    <div *ngIf="form.company.errors.required">Answer is required</div>
-                  </div> <input type="text" formControlName="telephone" placeholder="Phone Number" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.telephone.errors }" />
+                  </div>
+                </div>
+                </div>
+                <br/>
+                <div class="d-flex">
+                <div class="col-6">
+                  <input type="text" formControlName="email" placeholder="Email Address" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+                 <div *ngIf="form.email.errors" class="invalid-feedback">
+                   <div *ngIf="form.email.errors.required">Answer is required</div>
+                 </div>
+                </div>
+                <div class="col-6">
+                  <input type="text" formControlName="telephone" placeholder="Phone Number" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.telephone.errors }" />
                   <div *ngIf="form.telephone.errors" class="invalid-feedback">
                     <div *ngIf="form.telephone.errors.required">Answer is required</div>
-                  </div> <input type="password" formControlName="password" placeholder="Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
-                  <div *ngIf="form.password.errors" class="invalid-feedback">
-                    <div *ngIf="form.password.errors.required">Answer is required</div>
-                  </div> <input type="password" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.passConf.errors }" />
-                  <div *ngIf="form.passConf.errors" class="invalid-feedback">
-                    <div *ngIf="form.passConf.errors.required">Answer is required</div>
-                    <div *ngIf="notMatch">Passwords Do Not Match</div>
                   </div>
+                </div>
+                </div>
+                <br/>
+                <div class="d-flex">
+                <div class="col-6">
+                  <input type="password" formControlName="password" placeholder="Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+                <div *ngIf="form.password.errors" class="invalid-feedback">
+                  <div *ngIf="form.password.errors.required">Answer is required</div>
+                </div>
+                </div>
+                <div class="col-6">
+                  <input type="password" formControlName="passConf" placeholder="Confirm Password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.passConf.errors }" />
+                 <div *ngIf="form.passConf.errors" class="invalid-feedback">
+                   <div *ngIf="form.passConf.errors.required">Answer is required</div>
+                   <div *ngIf="notMatch">Passwords Do Not Match</div>
+                 </div>
+                </div>
+                </div>
+
+                <hr/>
+
+                <div class="d-flex">
+                <div class="col-2">
+                </div>
+                <div class="col-8">
+                  <input type="text" formControlName="address" placeholder="Street Address" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.address.errors }" />
+                 <div *ngIf="form.address.errors" class="invalid-feedback">
+                   <div *ngIf="form.address.errors.required">Answer is required</div>
+                 </div>
+                </div>
+                </div>
+                <br/>
+                <div class="d-flex">
+                <div class="col-4">
+                  <input type="text" formControlName="city" placeholder="City" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.city.errors }" />
+                 <div *ngIf="form.city.errors" class="invalid-feedback">
+                   <div *ngIf="form.city.errors.required">Answer is required</div>
+                 </div>
+                </div>
+                <div class="col-4">
+                  <input type="text" formControlName="state" placeholder="State" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.state.errors }" />
+                 <div *ngIf="form.state.errors" class="invalid-feedback">
+                   <div *ngIf="form.state.errors.required">Answer is required</div>
+                 </div>
+                </div>
+                <div class="col-4">
+                  <input type="text" formControlName="zipcode" placeholder="Zipcode" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.zipcode.errors }" />
+                 <div *ngIf="form.zipcode.errors" class="invalid-feedback">
+                   <div *ngIf="form.zipcode.errors.required">Answer is required</div>
+                 </div>
+                </div>
+                </div>
+                <hr/>
+
+                <div class="d-flex">
+                <div class="col-6">
+                  <input type="text" formControlName="company" placeholder="Company Name" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.company.errors }" />
+                 <div *ngIf="form.company.errors" class="invalid-feedback">
+                   <div *ngIf="form.company.errors.required">Answer is required</div>
+                 </div>
+                </div>
+                <div class="col-6">
+                  <input type="text" formControlName="dba" placeholder="Doing Business As" class="form-control form-control-lg"  />
+
+                </div>
+                </div>
+                <br/>
+
+                <div class="d-flex">
+                <div class="col-2">
+                </div>
+                <div class="col-8">
+                  <input type="text" formControlName="url" placeholder="Website URL" class="form-control form-control-lg" />
+
+                </div>
+                </div>
+
+
+
+
+
+
                 </div>
                 <div class="form-group"> <button class="btn btn-main">Register</button> </div>
               </form>
@@ -58,7 +142,16 @@
             </ng-container> <br>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+        </div>
 </ng-container>
+
+<!--
+<div class="d-flex">
+<div class="col-6">
+
+</div>
+<div class="col-6">
+
+</div>
+</div>
+-->

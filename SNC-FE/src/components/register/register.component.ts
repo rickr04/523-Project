@@ -44,12 +44,18 @@ export class Register implements OnInit {
 
       fname: ['', Validators.required],
       lname: ['', Validators.required],
+      title: [''],
       email: ['', Validators.required],
-      address: ['', Validators.required],
-      company: ['', Validators.required],
-      telephone: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      passConf: ['', [Validators.required, Validators.minLength(8)]]
+      passConf: ['', [Validators.required, Validators.minLength(8)]],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zipcode: ['', Validators.required],
+      company: ['', Validators.required],
+      dba: [''],
+      telephone: ['', Validators.required],
+      url: [''],
     });
 
 
@@ -73,6 +79,11 @@ export class Register implements OnInit {
       this.skeleForm.controls.telephone.value,
       this.skeleForm.controls.fname.value,
       this.skeleForm.controls.lname.value,
+      this.skeleForm.controls.city.value,
+      this.skeleForm.controls.state.value,
+      this.skeleForm.controls.zipcode.value,
+      this.skeleForm.controls.dba.value,
+      this.skeleForm.controls.url.value,
     ).subscribe(data => {
       localStorage.setItem('_id', data.data._id),
       this.auth.callCheckAuth().subscribe(data => {

@@ -37,7 +37,8 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
     address: req.body.address,
     company: req.body.company,
     telephone: req.body.telephone,
-    issuper: true
+    issuper: true,
+    businessinfo: req.body.info
   }
 
   var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';

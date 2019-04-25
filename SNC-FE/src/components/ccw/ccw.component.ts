@@ -23,15 +23,17 @@ export class Ccw implements OnInit {
   ) { }
   loaded: boolean;
   type: string;
+  view = false;
   saqForm: FormGroup;
   ccwForm: FormGroup;
   enum = SAQEnum;
   questions: any[];
   keys = [];
+  ccwURL = this.saq.ccwURL();
   headers = ["Constraints", "Objective", "Identified Risk", "Compensating Controls", "Testing of Controls", "Maintenance of Controls"];
 
   ngOnInit() {
-    this.type = "a";//this.route.snapshot.paramMap.get('type');
+
 
     this.loaded = false;
 
@@ -115,13 +117,24 @@ export class Ccw implements OnInit {
         //  for (let j = 0; j < this.headers.length; j++) {
         //console.log(`${this.questions[i].question._id}_${this.headers[j]}`);
         //group[`${this.questions[i].question._id}_${this.headers[j]}`] =  this.questions[i].ccw.response;
-        group[`${this.questions[i].question._id}_${this.headers[0]}`] = this.questions[i].ccw.response;
-        group[`${this.questions[i].question._id}_${this.headers[1]}`] = this.questions[i].ccw.response;
-        group[`${this.questions[i].question._id}_${this.headers[2]}`] = this.questions[i].ccw.response;
-        group[`${this.questions[i].question._id}_${this.headers[3]}`] = this.questions[i].ccw.response;
-        group[`${this.questions[i].question._id}_${this.headers[4]}`] = this.questions[i].ccw.response;
-        group[`${this.questions[i].question._id}_${this.headers[5]}`] = this.questions[i].ccw.response;
-        //}
+        if(this.questions[i].ccw[0] == null){
+          group[`${this.questions[i].question._id}_${this.headers[0]}`] =  "";
+          group[`${this.questions[i].question._id}_${this.headers[1]}`] =  "";
+          group[`${this.questions[i].question._id}_${this.headers[2]}`] =  "";
+          group[`${this.questions[i].question._id}_${this.headers[3]}`] =  "";
+          group[`${this.questions[i].question._id}_${this.headers[4]}`] =  "";
+          group[`${this.questions[i].question._id}_${this.headers[5]}`] =  "";
+
+        }else{
+          group[`${this.questions[i].question._id}_${this.headers[0]}`] = this.questions[i].ccw[0].response || "";
+          group[`${this.questions[i].question._id}_${this.headers[1]}`] = this.questions[i].ccw[1].response || "";
+          group[`${this.questions[i].question._id}_${this.headers[2]}`] = this.questions[i].ccw[2].response || "";
+          group[`${this.questions[i].question._id}_${this.headers[3]}`] = this.questions[i].ccw[3].response || "";
+          group[`${this.questions[i].question._id}_${this.headers[4]}`] = this.questions[i].ccw[4].response || "";
+          group[`${this.questions[i].question._id}_${this.headers[5]}`] = this.questions[i].ccw[5].response || "";
+
+        }
+      //}
       }
     }
 
@@ -139,7 +152,7 @@ export class Ccw implements OnInit {
 
 
       if (key.split("_")[0] == currentQuestion) {
-        group[`${key.split("_")[1]}`] = this.ccwForm.controls[key].value;
+        group[`${key.split("_")[1]}`] = this.ccwForm.controls[key].value || "";
 
       }
       else{
@@ -151,7 +164,7 @@ export class Ccw implements OnInit {
 
         group = {};
       group[`Requirement`] = key.split("_")[0];
-      group[`Constraints`] = this.ccwForm.controls[key].value;
+      group[`Constraints`] = this.ccwForm.controls[key].value || "";
       }
 
     });
@@ -164,7 +177,7 @@ export class Ccw implements OnInit {
         temparray.push({header: key, response: array[i][key]})
     });
 
-    this.saq.submitCCW(temparray, temparray[0].response).subscribe(data=>{console.log(data)})
+    this.saq.submitCCW(temparray, temparray[0].response).subscribe(data=>{this.view = true; this.router.navigate(['../'], { relativeTo: this.route })});
 
     temparray=[];
   };
@@ -172,7 +185,5 @@ export class Ccw implements OnInit {
 
 
   }
-
-
 
 }

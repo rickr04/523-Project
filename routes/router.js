@@ -324,7 +324,6 @@ router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
         if (err) {
           return res.json({success: false, message: err.message});
         } else {
-          console.log(acctJSON);
           if(req.body.action == "save"){
             return res.json({success: true, message: "Success"});
           }

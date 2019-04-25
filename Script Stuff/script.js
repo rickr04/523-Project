@@ -32,6 +32,7 @@ let user = new SuperUser({
     "businessinfo":{
       "city":"city",
       "state":"state",
+      "country":"US of A"
       "zipcode":"12345",
       "url":"www.website.com",
       "dba": "a business"

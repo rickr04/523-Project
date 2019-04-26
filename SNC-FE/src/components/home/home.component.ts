@@ -17,5 +17,8 @@ export class Home implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
   ) { }
+  /*
+  Nothing here, purely markup
+  */
   ngOnInit() { }
 }

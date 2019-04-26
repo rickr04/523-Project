@@ -28,44 +28,23 @@ export class Ccw implements OnInit {
   keys = [];
   ccwURL = this.saq.ccwURL();
   headers = ["Constraints", "Objective", "Identified Risk", "Compensating Controls", "Testing of Controls", "Maintenance of Controls"];
+  /*
+  On initial load of the component our server is called requesting all of the users answered questions where the
+  answer was "Yes with CCW"
+  Calls our SAQService to sort the questions based off their _id
+  Calls buildCCWForm()
+  */
   ngOnInit() {
     this.loaded = false;
     this.saq.getCCW().subscribe(data => {
-      this.questions = data.data.sort((n1, n2) => {
-        var first = n1.question._id.split(".");
-        var second = n2.question._id.split(".");
-        var len = Math.max(first.length, second.length);
-        for (var i = 0; i < len; i++) {
-          if (isNaN(first[i]) && isNaN(second[i])) {
-            if (first[i] > second[i]) {
-              return 1;
-            }
-            else if (first[i] < second[i]) {
-              return -1;
-            }
-          }
-          else if (isNaN(first[i]) && !isNaN(second[i])) {
-            return -1;
-          }
-          else if (!isNaN(first[i]) && isNaN(second[i])) {
-            return 1;
-          }
-          else {
-            if (Number(first[i]) > Number(second[i])) {
-              return 1;
-            }
-            if (Number(first[i]) < Number(second[i])) {
-              return -1;
-            }
-          }
-        }
-        return 0;
-      });
-      console.log(this.questions),
-        //  this.questions = data.data,
-        this.buildCCWForm()
+      this.questions = this.saq.sort(data);
+      console.log(this.questions);
+      this.buildCCWForm();
     });
   }
+  /*
+  getEnum() returns the associated pdf name value so that we can hand it to the backend to deal with pdf loading
+  */
   getEnum(type: String) {
     if (type == "a") {
       return this.enum.A;
@@ -88,13 +67,17 @@ export class Ccw implements OnInit {
       return this.enum.DSERVICE;
     }
   }
+  /*
+  buildCCWForm() builds the form that presents on the component page,
+  because the six headers never change, they are somewhat hard-codeed on the frontend side
+  The if-else determines if it is the users first time contributing CCW information,
+  if it is it sets the text areas to an empty string, if they have done it before it sets
+  the textarea to the existing submission for that question and field
+  */
   buildCCWForm() {
     let group = {};
     for (let i = 0; i < this.questions.length; i++) {
       if (this.questions[i].answer == "Yes with CCW") {
-        //  for (let j = 0; j < this.headers.length; j++) {
-        //console.log(`${this.questions[i].question._id}_${this.headers[j]}`);
-        //group[`${this.questions[i].question._id}_${this.headers[j]}`] =  this.questions[i].ccw.response;
         if (this.questions[i].ccw[0] == null) {
           group[`${this.questions[i].question._id}_${this.headers[0]}`] = "";
           group[`${this.questions[i].question._id}_${this.headers[1]}`] = "";
@@ -116,6 +99,13 @@ export class Ccw implements OnInit {
     console.log(this.ccwForm);
     this.loaded = true;
   }
+  /*
+  when submiting the form, the information needs to be reshaped drastically
+  when the form is submitted it comes in as a single, flat json Object
+  after iterating throught the form control values, I push the header and header response into an object,
+  each of those for one question into an array, and all of them into an array to later iterate through to submit
+  to be updated
+  */
   onSubmit() {
     console.log(this.ccwForm);
     let currentQuestion = ""

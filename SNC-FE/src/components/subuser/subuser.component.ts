@@ -30,6 +30,9 @@ export class Subuser implements OnInit {
   typeTemplate: String;
   saqs = ["A", "AEP", "B", "BIP", "C", "CVT", "D Merchant", "D Service", "P2PE"];
   submitted = false;
+  /*
+  on initial load, component generates form for registering a new subuser
+  */
   ngOnInit() {
     this.subuserForm = this.formBuilder.group({
       fname: ['', Validators.required],
@@ -41,6 +44,9 @@ export class Subuser implements OnInit {
       saqs: this.formBuilder.array([])
     });
   }
+  /*
+  get enum value from form response value
+  */
   getEnum(type: String) {
     if (type == "A") {
       this.typeTemplate = "A";
@@ -72,6 +78,9 @@ export class Subuser implements OnInit {
       return this.enum.DSERVICE;
     }
   }
+  /*
+  checks form validators, if valid sends it to the backend to be updated on the superuser account
+  */
   onSubmit() {
     this.submitted = true;
     if (!this.confirmPassword(this.subuserForm)) {
@@ -99,6 +108,10 @@ export class Subuser implements OnInit {
     }
     );
   }
+  /*
+  onChange() updates the form array control for the saqFormArray with the enumerator values
+  instead of the more readable names that exist on the form
+  */
   onChange(saq: string, isChecked: boolean) {
     const saqFormArray = <FormArray>this.subuserForm.controls.saqs;
     console.log(this.subuserForm.controls.saqs);
@@ -109,13 +122,25 @@ export class Subuser implements OnInit {
       saqFormArray.removeAt(index);
     }
   }
+  /*
+  artifical delay so user gets feedback when subuser is registered
+  */
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
   }
+  /*
+  function to better retrieve form response values
+  */
   get form() { return this.subuserForm.controls };
+  /*
+  routes user back to account page
+  */
   goBack() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
+  /*
+  checks if password matches the password confirmation
+  */
   confirmPassword(form: FormGroup) {
     let password = form.controls.password.value;
     let passConf = form.controls.passConf.value;

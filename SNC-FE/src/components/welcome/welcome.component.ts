@@ -15,6 +15,9 @@ import { TestService } from '@services/test.service';
 export class Welcome implements OnInit {
   constructor(
   ) { }
+  /*
+  Nothing here, purely markup
+  */
   ngOnInit() {
   }
 }

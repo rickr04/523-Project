@@ -30,6 +30,14 @@ export class Saq implements OnInit {
   questions: any[];
   keys: any[];
   typeTemplate: String;
+  /*
+  on initial, the component checks the SAQ type based off the url parameter matching the type and casts it with our enum
+  then we get user information
+  in the user info, we have them either set to issuper:true which means they are a superuser, or issuper:false means they
+  are a subuser
+  subusers only have access to forms assigned to them, so if they are not a superuser we check which forms they have
+  access to
+  */
   ngOnInit() {
     this.type = this.route.snapshot.paramMap.get('type');
     this.user.getSuper().subscribe(data => {
@@ -46,6 +54,9 @@ export class Saq implements OnInit {
     });
     this.getEnum(this.type);
   }
+  /*
+  get enum value from SAQ type parameter
+  */
   getEnum(type: String) {
     if (type == "a") {
       this.typeTemplate = "A";
@@ -77,9 +88,16 @@ export class Saq implements OnInit {
       return this.enum.DSERVICE;
     }
   }
+  /*
+  loads the pdf keys assigned to this user and SAQ type from amazon S3
+  */
   flip() {
     this.saq.getKeys(this.getEnum(this.type)).subscribe(data => { this.keys = data.data, this.view = true });
   }
+  /*
+  takes key and generates a url to call that pdf, on response we user FileSaver to save the pdf
+  for the user
+  */
   servePDF(index: any) {
     this.clicked = true;
     var key = this.keys[index];
@@ -90,6 +108,9 @@ export class Saq implements OnInit {
       FileSaver.saveAs(newBlob, fileName[1]);
     });
   }
+  /*
+  a function to parse JS time in milliseconds to a standard date-time format
+  */
   getTime(num: any) {
     var date = new Date(Number(this.keys[num].split('/')[2].split('.')[0]));
     var dateString = "" + date

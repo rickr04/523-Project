@@ -22,6 +22,11 @@ export class Account implements OnInit {
   loaded: boolean;
   subIDs: any[] = [];
   subs: any[] = [];
+  /*
+  On initial loading of page, component calls server and recieved superuser information to dispplay
+  if the super user has no subusers it loads a different portion of our template to indicate that
+  if the super user does have subusers it loads the subusers names
+  */
   ngOnInit() {
     var temp = [];
     this.loaded = false;

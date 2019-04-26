@@ -491,7 +491,6 @@ function writeFieldAndKids(handles, fieldDictionary, inheritedProperties, baseFi
   // this field or widget doesn't need value rewrite. but its kids might. so write the dictionary as is, dropping kids.
   // write them later and recurse.
 
-
   var modifiedFieldDict = startModifiedDictionary(handles, fieldDictionary, {
     'Kids': -1
   });

@@ -23,6 +23,10 @@ export class Login implements OnInit {
   submitted = false;
   loaded: boolean;
   skeleForm: FormGroup;
+  /*
+  on initial load, component checks if user is already logged in, if so they are directed home,
+  if not the component generates a login form
+  */
   ngOnInit() {
     this.loaded = false;
     this.auth.callCheckAuth().subscribe(data => {
@@ -37,7 +41,14 @@ export class Login implements OnInit {
       }
     })
   }
+  /*
+  get function for easily accessing form inputs
+  */
   get form() { return this.skeleForm.controls };
+  /*
+  checks if the form is valid, if not it returns and loads validators on the screen (missing info, passwords don't match)
+  if it is valid it calls our backend to submit email and password, stores the user._id in local storage, and navigates home
+  */
   onSubmit() {
     this.submitted = true;
     if (this.skeleForm.invalid) {

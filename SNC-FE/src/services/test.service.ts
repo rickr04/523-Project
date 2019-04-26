@@ -7,6 +7,9 @@ import { HttpHeaders } from '@angular/common/http';
 export class TestService {
   //_url: string = "https://security-n-compliance.herokuapp.com"
   _url: string = "http://localhost:3000"
+  /*
+  DEMO SERVICE NOTHING HERE OUT OF THE ORDINARY
+  */
   constructor(private http: HttpClient) { }
   updateAnswers(_id: String, answer: String): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'Content-Type: application/json' });

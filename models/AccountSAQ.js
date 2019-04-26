@@ -82,7 +82,6 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
       JSONforFill["Email"] = superuser.email;
       JSONforFill["Business Address"] = superuser.address;
 
-
       // Iterate through all the answers to format the JSON correctly
       populatedSAQ.answeredquestions.forEach((item, index, array) => {
         if (err) {

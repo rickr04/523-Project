@@ -16,6 +16,9 @@ import { SAQEnum } from '@models/saqEnum.enum';
 export class Pci implements OnInit {
   constructor(
   ) { }
+  /*
+  Nothing here, purely markup
+  */
   ngOnInit() {
   }
 }

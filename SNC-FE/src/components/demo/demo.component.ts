@@ -17,12 +17,14 @@ export class Demo implements OnInit {
     private formBuilder: FormBuilder,
     private skeleService: TestService
   ) { }
-  
+
   create: Boolean = false;
   get: Boolean = false;
   skeleForm: FormGroup;
   questions = ["5c73424df44fb900174f5720", "5c73424df44fb900174f5712", "5c73424df44fb900174f5722"];
-
+  /*
+  THIS IS THE OLD DEMO, NOTHING IMPORTANT HERE BUT THOUGHT IT WOULD BE GOOD TO LEAVE IN THE CODE
+  */
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
       c73424df44fb900174f5720: ['', Validators.required],

@@ -28,6 +28,14 @@ export class Form implements OnInit {
   enum = SAQEnum;
   questions: any[];
   keys = [];
+  /*
+  on initial, the component checks the SAQ type based off the url parameter matching the type and casts it with our enum
+  then we get user information
+  in the user info, we have them either set to issuper:true which means they are a superuser, or issuper:false means they
+  are a subuser
+  subusers only have access to forms assigned to them, so if they are not a superuser we check which forms they have
+  access to the build the form
+  */
   ngOnInit() {
     this.type = this.route.snapshot.paramMap.get('type');
     this.user.getSuper().subscribe(data => {
@@ -38,36 +46,7 @@ export class Form implements OnInit {
         this.loaded = true;
       } else {
         this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
-          this.questions = data.data.sort((n1, n2) => {
-            var first = n1.question._id.split(".");
-            var second = n2.question._id.split(".");
-            var len = Math.max(first.length, second.length);
-            for (var i = 0; i < len; i++) {
-              if (isNaN(first[i]) && isNaN(second[i])) {
-                if (first[i] > second[i]) {
-                  return 1;
-                }
-                else if (first[i] < second[i]) {
-                  return -1;
-                }
-              }
-              else if (isNaN(first[i]) && !isNaN(second[i])) {
-                return -1;
-              }
-              else if (!isNaN(first[i]) && isNaN(second[i])) {
-                return 1;
-              }
-              else {
-                if (Number(first[i]) > Number(second[i])) {
-                  return 1;
-                }
-                if (Number(first[i]) < Number(second[i])) {
-                  return -1;
-                }
-              }
-            }
-            return 0;
-          });
+          this.questions = this.saq.sort(data);
           console.log(data),
             //  this.questions = data.data,
             this.buildForm()
@@ -76,6 +55,9 @@ export class Form implements OnInit {
       }
     });
   }
+  /*
+  get enum value from SAQ type parameter
+  */
   getEnum(type: String) {
     if (type == "a") {
       return this.enum.A;
@@ -98,6 +80,9 @@ export class Form implements OnInit {
       return this.enum.DSERVICE;
     }
   }
+  /*
+  dynamically generates one of the 9 different forms in real time based off the backend response with the answeredquestions
+  */
   buildForm() {
     let group = {};
     for (let i = 0; i < this.questions.length; i++) {
@@ -108,13 +93,19 @@ export class Form implements OnInit {
     }
     this.saqForm = this.formBuilder.group(group);
     this.loaded = true;
-    //console.log(this.questions);
   }
   submitting: boolean = false;
+  /*
+  When the form is submitted it send the information to the backend to update the users database
+  and generate the pdf for them to download at any point from amazon S3
+  */
   onSubmit() {
     this.submitting = true;
     this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
   }
+  /*
+  When the form is submitted it send the information to the backend to update the users database
+  */
   onSave() {
     this.submitting = true;
     this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });

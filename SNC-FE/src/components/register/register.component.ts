@@ -25,6 +25,9 @@ export class Register implements OnInit {
   loaded: boolean = true;
   questions = ["first", "last", "email", "address", "company", "phone", "password", "passConf"];
   submitted = false;
+  /*
+  On initial load, generates our registration form
+  */
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
       fname: ['', Validators.required],
@@ -43,6 +46,10 @@ export class Register implements OnInit {
       url: [''],
     });
   }
+  /*
+  On submittion, checks form validators (passwords don't match, missing info),
+  if form is valid it calls our service which reshapes the data then sends it to the server
+  */
   onSubmit() {
     this.submitted = true;
     if (!this.confirmPassword(this.skeleForm)) {

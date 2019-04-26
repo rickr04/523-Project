@@ -32,7 +32,6 @@ db.once('open', function() {
 // }
 // app.use(requireHTTPS);
 
-
 app.use(express.static(__dirname + '/SNC-FE/dist/SNC'));
 
 // Use sessions for tracking logins
@@ -78,8 +77,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.message);
 });
-
-
 
 // Listen on port 3000
 port = process.env.PORT || 3000;

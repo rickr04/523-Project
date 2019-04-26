@@ -40,16 +40,13 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
     issuper: true,
     businessinfo: req.body.info
   }
-
   var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
-
   //Needs to be async for fetch call
   SuperUser.create(superUserData, function(error, superuser) {
     if (error) {
       return next(error);
     } else {
       req.session.superuserId = superuser._id;
-
       //this is ugly nested for now
       var mailData = {
         type: "register",
@@ -62,8 +59,6 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
           return next(err);
         }
       });
-
-
       return res.status(error ? 500 : 200).send(error ? error : {
         message: "Super User has been registered",
         data: superuser
@@ -74,7 +69,6 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
 
 // Subuser registration
 router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
-
   SuperUser.findById(req.params._id).exec((err, superuser) => {
     if (err) {
       return res.json({
@@ -94,9 +88,7 @@ router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
         issuper: false,
         superuser: req.params._id
       };
-
       var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
-
       //Needs to be async for fetch call
       SuperUser.create(superUserData, function(error, sup) {
         if (error) {
@@ -110,7 +102,6 @@ router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
             }
           });
           req.session.superuserId = superuser._id;
-
           //this is ugly nested for now
           var mailData = {
             type: "register",
@@ -123,19 +114,14 @@ router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
               return next(err);
             }
           });
-
-
           return res.status(error ? 500 : 200).send(error ? error : {
             message: "Sub User has been registered",
             data: superuser
           });
         }
       });
-
     }
   });
-
-
 });
 
 router.get('/api/saqassignments/:_id', cors(corsOptions), (req, res, next) => {
@@ -160,16 +146,13 @@ router.post('/api/login', cors(corsOptions), (req, res, next) => {
     email: req.body.email,
     password: req.body.password
   }
-
   SuperUser.authenticate(superuserdata.email, superuserdata.password, function(error, superuser) {
     if (error || !superuser) {
-
       var err = new Error('Wrong username or password.');
       err.status = 401;
       return next(error);
     } else {
       req.session.superuserId = superuser._id;
-
       return res.status(err ? 500 : 200).send(err ? err : {
         message: "Super User has been logged in",
         data: superuser
@@ -223,7 +206,6 @@ router.post('/api/superuser/update/password', cors(corsOptions), (req, res, next
         superuser.password = req.body.new;
         superuser.save(function(error) {
           if (err) {
-
           } else {
             return res.status(err ? 500 : 200).send(err ? err : {
               message: "Password Successfully Changed",
@@ -231,9 +213,7 @@ router.post('/api/superuser/update/password', cors(corsOptions), (req, res, next
             });
           }
         });
-
       }
-
     });
   } else {
     var err = new Error('Not Authorized');
@@ -241,8 +221,6 @@ router.post('/api/superuser/update/password', cors(corsOptions), (req, res, next
     return next(err);
   }
 });
-
-
 
 /* Create Subuser. SuperUser ID stored in params._id.
 JSON format passed needs to be as follows:
@@ -292,7 +270,6 @@ router.post('/api/admin/question', (req, res, next) => {
     answertype: req.body.answertype,
     _id: req.body.id
   });
-
   newQuestion.save((err, question) => {
     if (err) {
       return res.json({
@@ -363,7 +340,6 @@ JSON format is as follows:
   "name":"TestWithStreams"
   "templateid":"12yuasd18237ads512x"
 } */
-
 router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
   AccountSAQ.createAndUpdateSAQ(req.params.templateid, req.params._id, req.body.answers, (err, acctSAQ) => {
     if (err) {
@@ -438,7 +414,6 @@ router.get('/api/SAQ/:_id/getkeys/:templateid', (req, res, next) => {
 
 /* Allows you to download from the S3 bucket if passed a key. */
 router.post('/api/SAQ/getform', (req, res, next) => {
-
   s3Handling.downloadFile(req.body.key, (err, data) => {
     if (err) {
       res.json({

@@ -1,12 +1,7 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-
-
-
 module.exports = {
   sendMail: function(data, callback) {
-    //  if (data.type == "register") {
     const msg = {
       "to": data.email,
       "from": "securencompliant@gmail.com",
@@ -18,19 +13,12 @@ module.exports = {
         "company": data.company,
       },
     };
-
-    //}
-
-
     try {
       sgMail.send(msg);
     } catch (err) {
       return callback(err);
     }
-
-
   }
 }
-
 //Later incorporate type parameter to choose registration or Reminders
 //For now default to reminder

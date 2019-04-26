@@ -23,6 +23,9 @@ export class Password implements OnInit {
   submitted = false;
   notMatch = false;
   passwordForm: FormGroup;
+  /*
+  On load, component generates form for changing password
+  */
   ngOnInit() {
     this.passwordForm = this.formBuilder.group({
       password: ['', Validators.required],
@@ -30,6 +33,10 @@ export class Password implements OnInit {
       passConf: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
+  /*
+  On form submissionm checks form validators, checks if new password and new password confirmation match,
+  then will call our backend to update the password
+  */
   onSubmit() {
     this.submitted = true;
     if (!this.confirmPassword(this.passwordForm)) {
@@ -42,7 +49,13 @@ export class Password implements OnInit {
     var newPass = this.passwordForm.controls.newPassword.value;
     this.userService.changePassword(oldPass, newPass).subscribe(data => { console.log(data) });
   }
+  /*
+  simple get for form values
+  */
   get form() { return this.passwordForm.controls };
+  /*
+  checks if the user inputs for the new password and the new password confirmation match
+  */
   confirmPassword(form: FormGroup) {
     let password = form.controls.newPassword.value;
     let passConf = form.controls.passConf.value;

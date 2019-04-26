@@ -5,10 +5,7 @@ import { SAQEnum } from '@models/saqEnum.enum';
 import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@services/user.service';
-
 import { ActivatedRoute } from '@angular/router';
-
-
 @Component({
   selector: 'app-saq',
   templateUrl: './form.component.html',
@@ -16,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
   providers: [SAQService, UserService],
 })
 export class Form implements OnInit {
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -26,32 +22,27 @@ export class Form implements OnInit {
   ) { }
   loaded: boolean = false;
   type: string;
-    access: boolean=false;
+  access: boolean = false;
   saqForm: FormGroup;
   ccwForm: FormGroup;
   enum = SAQEnum;
   questions: any[];
   keys = [];
-
   ngOnInit() {
     this.type = this.route.snapshot.paramMap.get('type');
-    this.user.getSuper().subscribe(data=>{
+    this.user.getSuper().subscribe(data => {
       let superuser = data.data.issuper;
       let set = new Set(data.data.saqtemplates);
-      if(!superuser && !set.has(this.getEnum(this.type))){
-        this.access=false;
+      if (!superuser && !set.has(this.getEnum(this.type))) {
+        this.access = false;
         this.loaded = true;
-      }else{
+      } else {
         this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
-
           this.questions = data.data.sort((n1, n2) => {
             var first = n1.question._id.split(".");
             var second = n2.question._id.split(".");
             var len = Math.max(first.length, second.length);
-
-
             for (var i = 0; i < len; i++) {
-
               if (isNaN(first[i]) && isNaN(second[i])) {
                 if (first[i] > second[i]) {
                   return 1;
@@ -73,31 +64,18 @@ export class Form implements OnInit {
                 if (Number(first[i]) < Number(second[i])) {
                   return -1;
                 }
-
               }
-
-
             }
-
-
             return 0;
           });
-
           console.log(data),
             //  this.questions = data.data,
             this.buildForm()
         });
-      this.access=true;
-
-
-
-    }
-  });
-
-
-
+        this.access = true;
+      }
+    });
   }
-
   getEnum(type: String) {
     if (type == "a") {
       return this.enum.A;
@@ -120,9 +98,7 @@ export class Form implements OnInit {
       return this.enum.DSERVICE;
     }
   }
-
   buildForm() {
-
     let group = {};
     for (let i = 0; i < this.questions.length; i++) {
       group[`${this.questions[i].question._id}`] = this.questions[i].answer;
@@ -130,24 +106,17 @@ export class Form implements OnInit {
         this.keys.push(this.questions[i].question._id);
       }
     }
-
     this.saqForm = this.formBuilder.group(group);
-
     this.loaded = true;
     //console.log(this.questions);
   }
-
-submitting: boolean = false;
-
-onSubmit() {
-  this.submitting = true;
-  this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data),this.submitting=false, this.router.navigate(['../'], { relativeTo: this.route }); });
-}
-
-onSave() {
-this.submitting = true;
-
-  this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data),this.submitting=false, this.router.navigate(['../'], { relativeTo: this.route }); });
-}
-
+  submitting: boolean = false;
+  onSubmit() {
+    this.submitting = true;
+    this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
+  }
+  onSave() {
+    this.submitting = true;
+    this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
+  }
 }

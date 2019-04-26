@@ -14,7 +14,7 @@ const Users = require('./SuperUser')
  */
 const AnsweredQuestionSchema = new mongoose.Schema({
   question: {
-    type:  String,
+    type: String,
     required: true,
     ref: 'Question'
   },
@@ -27,8 +27,12 @@ const AnsweredQuestionSchema = new mongoose.Schema({
     ref: 'SuperUser'
   },
   ccw: [{
-    header: {type: String},
-    response: {type: String}
+    header: {
+      type: String
+    },
+    response: {
+      type: String
+    }
   }]
 
 });
@@ -57,7 +61,10 @@ module.exports.getCCW = (userID, callback) => {
       if (!user.issuper) userID = user.superuser;
 
       // Query based on userid and answer
-      AnsweredQuestion.find({superuserid: mongoose.Types.ObjectId(userID), answer: "Yes with CCW"}).populate('question').exec((err, questions) => {
+      AnsweredQuestion.find({
+        superuserid: mongoose.Types.ObjectId(userID),
+        answer: "Yes with CCW"
+      }).populate('question').exec((err, questions) => {
         if (err) {
           return callback(err);
         } else {
@@ -77,7 +84,14 @@ module.exports.answerCCW = (userID, questionID, ccwArray, callback) => {
       if (!user.issuper) userID = user.superuser;
 
       // Query based on userid and answer
-      AnsweredQuestion.findOneAndUpdate({superuserid: mongoose.Types.ObjectId(userID), question: questionID}, {ccw: ccwArray}, {new: true}, (err, doc) => {
+      AnsweredQuestion.findOneAndUpdate({
+        superuserid: mongoose.Types.ObjectId(userID),
+        question: questionID
+      }, {
+        ccw: ccwArray
+      }, {
+        new: true
+      }, (err, doc) => {
         callback(err, doc);
       });
     }
@@ -94,23 +108,24 @@ module.exports.downloadCCW = (userID, callback) => {
       if (!user.issuper) userID = user.superuser;
 
       // Query based on userid and answer
-      AnsweredQuestion.find({superuserid: mongoose.Types.ObjectId(userID), answer: "Yes with CCW"}).populate('question').exec((err, question) => {
+      AnsweredQuestion.find({
+        superuserid: mongoose.Types.ObjectId(userID),
+        answer: "Yes with CCW"
+      }).populate('question').exec((err, question) => {
         if (err) {
           return callback(err);
         } else {
           let arr = [];
           let group = {};
-
-          for(var i = 0; i < question.length; i++){
+          for (var i = 0; i < question.length; i++) {
             var ccwArr = question[i].ccw;
+            group["Requirement"] = question[i].question._id;
 
-            group["Requirement"] = question[i].question._id
-
-            for(var j = 0; j<6;j++){
-            group[ccwArr[j].header] = ccwArr[j].response;
-          }
-          arr.push(group);
-          group={};
+            for (var j = 0; j < 6; j++) {
+              group[ccwArr[j].header] = ccwArr[j].response;
+            }
+            arr.push(group);
+            group = {};
           }
           callback(err, arr);
         }

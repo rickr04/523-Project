@@ -19,14 +19,10 @@ import { Ccw } from '@components/ccw/ccw.component';
 import { Subuser } from '@components/subuser/subuser.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Welcome } from "@components/welcome/welcome.component";
-
-
-
-
-
-
-
-
+/*
+app.module.ts initializes our components as declarations,
+any outside imports, and allows for url memory through hashing the location
+*/
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,8 +45,6 @@ import { Welcome } from "@components/welcome/welcome.component";
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule
-
-
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

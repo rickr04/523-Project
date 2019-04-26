@@ -14,15 +14,14 @@ const mongoose = require('mongoose');
 
 const SAQTemplateSchema = new mongoose.Schema({
   questions: [{
-    type:  String, 
+    type: String,
     ref: 'Question',
     required: true
   }],
   _id: {
     type: String,
   }
-}, 
-{
+}, {
   timestamps: true
 });
 

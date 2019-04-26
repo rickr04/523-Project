@@ -25,13 +25,19 @@ router.use(cors());
 /* Call to upload a file. JSON needs keys of filepath, name, and userid.
 It will upload the designated file with the designated name in a folder equivalent to the userid. */
 router.post('/api/demo/upload', (req, res, next) => {
-    s3Handling.upload(req.body.userid, req.body.filepath, req.body.name, (err) => {
-      if (err) {
-        res.json({success: false, msg: err.message});
-      } else {
-        res.json({success: true, msg: "Success"});
+  s3Handling.upload(req.body.userid, req.body.filepath, req.body.name, (err) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: "Success"
+      });
     }
-    });
+  });
 });
 
 /* Call to download and update a certain PDF. JSON needs keys of field ids.
@@ -55,15 +61,27 @@ router.post('/api/demo/:_id/answerquestion', (req, res, next) => {
   AccountSAQ.create(account_var);
 
 
-  s3Handling.editForm({Bucket: process.env.S3_BUCKET, Key:"WalkingSkeletonForm.pdf"}, req.body, (err, data) => {
+  s3Handling.editForm({
+    Bucket: process.env.S3_BUCKET,
+    Key: "WalkingSkeletonForm.pdf"
+  }, req.body, (err, data) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({
+        success: false,
+        msg: err.message
+      });
     } else {
       s3Handling.upload(req.body.folder, data, req.body.name, (err) => {
         if (err) {
-          res.json({success: false, msg: err.message});
+          res.json({
+            success: false,
+            msg: err.message
+          });
         } else {
-          res.json({success: true, msg: "Success"});
+          res.json({
+            success: true,
+            msg: "Success"
+          });
         }
       });
     }
@@ -75,9 +93,15 @@ Returns an array of the keys of all files in that folder */
 router.get('/api/demo/:_id/getkeys', (req, res, next) => {
   s3Handling.getFolderKeys(req.params._id, (err, keyArray) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({
+        success: false,
+        msg: err.message
+      });
     } else {
-      res.json({success: true, Keys: keyArray});
+      res.json({
+        success: true,
+        Keys: keyArray
+      });
     }
   });
 });
@@ -87,7 +111,10 @@ router.post('/api/demo/getform', (req, res, next) => {
   console.log(req.body.Key)
   s3Handling.downloadFile(req.body.Key, (err, data) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({
+        success: false,
+        msg: err.message
+      });
     } else {
       //res.download(data.Body);
       res.writeHead(200, {
@@ -100,26 +127,28 @@ router.post('/api/demo/getform', (req, res, next) => {
   });
 });
 
-router.post('/api/demo/:_id', function(req, res, next){
+router.post('/api/demo/:_id', function(req, res, next) {
   Skeleton.findById(req.params._id)
     .exec(function(error, lasercutter) {
       if (error) {
         return next(error);
       } else {
-         var temp_id = req.params._id;
-        Skeleton.findByIdAndUpdate(temp_id, {Answer: req.body.answer}, function(err, newbool) {
-         if (err) {
-           res.json({
-             message: 'Error!'
-           });
-         } else {
-           res.json({
-             Answer: req.body.answer
-           });
-         }
-       });
-     }
-   });
+        var temp_id = req.params._id;
+        Skeleton.findByIdAndUpdate(temp_id, {
+          Answer: req.body.answer
+        }, function(err, newbool) {
+          if (err) {
+            res.json({
+              message: 'Error!'
+            });
+          } else {
+            res.json({
+              Answer: req.body.answer
+            });
+          }
+        });
+      }
+    });
 });
 
 
@@ -179,10 +208,10 @@ router.post('/api/admin/login', function(req, res, next) {
       } else {
         req.session.adminId = admin._id;
         return res.status(err ? 500 : 200).send(err ? err : {
-          message: admin.username+" has been registerd",
+          message: admin.username + " has been registerd",
           data: admin.username
-      });
-    }
+        });
+      }
     });
 
   } else if (req.body.username && req.body.password) {
@@ -193,9 +222,11 @@ router.post('/api/admin/login', function(req, res, next) {
         return next(err);
       } else {
         req.session.adminId = admin._id;
-        return res.status(err ? 500 : 200).send(err ? err :
-          {
-          data: {username: admin.username, _id: admin._id}
+        return res.status(err ? 500 : 200).send(err ? err : {
+          data: {
+            username: admin.username,
+            _id: admin._id
+          }
         });
       }
     });
@@ -225,7 +256,10 @@ router.get('/admin/logout', cors(corsOptions), function(req, res, next) {
 // Create SuperUser
 router.post('/api/SuperUser', (req, res, next) => {
   if (req.body.password != req.body.passwordConf) {
-    res.json({success: false, msg:'Passwords did not match'});
+    res.json({
+      success: false,
+      msg: 'Passwords did not match'
+    });
   } else {
     let newSuper = new SuperUser({
       fname: req.body.fname,
@@ -239,9 +273,15 @@ router.post('/api/SuperUser', (req, res, next) => {
 
     SuperUser.addSuper(newSuper, (err, newSuper) => {
       if (err) {
-      res.json({success: false, msg:'Failed to register user.' + err.message});
+        res.json({
+          success: false,
+          msg: 'Failed to register user.' + err.message
+        });
       } else {
-      res.json({success: true, msg:'User Registered'});
+        res.json({
+          success: true,
+          msg: 'User Registered'
+        });
       }
     });
   }
@@ -250,23 +290,32 @@ router.post('/api/SuperUser', (req, res, next) => {
 // Create SubUser
 router.post('/api/SubUser', (req, res, next) => {
   if (req.body.password != req.body.passwordConf) {
-    res.json({success: false, msg:'Passwords did not match'});
+    res.json({
+      success: false,
+      msg: 'Passwords did not match'
+    });
   } else {
-      let newSub = new SubUser({
-          fname: req.body.fname,
-          lname: req.body.lname,
-          email: req.body.email,
-          password: req.body.password,
-          telephone: req.body.telephone,
-          superuserid: req.body.superuserid
-      });
-      SubUser.addSub(newSub, (err, newSub) => {
-          if (err) {
-              res.json({success: false, msg: err.message});
-          } else {
-              res.json({success: true, msg:'User Registered'});
-          }
-      });
+    let newSub = new SubUser({
+      fname: req.body.fname,
+      lname: req.body.lname,
+      email: req.body.email,
+      password: req.body.password,
+      telephone: req.body.telephone,
+      superuserid: req.body.superuserid
+    });
+    SubUser.addSub(newSub, (err, newSub) => {
+      if (err) {
+        res.json({
+          success: false,
+          msg: err.message
+        });
+      } else {
+        res.json({
+          success: true,
+          msg: 'User Registered'
+        });
+      }
+    });
   }
 });
 
@@ -279,29 +328,41 @@ router.post('/api/Question', (req, res, next) => {
   });
   newQuestion.save((err) => {
     if (err) {
-      res.json({success: false, msg: err.message});
+      res.json({
+        success: false,
+        msg: err.message
+      });
     } else {
-      res.json({success: true, msg:'Question Posted'});
+      res.json({
+        success: true,
+        msg: 'Question Posted'
+      });
     }
   });
 });
 
 // Create SAQTemplate, currently uses QuestionIDs and template name
 router.post('/api/SAQ', (req, res, next) => {
-    let SAQ = new SAQTemplate({
-      name: req.body.name,
-    });
-    req.body.questions.forEach((q) => {
-      SAQ.questions.push(q);
-    });
-    console.log(SAQ);
-    SAQ.save((err) => {
-      if (err) {
-        res.json({success: false, msg: err.message});
-      } else {
-        res.json({success: true, msg:'SAQ Template Created'});
-      }
-    });
+  let SAQ = new SAQTemplate({
+    name: req.body.name,
+  });
+  req.body.questions.forEach((q) => {
+    SAQ.questions.push(q);
+  });
+  console.log(SAQ);
+  SAQ.save((err) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message
+      });
+    } else {
+      res.json({
+        success: true,
+        msg: 'SAQ Template Created'
+      });
+    }
+  });
 });
 
 module.exports = demorouter;

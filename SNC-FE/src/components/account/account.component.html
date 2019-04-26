@@ -1,11 +1,13 @@
 <ng-container *ngIf="loaded==false">
-<div class="">
-<div class="lds-ring centered"><div></div><div></div><div></div><div></div></div>
-</div>
-
+  <div class="">
+    <div class="lds-ring centered">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </ng-container>
-
-
 <div *ngIf="loaded">
   <div class="jumbotron3">
     <div class="container-fluid">
@@ -15,18 +17,15 @@
             <h2 class="text-center oswald-head">Account Details</h2>
             <br />
           </div>
-
           <hr />
           <div class="d-flex">
             <div class="col-2">
-
             </div>
             <div class="col-md-8 justify-content-center">
               <br />
               <div class="card">
                 <h4 class="card-header text-center">Personal Details</h4>
                 <div class="d-flex justify-content-center">
-
                   <div class="col-6">
                     <br />
                     <div class="d-flex justify-content-center">
@@ -53,18 +52,14 @@
                     </div>
                     <br />
                   </div>
-
-
                 </div>
                 <br />
                 <div class="justify-content-center">
                   <h5 class="text-center">Password: **********</h5>
                   <p class="text-center"><a routerLink="password">Change Password</a></p>
                 </div>
-
                 <h4 class="card-header text-center">Company Details</h4>
                 <div class="d-flex justify-content-center">
-
                   <div class="col-6">
                     <br />
                     <div class="d-flex justify-content-center">
@@ -91,18 +86,15 @@
                     </div>
                     <br />
                   </div>
-
                 </div>
                 <br />
                 <div class="justify-content-center">
                   <h4 class="card-header text-center">Subusers</h4>
-                    <br />
+                  <br />
                   <ng-container *ngIf="subIDs.length==0; ">
                     <h5 class="text-center">No Subusers</h5>
                   </ng-container>
-
                   <ng-container *ngIf="subs.length>0">
-
                     <ng-container *ngFor="let sub of subs; let i = index">
                       <h5 class="text-center">{{sub.fname}} {{sub.lname}}</h5>
                     </ng-container>
@@ -114,8 +106,6 @@
             <div class="col-2">
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

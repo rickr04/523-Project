@@ -7,37 +7,15 @@ import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TestService } from '@services/test.service';
 import { SAQEnum } from '@models/saqEnum.enum';
-
-
-
-
-
-
-
-
-
-//import { LaserCutterService } from '@services/lasercutter.service';
-
 @Component({
   selector: 'pci-root',
   templateUrl: './pci.component.html',
   styleUrls: ['./pci.component.css'],
   providers: [TestService],
 })
-
-
 export class Pci implements OnInit {
-
   constructor(
   ) { }
-
-
   ngOnInit() {
-
-
-
   }
-
-
-
 }

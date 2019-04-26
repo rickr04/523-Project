@@ -12,13 +12,13 @@ dotenv.config()
 // Connect to MongoDB
 
 var db = mongoose.connection;
-mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
 //mongoose.connect(  'mongodb://localhost:27017/snc');
 
 // Alert of succesful connection/error
 
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', function() {
   // we're connected!
 });
 
@@ -47,8 +47,13 @@ app.use(session({
 
 // Parse incoming requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:4200'
+}));
 
 // serve static files from template
 //app.use(express.static(__dirname + '/template'));
@@ -61,7 +66,7 @@ var routes = require('./routes/router');
 app.use('/', routes);
 
 // Catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   var err = new Error('File Not Found');
   err.status = 404;
   next(err);
@@ -69,7 +74,7 @@ app.use(function (req, res, next) {
 
 // Error handler
 // define as the last app.use callback
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.message);
 });
@@ -79,6 +84,6 @@ app.use(function (err, req, res, next) {
 // Listen on port 3000
 port = process.env.PORT || 3000;
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log('Express app listening on port 3000');
 });

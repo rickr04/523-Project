@@ -7,59 +7,37 @@ import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '@services/user.service';
 import { AuthenticationService } from '@services/auth.service';
-
-
-
-
-
-
 @Component({
   selector: 'login-root',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [UserService],
 })
-
-
 export class Login implements OnInit {
-
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private skeleService: UserService,
     private auth: AuthenticationService,
-
   ) { }
   submitted = false;
   loaded: boolean;
   skeleForm: FormGroup;
   ngOnInit() {
-    this.loaded=false;
-    this.auth.callCheckAuth().subscribe(data=>{
-      if(data.data[0] == "true"){
-
-      this.router.navigateByUrl('/home');
-
-    }else{
-
-      this.skeleForm = this.formBuilder.group({
-        // Ask about naming conventions
-        email: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]]
-      });
-      this.loaded=true;
-    }
-  })
-
-
-
+    this.loaded = false;
+    this.auth.callCheckAuth().subscribe(data => {
+      if (data.data[0] == "true") {
+        this.router.navigateByUrl('/home');
+      } else {
+        this.skeleForm = this.formBuilder.group({
+          email: ['', Validators.required],
+          password: ['', [Validators.required, Validators.minLength(8)]]
+        });
+        this.loaded = true;
+      }
+    })
   }
-
-
   get form() { return this.skeleForm.controls };
-
-
   onSubmit() {
     this.submitted = true;
     if (this.skeleForm.invalid) {
@@ -73,9 +51,5 @@ export class Login implements OnInit {
             this.router.navigateByUrl('/home')
         })
     });
-
-
   }
-
-
 }

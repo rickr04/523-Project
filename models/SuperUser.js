@@ -72,26 +72,31 @@ var SuperUserSchema = new mongoose.Schema({
   businessinfo: {
     type: Object
   }
-},
-{
+}, {
   timestamps: true
 });
 
-SuperUserSchema.pre('save', function (next) {
+SuperUserSchema.pre('save', function(next) {
   var superuser = this;
-  bcrypt.hash(superuser.password, 10, function (err, hash) {
+  bcrypt.hash(superuser.password, 10, function(err, hash) {
     if (err) {
       return next(err);
     }
-      superuser.password = hash;
-      next();
+    superuser.password = hash;
+    next();
   })
 });
 
 SuperUserSchema.post('save', (sub, next) => {
   console.log(sub);
   if (!sub.issuper) {
-    SuperUser.findOneAndUpdate({_id: sub.superuser}, {$push: {subusers: sub._id}}).exec((err, super1) => {
+    SuperUser.findOneAndUpdate({
+      _id: sub.superuser
+    }, {
+      $push: {
+        subusers: sub._id
+      }
+    }).exec((err, super1) => {
       if (err) {
         next(err)
       } else {
@@ -103,9 +108,11 @@ SuperUserSchema.post('save', (sub, next) => {
   }
 })
 
-SuperUserSchema.statics.authenticate = function (email, password, callback) {
-  SuperUser.findOne({ email: email })
-    .exec(function (err, superuser) {
+SuperUserSchema.statics.authenticate = function(email, password, callback) {
+  SuperUser.findOne({
+      email: email
+    })
+    .exec(function(err, superuser) {
       if (err) {
         return callback(err)
       } else if (!superuser) {
@@ -113,7 +120,7 @@ SuperUserSchema.statics.authenticate = function (email, password, callback) {
         err.status = 401;
         return callback(err);
       }
-      bcrypt.compare(password, superuser.password, function (err, result) {
+      bcrypt.compare(password, superuser.password, function(err, result) {
         if (result === true) {
           return callback(null, superuser);
         } else {

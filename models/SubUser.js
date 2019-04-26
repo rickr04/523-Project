@@ -25,12 +25,11 @@ const SubUserSchema = new mongoose.Schema({
     required: true
   },
   superuserid: {
-    type: mongoose.Schema.Types.ObjectId, 
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'SubUser',
     required: true
   },
-}, 
-{
+}, {
   timestamps: true
 });
 
@@ -48,21 +47,21 @@ module.exports.addSub = function(newSub, callback) {
         return callback(err);
       } else {
         bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newSub.password, salt, (err, hash) => {
-              if (err) {
-                return callback(err);
-              } else {
-                newSub.password = hash;
-                newSub.save((err, SavedSub) => {
-                  if (err) {
-                    return callback(err);
-                  } else {
-                    SuperUser.addSubtoSuper(superuser, SavedSub._id);
-                    callback(err, SavedSub);
-                  }
-                });
-              }
-            });
+          bcrypt.hash(newSub.password, salt, (err, hash) => {
+            if (err) {
+              return callback(err);
+            } else {
+              newSub.password = hash;
+              newSub.save((err, SavedSub) => {
+                if (err) {
+                  return callback(err);
+                } else {
+                  SuperUser.addSubtoSuper(superuser, SavedSub._id);
+                  callback(err, SavedSub);
+                }
+              });
+            }
+          });
         });
       }
     }

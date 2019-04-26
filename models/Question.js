@@ -17,8 +17,8 @@ const QuestionSchema = new mongoose.Schema({
     required: true,
   },
   answertype: {
-      type: Number,
-      required: true
+    type: Number,
+    required: true
   },
   answers: [{
     type: String,
@@ -26,8 +26,7 @@ const QuestionSchema = new mongoose.Schema({
   _id: {
     type: String,
   }
-}, 
-{
+}, {
   timestamps: true
 });
 

@@ -7,41 +7,26 @@ import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '@services/user.service';
 import { AuthenticationService } from '@services/auth.service';
-
-
-
-
-
-
-
-
-
 @Component({
   selector: 'register-root',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
   providers: [UserService, AuthenticationService],
 })
-
-
 export class Register implements OnInit {
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private skeleService: UserService,
     private auth: AuthenticationService
-
   ) { }
   skeleForm: FormGroup;
   notMatch = false;
-  loaded:boolean=true;
+  loaded: boolean = true;
   questions = ["first", "last", "email", "address", "company", "phone", "password", "passConf"];
   submitted = false;
-
   ngOnInit() {
     this.skeleForm = this.formBuilder.group({
-
       fname: ['', Validators.required],
       lname: ['', Validators.required],
       title: [''],
@@ -57,10 +42,7 @@ export class Register implements OnInit {
       telephone: ['', Validators.required],
       url: [''],
     });
-
-
   }
-
   onSubmit() {
     this.submitted = true;
     if (!this.confirmPassword(this.skeleForm)) {
@@ -70,7 +52,6 @@ export class Register implements OnInit {
     if (this.skeleForm.invalid) {
       return;
     }
-
     this.skeleService.register(
       this.skeleForm.controls.password.value,
       this.skeleForm.controls.email.value,
@@ -86,40 +67,30 @@ export class Register implements OnInit {
       this.skeleForm.controls.url.value,
     ).subscribe(data => {
       localStorage.setItem('_id', data.data._id),
-      this.auth.callCheckAuth().subscribe(data => {
+        this.auth.callCheckAuth().subscribe(data => {
           this.auth.isAuthenticated(),
-          this.loaded=false;
-          this.delay(3000).then(any=>{
+            this.loaded = false;
+          this.delay(3000).then(any => {
             this.router.navigateByUrl('/home'),
-            this.router.navigateByUrl('/home')
-            });
-
-      }
-      )
+              this.router.navigateByUrl('/home')
+          });
+        }
+        )
     }
     );
-
-
   }
   async delay(ms: number) {
-      await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
   }
   get form() { return this.skeleForm.controls };
-
   confirmPassword(form: FormGroup) {
     let password = form.controls.password.value;
     let passConf = form.controls.passConf.value;
-
     if (password == passConf) {
-
       return true;
     }
     else {
-
       return false;
     }
   }
-
-
-
 }

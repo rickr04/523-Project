@@ -6,13 +6,13 @@ const SuperUser = require('../models/SuperUser');
 const mongoose = require('mongoose');
 
 var db = mongoose.connection;
-mongoose.connect(  process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
 //mongoose.connect(  'mongodb://localhost:27017/snc');
 
 // Alert of succesful connection/error
 
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', function() {
   // we're connected!
   console.log("Connected to DB");
 });
@@ -24,5 +24,5 @@ SAQTemplate.remove({}, function(err) {
   console.log('SAQTemplates removed from db')
 });
 Question.remove({}, function(err) {
-   console.log('Questions removed from db')
+  console.log('Questions removed from db')
 });

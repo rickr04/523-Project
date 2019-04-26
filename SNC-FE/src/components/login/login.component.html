@@ -14,10 +14,10 @@
       <div class="row">
         <div class="col-md-12 d-flex ml-auto justify-content-center">
           <div class=" align-items-center">
-            <!-- Come back and add form specifications -->
             <form [formGroup]="skeleForm" layout-align="center center" class="card text-center justify-content-center" (ngSubmit)="onSubmit()">
               <h2 class="card-header oswald-head text-center"> Login </h2>
-              <div class="form-group card-body text-center justify-content-center"> <label for="email">Email</label> <input type="text" formControlName="email" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+              <div class="form-group card-body text-center justify-content-center"> <label for="email">Email</label> <input type="text" formControlName="email" class="form-control form-control-lg"
+                  [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
                 <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
                   <div *ngIf="form.email.errors.required">Email is required</div>
                 </div> <label for="password">Password</label> <input type="password" formControlName="password" class="form-control form-control-lg" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />

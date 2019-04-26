@@ -1,5 +1,5 @@
 export class Question {
-    questiontext: string;
-    answertype: string;
-    _id: string;
+  questiontext: string;
+  answertype: string;
+  _id: string;
 }

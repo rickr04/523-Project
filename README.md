@@ -1,68 +1,83 @@
-# 523-Project
+# Security-N-Compliance
 
-Security N Complaince 
+Home of the SNC Backend API and SNC Angular Client
 
-## Getting Started
+# Getting Started
+Steps below to walk you through necessary downloads, installations, and setup
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Introduction
+This project is divided into two parts: 
+1. the [Node.js](https://nodejs.org/en/), [MongoDB](https://www.mongodb.com/download-center/community), and [Express](https://expressjs.com/) back-end 
+2. the [Angular](https://angular.io/) front-end
 
-### Prerequisites
+The app is hosted on [Heroku](https://heroku.com) and can be viewed [Here](https://security-n-compliance.herokuapp.com)
 
-Executables you will need to build/run this project:
+## Downloads
 
-* [NodeJS](https://nodejs.org/en/download/)
-* [MongoDB Community Version](https://www.mongodb.com/download-center/community)
+### Git
+First, register for a GitHub account if you haven't already. Git is a repository service that helps keep track of updates, issues, and project contributors. Install Git on your computer [Here](https://git-scm.com/downloads)
 
-You should be able to call ```mongod``` in your terminal now, if it says its not a path variable, you will need to add it to your path variables
+### Node.js and NPM
+Node.js is a javascript runtime, which allows us to compile and run both the code and the dependencies. NPM (Node Package Manager) organizes our project packages (dependencies).
 
-Once you have installed both open your terminal and verify npm is a path variable by running:
-
+Install Node.js through the installation package [Here](https://nodejs.org/en/). Once installed, open the command prompt (Windows) or terminal (Mac OSX) to run
+```
+node -v
+```
+and
 ```
 npm -v
 ```
+to confirm that both NPM and Node.js were correctly installed and set as environmental variables on your system.
 
-If you get an error message, you will need to add npm to your path variables
+Then, use NPM to install Nodemon globally ```npm install -g nodemon```. Nodemon eases the development process by automatically refreshing your local Node server every time a change is saved.
 
-Next, install AngularCLI using npm
+### MongoDB
+MongoDB is a NoSQL database system that stores entries as documents that are then organized in collections. MongoDB returns requests as JSON, making it easier to parse with Node.js and Angular.
 
+To install MongoDB, follow the link [Here](https://www.mongodb.com/download-center/community). Once the installation is complete, return to your terminal and run ```mongod``` to start a database server locally. The data persists when the server is closed - don't worry about running and terminating the server often.
+
+### Angular
+Angular is the front-end framework used for this project. Unlike the Node.js back-end, Angular is programmed in TypeScript, which compiles down to JavaScript. TypeScript helps write neater code by keeping variables statically typed. To download Angular, go to your terminal and run
 ```
 npm install -g @angular/cli
 ```
+This will install the Angular client and create a new path variable. To confirm proper installation, run
+```ng v```
 
-Angular should now be path variable, if it is not, add it to your path variables
+## Getting The Project
+After installing Node.js, MongoDB, and Angular, open the terminal window and clone this repository by running
+```git clone https://github.com/MatthewFrisby/523-Project.git``` 
 
-Finally git clone this repository
+Change directories by running
+```cd 523-Project```
 
-### Installing
+Now you are in the project folder!
 
-To be able to run both the frontend and backend you will need to run ```npm install``` in both of the folders using your terminal
+ few more installations are necessary before you can launch the development servers. In the 523-Project folder in your terminal, run ```npm i```. This will install all the required dependencies for the Node.js server. Next, change directories again by navigating to the SNC-FE folder and calling ```cd SNC-FE```. Rerun ```npm i``` to install the front-end dependencies. Now you are ready to launch the development servers!
 
-## Running the project
-You will need to open three terminal windows:
-In the first terminal window execute ```mongod``` to start a local MongoDB Server, wait until it says its listening for a connection
+To launch the servers, open three separate terminal windows. For two of the windows, I recommend using your file explorer to navigate to SNC-FE and back-end portions of the project. Right-click in each folder and select "Git Bash Here" to open the Git Bash window in that directory. The third terminal window can be opened anywhere.
 
-In the second terminal window navigate to the backend folder and execute ```node index.js```, if there are errors they are probably with packages so troubleshoot to get those resolved
+Follow these commands IN ORDER:
 
-In the third terminal window navigate the the frontend folder and run ```ng serve``` and wait for it to build, any errors will be with the packackages
+1. In your third terminal window (the miscellaneous window), run the command ```mongod``` and wait until it reads "waiting for connection on port..."
+2. If it is your first time deploying the application locally, you will need to seed your mongo database by running ```node "Script Stuff/script.js"```. This will seed your database with the SAQ questions and templates as well as make a superuser with the email as "admin" and password as "password"
+3. Then, move to the terminal for the back-end and run ```nodemon server```. This will start your Node.js server.
+4. The last step is to go to the SNC-FE terminal and run ```ng serve``` to start your Angular development server.
 
-## Before you start developing, a few things to note
+Once complete, open your browser and go to [http://localhost:4200](http://localhost:4200) to see Security-N-Compliance.
 
-1. You will need to register an account for your local MongoDB server, you will only need to do this once. Using Postman or any other REST Testing client you will need to POST to http://localhost:3000/login with the following body:
-   usernameRegister: <your testing username>
-   usernamepassword: <your testing password>
-   passwordConf: <same as your testing password>
-  
-This is the only time you will have to register
+### Additional Notes
+1. Your browser may try to open [http://localhost:3000](http://localhost:3000) with what looks like http://localhost:4200 but what you are actually seeing on http://localhost:3000 is the completely built application. Any changes made will not appear there. To update the built application, go to the SNC-FE folder in the terminal and run ```ng build --prod``` to update.
 
-2. Most internet browsers will not save JWT tokens from a localhost, this means that even if the frontend works and accepts all it is supposed to, chrome wont save the token which you need to complete other calls. The work around for this is by opening your developer console in your browser (I've only tested for chrome so far) to http://localhost:3000/ as a web address and make this call obviously with just your username and password and no <>: 
-
+2. Because of Cross-Origin Resource Sharing (CORS) restrictions, you might have trouble logging into the angular application. To login you first need to attempt to do so with the login form. This will technically work but to recieve the cookie for further access you will need to open http://localhost:3000 in another window and then run this command in your developer console:
 ```
-fetch('http://localhost:3000/login', {
+fetch('http://localhost:3000/api/login', {
   method: 'POST',
   body: JSON.stringify({
-   username: '<your_username>',
-   password: '<your_password>',
-  }),
+   email: 'admin',
+   password: 'password' 
+}),
   headers: {
     'Content-type': 'application/json; charset=UTF-8'
   }
@@ -70,4 +85,19 @@ fetch('http://localhost:3000/login', {
 .then(res => res.json())
 .then(console.log)
 ```
-   
+
+## Editing
+Suggested editor for working on this application is Atom. You can log in to Git through Atom and make all Git commands in the window, but feel free to use your editor of choice.
+
+## Resources and Documentation
+[Git](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
+
+[Node.js](https://nodejs.org/en/docs/)
+
+[NPM](https://docs.npmjs.com/)
+
+[Express](https://expressjs.com/en/guide/routing.html)
+
+[MongoDB](https://mongoosejs.com/docs/guide.html)
+
+[Angular](https://angular.io/docs)

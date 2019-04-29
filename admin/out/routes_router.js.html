@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      routes/router.js - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      Braintree SDK Client Reference
+    </h3>
+
+    
+
+    <h3>Classes</h3><ul><li id="AccountSAQ-nav"><a href="module-models_AccountSAQ-AccountSAQ.html">AccountSAQ</a></li><li id="AnsweredQuestion-nav"><a href="module-models_AnsweredQuestion-AnsweredQuestion.html">AnsweredQuestion</a></li><li id="Question-nav"><a href="module-models_Question-Question.html">Question</a></li><li id="SAQTemplate-nav"><a href="module-models_SAQTemplate-SAQTemplate.html">SAQTemplate</a></li><li id="SuperUser-nav"><a href="module-models_SuperUser-SuperUser.html">SuperUser</a></li></ul><h3>Modules</h3><ul><li id="models_AccountSAQ-nav"><a href="module-models_AccountSAQ.html">models/AccountSAQ</a><ul class='methods'><li data-type="method" id="models_AccountSAQ-createAndUpdateSAQ-nav"><a href="module-models_AccountSAQ.html#.createAndUpdateSAQ">createAndUpdateSAQ</a></li><li data-type="method" id="models_AccountSAQ-getAccountSAQ-nav"><a href="module-models_AccountSAQ.html#.getAccountSAQ">getAccountSAQ</a></li><li data-type="method" id="models_AccountSAQ-buildAccountSAQ-nav"><a href="module-models_AccountSAQ.html#~buildAccountSAQ">buildAccountSAQ</a></li><li data-type="method" id="models_AccountSAQ-getAccountSAQJSON-nav"><a href="module-models_AccountSAQ.html#~getAccountSAQJSON">getAccountSAQJSON</a></li><li data-type="method" id="models_AccountSAQ-updateSAQAnswers-nav"><a href="module-models_AccountSAQ.html#~updateSAQAnswers">updateSAQAnswers</a></li></ul></li><li id="models_AnsweredQuestion-nav"><a href="module-models_AnsweredQuestion.html">models/AnsweredQuestion</a><ul class='methods'><li data-type="method" id="models_AnsweredQuestion-answerCCW-nav"><a href="module-models_AnsweredQuestion.html#.answerCCW">answerCCW</a></li><li data-type="method" id="models_AnsweredQuestion-downloadCCW-nav"><a href="module-models_AnsweredQuestion.html#.downloadCCW">downloadCCW</a></li><li data-type="method" id="models_AnsweredQuestion-getCCW-nav"><a href="module-models_AnsweredQuestion.html#.getCCW">getCCW</a></li></ul></li><li id="models_Question-nav"><a href="module-models_Question.html">models/Question</a><ul class='methods'><li data-type="method" id="models_Question-getQuestionsByIDs-nav"><a href="module-models_Question.html#.getQuestionsByIDs">getQuestionsByIDs</a></li></ul></li><li id="models_SAQTemplate-nav"><a href="module-models_SAQTemplate.html">models/SAQTemplate</a></li><li id="models_SuperUser-nav"><a href="module-models_SuperUser.html">models/SuperUser</a><ul class='methods'><li data-type="method" id="models_SuperUser-SAQAssignments-nav"><a href="module-models_SuperUser.html#.SAQAssignments">SAQAssignments</a></li></ul></li><li id="routes_router-nav"><a href="module-routes_router.html">routes/router</a></li><li id="services_file-upload-nav"><a href="module-services_file-upload.html">services/file-upload</a><ul class='methods'><li data-type="method" id="services_file-upload-downloadFile-nav"><a href="module-services_file-upload.html#.downloadFile">downloadFile</a></li><li data-type="method" id="services_file-upload-editForm-nav"><a href="module-services_file-upload.html#.editForm">editForm</a></li><li data-type="method" id="services_file-upload-getFolderKeys-nav"><a href="module-services_file-upload.html#.getFolderKeys">getFolderKeys</a></li><li data-type="method" id="services_file-upload-upload-nav"><a href="module-services_file-upload.html#.upload">upload</a></li></ul></li><li id="services_form-fill-nav"><a href="module-services_form-fill.html">services/form-fill</a><ul class='methods'><li data-type="method" id="services_form-fill-editForm-nav"><a href="module-services_form-fill.html#.editForm">editForm</a></li><li data-type="method" id="services_form-fill-startModifiedDictionary-nav"><a href="module-services_form-fill.html#~startModifiedDictionary">startModifiedDictionary</a></li><li data-type="method" id="services_form-fill-toText-nav"><a href="module-services_form-fill.html#~toText">toText</a></li><li data-type="method" id="services_form-fill-updateFieldWithValue-nav"><a href="module-services_form-fill.html#~updateFieldWithValue">updateFieldWithValue</a></li><li data-type="method" id="services_form-fill-updateOptionButtonValue-nav"><a href="module-services_form-fill.html#~updateOptionButtonValue">updateOptionButtonValue</a></li><li data-type="method" id="services_form-fill-writeFilledField-nav"><a href="module-services_form-fill.html#~writeFilledField">writeFilledField</a></li><li data-type="method" id="services_form-fill-writeFilledFields-nav"><a href="module-services_form-fill.html#~writeFilledFields">writeFilledFields</a></li><li data-type="method" id="services_form-fill-writeFilledForm-nav"><a href="module-services_form-fill.html#~writeFilledForm">writeFilledForm</a></li><li data-type="method" id="services_form-fill-writeKidsAndEndObject-nav"><a href="module-services_form-fill.html#~writeKidsAndEndObject">writeKidsAndEndObject</a></li></ul></li></ul>
+  </nav>
+
+  <div id="main">
+    
+      <h1 class="page-title">
+        routes/router.js
+      </h1>
+    
+
+    
+      
+
+<section>
+  <article>
+    <pre class="prettyprint source linenums"><code>/**
+ * Express router.
+ * @module
+ * @requires {@link https://www.npmjs.com/package/express}
+ * @requires {@link https://www.npmjs.com/package/cors}
+ */
+const express = require('express');
+const router = express.Router();
+const cors = require('cors');
+const SuperUser = require('../models/SuperUser');
+const AccountSAQ = require('../models/AccountSAQ');
+const Question = require('../models/Question');
+const SAQTemplate = require('../models/SAQTemplate');
+const s3Handling = require('../services/file-upload');
+const Mail = require('../services/email-send');
+const fetch = require("node-fetch");
+const AnsweredQuestion = require('../models/AnsweredQuestion')
+
+var corsOptions = {
+  credentials: true,
+  origin: 'http://localhost:4200',
+  httpOnly: false,
+  secure: false,
+};
+
+router.options('*', cors())
+router.use(cors());
+
+/**
+ * Registers a SuperUser
+ *
+ * @name SuperUser Registration
+ * @path {POST} /api/register
+ * @body {string} email
+ * @body {string} fname
+ * @body {string} lname
+ * @body {string} password
+ * @body {string} address
+ * @body {string} company
+ * @body {string} telephone
+ * @body {JSON} businessinfo - JSON consisting of city, state, country, zipcode, and dba fields
+ * @response {object} data - The newly created user object {@link module:models/SuperUser~SuperUser}
+ */
+router.post('/api/register', cors(corsOptions), (req, res, next) => {
+  var superUserData = {
+    email: req.body.email,
+    fname: req.body.fname,
+    lname: req.body.lname,
+    password: req.body.password,
+    address: req.body.address,
+    company: req.body.company,
+    telephone: req.body.telephone,
+    issuper: true,
+    businessinfo: req.body.info
+  }
+  var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
+  //Needs to be async for fetch call
+  SuperUser.create(superUserData, function(error, superuser) {
+    if (error) {
+      return next(error);
+    } else {
+      req.session.superuserId = superuser._id;
+      //this is ugly nested for now
+      var mailData = {
+        type: "register",
+        email: req.body.email,
+        name: req.body.fname,
+        company: req.body.company
+      }
+      Mail.sendMail(mailData, (err) => {
+        if (err) {
+          return next(err);
+        }
+      });
+      return res.status(error ? 500 : 200).send(error ? error : {
+        message: "Super User has been registered",
+        data: superuser
+      });
+    }
+  });
+});
+
+/**
+ * Registers a SubUser
+ *
+ * @name SubUser Registration
+ * @path {POST} /api/registersub/:_id
+ * @body {string} email
+ * @body {string} fname
+ * @body {string} lname
+ * @body {string} password
+ * @body {string} address
+ * @body {string} company
+ * @body {string} telephone
+ * @body {array} saqtemplates - Array of SAQ template ID's a user has access to
+ * @params {string} _id - The ID of the SuperUser the Sub is under
+ * @response {object} data - Newly created user object  {@link module:models/SuperUser~SuperUser}
+ */
+router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
+  SuperUser.findById(req.params._id).exec((err, superuser) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      var superUserData = {
+        email: req.body.email,
+        fname: req.body.fname,
+        lname: req.body.lname,
+        password: req.body.password,
+        address: superuser.address,
+        company: superuser.company,
+        telephone: req.body.telephone,
+        saqtemplates: req.body.saqtemplates,
+        issuper: false,
+        superuser: req.params._id
+      };
+      var fullUrl = req.protocol + '://' + req.get('host') + '/api/email';
+      //Needs to be async for fetch call
+      SuperUser.create(superUserData, function(error, sup) {
+        if (error) {
+          return next(error);
+        } else {
+          if (!sup.issuper) SuperUser.findOneAndUpdate({
+            _id: sup.superuser
+          }, {
+            $push: {
+              subusers: sup._id
+            }
+          });
+          req.session.superuserId = superuser._id;
+          //this is ugly nested for now
+          var mailData = {
+            type: "register",
+            email: req.body.email,
+            name: req.body.fname,
+            company: req.body.company
+          }
+          Mail.sendMail(mailData, (err) => {
+            if (err) {
+              return next(err);
+            }
+          });
+          return res.status(error ? 500 : 200).send(error ? error : {
+            message: "Sub User has been registered",
+            data: superuser
+          });
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Gets an array of SAQTemplate IDs a user has access to
+ *
+ * @name SAQ Assignments
+ * @path {GET} /api/saqassignments/:_id
+ * @params {string} _id - The ID of the user you want acess to
+ * @response {array} data - If the user is a SubUser it will return an array of SAQTemplate IDs,  {@link module:models/SAQTemplate~SAQTemplate}. If the user is a Super, it will return true for a super
+ */
+router.get('/api/saqassignments/:_id', cors(corsOptions), (req, res, next) => {
+  SuperUser.SAQAssignments(req.params._id, (err, saqs) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        data: saqs
+      });
+    }
+  });
+});
+
+/**
+ * Login
+ *
+ * @name Login
+ * @path {POST} /api/login
+ * @body {string} email
+ * @body {string} password
+ * @response {object}  data - Returns the User who just logged in {@link module:models/SuperUser~SuperUser}
+ */
+router.post('/api/login', cors(corsOptions), (req, res, next) => {
+  var superuserdata = {
+    email: req.body.email,
+    password: req.body.password
+  }
+  SuperUser.authenticate(superuserdata.email, superuserdata.password, function(error, superuser) {
+    if (error || !superuser) {
+      var err = new Error('Wrong username or password.');
+      err.status = 401;
+      return next(error);
+    } else {
+      req.session.superuserId = superuser._id;
+      return res.status(err ? 500 : 200).send(err ? err : {
+        message: "Super User has been logged in",
+        data: superuser
+      });
+    }
+  });
+});
+
+/**
+ * Get User
+ *
+ * @name Get User
+ * @path {GET} /api/superuser/find/:_id
+ * @params {string} _id - The user ID you want to get
+ * @response {object}  data - Returns the User  {@link module:models/SuperUser~SuperUser}
+ */
+router.get('/api/superuser/find/:_id', cors(corsOptions), function(req, res, next) {
+  SuperUser.findById(req.params._id).exec((err, superuser) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        data: superuser
+      });
+    }
+  });
+});
+
+//check if authenticated
+router.get('/api/superuser/auth', cors(corsOptions), function(req, res, next) {
+  var auth = "false"
+  var err = new Error('Not Authorized');
+  if (req.session.superuserId) {
+    err.status = 200;
+    auth = "true";
+  } else {
+    err.status = 401;
+    auth = "false";
+  }
+  return res.json({
+    status: err.status,
+    data: [auth]
+  });
+});
+
+/**
+ * Update user password
+ *
+ * @name Update Password
+ * @path {POST} /api/superuser/update/password
+ * @body {string} _id - The User ID
+ * @body {string} new - The new password
+ * @response {object}  data - Returns the User who we changed  {@link module:models/SuperUser~SuperUser}
+ */
+router.post('/api/superuser/update/password', cors(corsOptions), (req, res, next) => {
+  if (req.session &amp;&amp; req.body._id == req.session.superuserId) {
+    SuperUser.findById(req.body._id, function(err, superuser) {
+      if (err) {
+        var err = new Error('SuperUser Not Found');
+        err.status = 401;
+        return next(err);
+      } else {
+        superuser.password = req.body.new;
+        superuser.save(function(error) {
+          if (err) {
+          } else {
+            return res.status(err ? 500 : 200).send(err ? err : {
+              message: "Password Successfully Changed",
+              data: superuser
+            });
+          }
+        });
+      }
+    });
+  } else {
+    var err = new Error('Not Authorized');
+    err.status = 400;
+    return next(err);
+  }
+});
+
+/* Post DB questions
+This is outdated, best option would be to edit the script when new questions/templates are created.
+JSON format as follows, I choose to manually assign IDs so that we can
+better track our form fields and their corresponding IDs.
+{
+  "questiontext":"What is the date?",
+  "answertype":"0",
+  "id":"123abc"
+} */
+router.post('/api/admin/question', (req, res, next) => {
+  let newQuestion = new Question({
+    questiontext: req.body.questiontext,
+    answertype: req.body.answertype,
+    _id: req.body.id
+  });
+  newQuestion.save((err, question) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        message: 'Question posted',
+        data: question
+      });
+    }
+  });
+});
+
+/*
+This is outdated, best option would be to edit the script when new questions/templates are created.
+Posts SAQ Template. Name is the SAQ type, questions are question IDs
+{
+	"name":"a",
+	"questions":["a2","a1"]
+} */
+router.post('/api/admin/SAQTemplate', (req, res, next) => {
+  let newSAQTemplate = new SAQTemplate({
+    name: req.body.name,
+    questions: req.body.questions
+  });
+  newSAQTemplate.save((err, template) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        message: 'SAQ template posted',
+        data: template
+      });
+    }
+  });
+});
+
+/**
+ * Get Questions from SAQTemplate
+ *
+ * @name Get SAQTemplate Questions
+ * @path {GET} /api/SAQ:id
+ * @params {string} id - The ID of the SAQTemplate
+ * @response {object}  data - Returns an array of questions {@link module:models/Question~Question}
+ */
+router.get('/api/SAQ/:id', (req, res, next) => {
+  SAQTemplate.findById(req.params.id).populate('questions').exec((err, question) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        data: question.questions
+      });
+    }
+  });
+});
+
+/**
+ * Complete SAQ. This route does a lot. It takes a User ID, SAQTemplate ID, and a JSON of answers.
+ * It creates/updates the relevant AccountSAQ, fills the PDF, and uploads it to S3.
+ *
+ * @name Submit AccountSAQ
+ * @path {POST} /api/SAQ/:_id/completesaq/:templateid
+ * @body {JSON} answers - JSON with Question IDs as field names and user answers as the corresponding field value
+ * @params {string} _id - The User ID
+ * @params {string} templateid - The SAQTemplateID
+ * @response {boolean} success - True if succesful
+ */
+router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
+  AccountSAQ.createAndUpdateSAQ(req.params.templateid, req.params._id, req.body.answers, (err, acctSAQ) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      AccountSAQ.getAccountSAQJSON(acctSAQ, (err, acctJSON) => {
+        if (err) {
+          return res.json({
+            success: false,
+            message: err.message
+          });
+        } else {
+          if (req.body.action == "save") {
+            return res.json({
+              success: true,
+              message: "Success"
+            });
+          } else {
+            req.body.answers = acctJSON;
+            s3Handling.editForm({
+              Bucket: process.env.S3_BUCKET,
+              Key: req.params.templateid + '.pdf'
+            }, req.body, (err, data) => {
+              if (err) {
+                return res.json({
+                  success: false,
+                  message: err.message
+                });
+              } else {
+                s3Handling.upload(req.params._id, data, req.params.templateid, (err) => {
+                  if (err) {
+                    return res.json({
+                      success: false,
+                      message: err.message
+                    });
+                  } else {
+                    return res.json({
+                      success: true,
+                      message: "Success"
+                    });
+                  }
+                });
+              }
+            });
+          }
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Pass JSON with Folder key to the Folder you want (typically a User ID).
+ * Returns an array of the keys of all files in that folder
+ *
+ * @name Get S3 Keys
+ * @path {GET} /api/SAQ/:_id/getkeys/:templateid
+ * @params {string} _id - The ID of the user whos corresponding keys you want
+ * @params {string} templateid - The ID of the SAQ template who you want files for
+ * @response {array} data - Array of S3 keys
+ */
+router.get('/api/SAQ/:_id/getkeys/:templateid', (req, res, next) => {
+  s3Handling.getFolderKeys(req.params._id, req.params.templateid, (err, keyArray) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        data: keyArray
+      });
+    }
+  });
+});
+
+/**
+ * Allows you to download from S3
+ *
+ * @name Download form from S3
+ * @path {POST} /api/SAQ/getform
+ * @body {string} key - They key from the file you want
+ * @response {data} data - The file you want
+ */
+ router.post('/api/SAQ/getform', (req, res, next) => {
+  s3Handling.downloadFile(req.body.key, (err, data) => {
+    if (err) {
+      res.json({
+        success: false,
+        msg: err.message
+      });
+    } else {
+      //res.download(data.Body);
+      res.writeHead(200, {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename=some_file.pdf',
+        'Content-Length': data.Body.length
+      });
+      res.end(data.Body);
+    }
+  });
+});
+
+/**
+ * Lists all the keys in the entire S3 bucket for testing purposes
+ *
+ * @name Get all Keys
+ * @path {GET} /api/admin/S3/keys
+ * @response {array} data - All the keys in our bucket
+ */
+router.get('/api/admin/S3/keys', (req, res, next) => {
+  s3Handling.getFolderKeys(null, (err, keys) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        message: "Success",
+        data: keys
+      });
+    }
+  });
+});
+
+/**
+ * Gets the AnsweredQuestion objects associated with a user and template
+ *
+ * @name Get AccountSAQ
+ * @path {GET} /api/SAQ/:_id/getsaq/:templateid
+ * @params {string} _id - The User ID
+ * @params {string} templateid - The SAQTemplate ID
+ * @response {array} data - Array of AnsweredQuestion objects {@link module:models/AnsweredQuestion~AnsweredQuestion}
+ */
+router.get('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
+  AccountSAQ.getAccountSAQ(req.params.templateid, req.params._id, (err, newSAQ) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      AccountSAQ.findById(newSAQ._id).populate({
+        path: 'answeredquestions',
+        options: {
+          sort: {
+            question: 1
+          }
+        },
+        populate: {
+          path: 'question'
+        }
+      }).exec((err, populatedSAQ) => {
+        if (err) {
+          return res.json({
+            success: false,
+            message: err.message
+          });
+        } else {
+          return res.json({
+            success: true,
+            data: populatedSAQ.answeredquestions
+          });
+        }
+      });
+    }
+  });
+});
+
+/**
+ * Gets all of the Yes with CCW answers associated with a User
+ *
+ * @name Get CCW
+ * @path {GET} /api/SAQ/:_id/getccw
+ * @params {string} _id - The User ID
+ * @response {array} data - Array of populated AnsweredQuestion objects {@link module:models/AnsweredQuestion~AnsweredQuestion}
+ */
+router.get('/api/SAQ/:_id/getccw', (req, res, next) => {
+  AnsweredQuestion.getCCW(req.params._id, (err, answers) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        data: answers
+      });
+    }
+  });
+});
+
+/**
+ * Updates CCW information for one question
+ *
+ * @name Submit CCW
+ * @path {POST} /api/SAQ/:_id/submitccw
+ * @body {string} _id - The regular Question ID
+ * @body {JSON} data - JSON of the CCW responses for the question
+ * @params {string} _id - The User ID
+ * @response {object} data - The newly updated AnsweredQuestion object {@link module:models/AnsweredQuestion~AnsweredQuestion}
+ */
+router.post('/api/SAQ/:_id/submitccw', (req, res, next) => {
+  req.body.data.shift();
+  AnsweredQuestion.answerCCW(req.params._id, req.body._id, req.body.data, (err, quest) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.json({
+        success: true,
+        data: quest
+      });
+    }
+  });
+});
+
+/**
+ * Downloads CCW answers in Excel format
+ *
+ * @name Download CCW
+ * @path {GET} /api/SAQ/:_id/downloadccw
+ * @params {string} _id - The User ID
+ * @response {data} xls - Excel sheet with CCW info
+ */
+router.get('/api/SAQ/:_id/downloadccw', (req, res, next) => {
+  AnsweredQuestion.downloadCCW(req.params._id, (err, answers) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: err.message
+      });
+    } else {
+      return res.xls('ccw.xlsx', answers);
+    }
+  });
+});
+
+module.exports = router;
+</code></pre>
+  </article>
+</section>
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>

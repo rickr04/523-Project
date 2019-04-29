@@ -22,7 +22,7 @@ SAQ Stuff:
 Question {
   questiontext: String,
   answertype: Number (0 for free-response, 1 for MC, 2 for free-response),
-  answers: [String] (Only relevant for answertype 1, basically the possible choices),
+  answers: [String] (Only relevant for answertype 1, represents the multiple choice options),
   _id: Manually set ID to help us better track questions (This one is a string while every other ID is an ObjectId)
 }
 

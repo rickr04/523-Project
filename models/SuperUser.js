@@ -17,10 +17,10 @@ const bcrypt = require('bcryptjs');
  * @param {string} company
  * @param {string} telephone
  * @param {boolean} issuper - True: SuperUser, False: SubUser
- * @param {ObjectId} superuser - ObjectID referencing a SuperUser
- * @param {array} subusers = Array of ObjectIDs referencing SubUsers
+ * @param {ObjectId} superuser - ObjectID referencing a SuperUser {@link models/SuperUser~SuperUser}
+ * @param {array} subusers - Array of ObjectIDs referencing SubUsers {@link models/SuperUser~SuperUser}
  * @param {array} saqtemplates - Array of string IDs referencing {@link module:models/SAQTemplate~SAQTemplate}
- * @param {JSON} businessinfo
+ * @param {JSON} businessinfo - JSON consisting of information needed to fill out part 1 of SAQs
  */
 var SuperUserSchema = new mongoose.Schema({
   email: {

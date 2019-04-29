@@ -34,6 +34,9 @@ db.once('open', function() {
 
 app.use(express.static(__dirname + '/SNC-FE/dist/SNC'));
 
+app.use("/admin",express.static(__dirname + '/admin'));
+
+
 // Use sessions for tracking logins
 app.use(session({
   secret: 'sEcUrE&&C0MP1i@NT',

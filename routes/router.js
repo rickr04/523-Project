@@ -28,7 +28,7 @@ router.use(cors());
 
 /**
  * Registers a SuperUser
- * 
+ *
  * @name SuperUser Registration
  * @path {POST} /api/register
  * @body {string} email
@@ -82,7 +82,7 @@ router.post('/api/register', cors(corsOptions), (req, res, next) => {
 
 /**
  * Registers a SubUser
- * 
+ *
  * @name SubUser Registration
  * @path {POST} /api/registersub/:_id
  * @body {string} email
@@ -154,11 +154,11 @@ router.post('/api/registersub/:_id', cors(corsOptions), (req, res, next) => {
 
 /**
  * Gets an array of SAQTemplate IDs a user has access to
- * 
+ *
  * @name SAQ Assignments
  * @path {GET} /api/saqassignments/:_id
  * @params {string} _id - The ID of the user you want acess to
- * @response {array} data - If the user is a SubUser it will return an array of SAQTemplate IDs,  {@link module:models/SAQTemplate~SAQTemplate}. If the user is a Super, it will return true for a super 
+ * @response {array} data - If the user is a SubUser it will return an array of SAQTemplate IDs,  {@link module:models/SAQTemplate~SAQTemplate}. If the user is a Super, it will return true for a super
  */
 router.get('/api/saqassignments/:_id', cors(corsOptions), (req, res, next) => {
   SuperUser.SAQAssignments(req.params._id, (err, saqs) => {
@@ -178,7 +178,7 @@ router.get('/api/saqassignments/:_id', cors(corsOptions), (req, res, next) => {
 
 /**
  * Login
- * 
+ *
  * @name Login
  * @path {POST} /api/login
  * @body {string} email
@@ -207,7 +207,7 @@ router.post('/api/login', cors(corsOptions), (req, res, next) => {
 
 /**
  * Get User
- * 
+ *
  * @name Get User
  * @path {GET} /api/superuser/find/:_id
  * @params {string} _id - The user ID you want to get
@@ -248,7 +248,7 @@ router.get('/api/superuser/auth', cors(corsOptions), function(req, res, next) {
 
 /**
  * Update user password
- * 
+ *
  * @name Update Password
  * @path {POST} /api/superuser/update/password
  * @body {string} _id - The User ID
@@ -313,7 +313,7 @@ router.post('/api/admin/question', (req, res, next) => {
   });
 });
 
-/* 
+/*
 This is outdated, best option would be to edit the script when new questions/templates are created.
 Posts SAQ Template. Name is the SAQ type, questions are question IDs
 {
@@ -343,7 +343,7 @@ router.post('/api/admin/SAQTemplate', (req, res, next) => {
 
 /**
  * Get Questions from SAQTemplate
- * 
+ *
  * @name Get SAQTemplate Questions
  * @path {GET} /api/SAQ:id
  * @params {string} id - The ID of the SAQTemplate
@@ -368,7 +368,7 @@ router.get('/api/SAQ/:id', (req, res, next) => {
 /**
  * Complete SAQ. This route does a lot. It takes a User ID, SAQTemplate ID, and a JSON of answers.
  * It creates/updates the relevant AccountSAQ, fills the PDF, and uploads it to S3.
- * 
+ *
  * @name Submit AccountSAQ
  * @path {POST} /api/SAQ/:_id/completesaq/:templateid
  * @body {JSON} answers - JSON with Question IDs as field names and user answers as the corresponding field value
@@ -432,8 +432,8 @@ router.post('/api/SAQ/:_id/completesaq/:templateid', (req, res, next) => {
 
 /**
  * Pass JSON with Folder key to the Folder you want (typically a User ID).
- * Returns an array of the keys of all files in that folder 
- * 
+ * Returns an array of the keys of all files in that folder
+ *
  * @name Get S3 Keys
  * @path {GET} /api/SAQ/:_id/getkeys/:templateid
  * @params {string} _id - The ID of the user whos corresponding keys you want
@@ -458,12 +458,13 @@ router.get('/api/SAQ/:_id/getkeys/:templateid', (req, res, next) => {
 
 /**
  * Allows you to download from S3
- * 
+ *
  * @name Download form from S3
  * @path {POST} /api/SAQ/getform
  * @body {string} key - They key from the file you want
  * @response {data} data - The file you want
- */er.post('/api/SAQ/getform', (req, res, next) => {
+ */
+ router.post('/api/SAQ/getform', (req, res, next) => {
   s3Handling.downloadFile(req.body.key, (err, data) => {
     if (err) {
       res.json({
@@ -484,7 +485,7 @@ router.get('/api/SAQ/:_id/getkeys/:templateid', (req, res, next) => {
 
 /**
  * Lists all the keys in the entire S3 bucket for testing purposes
- *  
+ *
  * @name Get all Keys
  * @path {GET} /api/admin/S3/keys
  * @response {array} data - All the keys in our bucket
@@ -508,7 +509,7 @@ router.get('/api/admin/S3/keys', (req, res, next) => {
 
 /**
  * Gets the AnsweredQuestion objects associated with a user and template
- *  
+ *
  * @name Get AccountSAQ
  * @path {GET} /api/SAQ/:_id/getsaq/:templateid
  * @params {string} _id - The User ID
@@ -552,7 +553,7 @@ router.get('/api/SAQ/:_id/getsaq/:templateid', (req, res, next) => {
 
 /**
  * Gets all of the Yes with CCW answers associated with a User
- *  
+ *
  * @name Get CCW
  * @path {GET} /api/SAQ/:_id/getccw
  * @params {string} _id - The User ID
@@ -576,7 +577,7 @@ router.get('/api/SAQ/:_id/getccw', (req, res, next) => {
 
 /**
  * Updates CCW information for one question
- *  
+ *
  * @name Submit CCW
  * @path {POST} /api/SAQ/:_id/submitccw
  * @body {string} _id - The regular Question ID
@@ -603,7 +604,7 @@ router.post('/api/SAQ/:_id/submitccw', (req, res, next) => {
 
 /**
  * Downloads CCW answers in Excel format
- *  
+ *
  * @name Download CCW
  * @path {GET} /api/SAQ/:_id/downloadccw
  * @params {string} _id - The User ID

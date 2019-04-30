@@ -77,7 +77,7 @@ module.exports.getAccountSAQJSON = (AccountSAQId, callback) => {
       let ccw = [];
       // Add company info to JSON
       JSONforFill["Company Name"] = superuser.company;
-      JSONforFill["Contact Name"] = superuser.fname + '' + superuser.lname;
+      JSONforFill["Contact Name"] = superuser.fname + ' ' + superuser.lname;
       JSONforFill["Telephone"] = superuser.telephone;
       JSONforFill["Email"] = superuser.email;
       JSONforFill["Business Address"] = superuser.address;

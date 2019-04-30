@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '@services/user.service';
 import { AuthenticationService } from '@services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'password-root',
   templateUrl: './password.component.html',
@@ -15,6 +17,7 @@ import { AuthenticationService } from '@services/auth.service';
 })
 export class Password implements OnInit {
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -47,7 +50,7 @@ export class Password implements OnInit {
     }
     var oldPass = this.passwordForm.controls.password.value;
     var newPass = this.passwordForm.controls.newPassword.value;
-    this.userService.changePassword(oldPass, newPass).subscribe(data => { console.log(data) });
+    this.userService.changePassword(oldPass, newPass).subscribe(data => {   this.router.navigate(['../'], { relativeTo: this.route }); });
   }
   /*
   simple get for form values

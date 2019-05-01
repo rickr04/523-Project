@@ -23,18 +23,21 @@ db.once('open', function() {
 });
 
 // //force https if site accessed through http
-// function requireHTTPS(req, res, next) {
-//   // The 'x-forwarded-proto' check is for Heroku
-//   if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.PRODUCTION == "true") {
-//     return res.redirect('https://' + req.get('host') + req.url);
-//   }
-//   next();
-// }
-// app.use(requireHTTPS);
+function requireHTTPS(req, res, next) {
+  //   // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.PRODUCTION == "true") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+app.use(requireHTTPS);
 
 app.use(express.static(__dirname + '/SNC-FE/dist/SNC'));
 
-app.use("/admin",express.static(__dirname + '/admin'));
+app.use("/admin", express.static(__dirname + '/admin', {
+  extensions: ['html', 'htm'],
+
+}));
 
 
 // Use sessions for tracking logins

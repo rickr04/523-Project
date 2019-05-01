@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const questions = require('./allQuestions.js');
 const allSAQs = require('./allSAQs.js');
 const dotenv = require('dotenv');
-dotenv.config()
+dotenv.config();
 
 var db = mongoose.connection;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/snc');
@@ -32,7 +32,7 @@ let user = new SuperUser({
   "businessinfo": {
     "city": "city",
     "state": "state",
-    "country": "US of A"
+    "country": "US of A",
     "zipcode": "12345",
     "url": "www.website.com",
     "dba": "a business"

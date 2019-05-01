@@ -114,7 +114,6 @@ export class Subuser implements OnInit {
   */
   onChange(saq: string, isChecked: boolean) {
     const saqFormArray = <FormArray>this.subuserForm.controls.saqs;
-    console.log(this.subuserForm.controls.saqs);
     if (isChecked) {
       saqFormArray.push(new FormControl(this.getEnum(saq)));
     } else {
@@ -126,7 +125,7 @@ export class Subuser implements OnInit {
   artifical delay so user gets feedback when subuser is registered
   */
   async delay(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => {  });
   }
   /*
   function to better retrieve form response values

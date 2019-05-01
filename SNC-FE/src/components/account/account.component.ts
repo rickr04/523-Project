@@ -34,7 +34,6 @@ export class Account implements OnInit {
       this.superinfo = data.data; this.subIDs = data.data.subusers;
       if (this.subIDs.length == 0) {
         this.loaded = true;
-        console.log("here");
       }
       else {
         for (let sub in this.subIDs) {

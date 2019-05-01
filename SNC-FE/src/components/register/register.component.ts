@@ -87,7 +87,7 @@ export class Register implements OnInit {
     );
   }
   async delay(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => {  });
   }
   get form() { return this.skeleForm.controls };
   confirmPassword(form: FormGroup) {

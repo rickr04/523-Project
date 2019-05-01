@@ -38,7 +38,6 @@ export class Ccw implements OnInit {
     this.loaded = false;
     this.saq.getCCW().subscribe(data => {
       this.questions = this.saq.sort(data);
-      console.log(this.questions);
       this.buildCCWForm();
     });
   }
@@ -96,7 +95,6 @@ export class Ccw implements OnInit {
       }
     }
     this.ccwForm = this.formBuilder.group(group);
-    console.log(this.ccwForm);
     this.loaded = true;
   }
   /*
@@ -107,7 +105,6 @@ export class Ccw implements OnInit {
   to be updated
   */
   onSubmit() {
-    console.log(this.ccwForm);
     let currentQuestion = ""
     let array = [];
     let group = {};

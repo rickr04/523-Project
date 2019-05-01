@@ -16,27 +16,27 @@
         <h4 class="text-center">This is the information required for each field<br />Please follow accordingly</h4>
       </div>
       <div class="row">
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <h5>Constraints</h5>
           <p>List constraints precluding compliance with the original requirement.</p>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <h5>Objective</h5>
           <p>Define the objective of the original control; identify the objective met by the compensating control.<p>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <h5>Identified Risk</h5>
           <p>Identify any additional risk posed by the lack of the original control.</p>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <h5>Compensating Controls</h5>
           <p>Define the compensating controls and explain how they address the objectives of the original control and the increased risk, if any.</p>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <h5>Testing of Controls</h5>
           <p>Define how the compensating controls were validated and tested.</p>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 col-sm-12">
           <h5>Maintence of Controls</h5>
           <p>Define process and controls in place to maintain compensating controls.</p>
         </div>
@@ -55,30 +55,30 @@
                     </ng-template>
                     <ng-template ngbPanelContent>
                       <div class="row">
-                        <div class="col-4">
+                        <div class="col-lg-4 col-sm-12">
                           <label for="question.question._id+'_'+headers[0]">{{headers[0]}}</label>
                           <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[0]"></textarea>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-sm-12">
                           <label for="question.question._id+'_'+headers[0]">{{headers[1]}}</label>
                           <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[1]"></textarea>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-sm-12">
                           <label for="question.question._id+'_'+headers[0]">{{headers[2]}}</label>
                           <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[2]"></textarea>
                         </div>
                       </div>
                       <br />
                       <div class="row">
-                        <div class="col-4">
+                        <div class="col-lg-4 col-sm-12">
                           <label for="question.question._id+'_'+headers[0]">{{headers[3]}}</label>
                           <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[3]"></textarea>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-sm-12">
                           <label for="question.question._id+'_'+headers[0]">{{headers[4]}}</label>
                           <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[4]"></textarea>
                         </div>
-                        <div class="col-4">
+                        <div class="col-lg-4 col-sm-12">
                           <label for="question.question._id+'_'+headers[0]">{{headers[5]}}</label>
                           <textarea type="text" class="ccw-field" [formControlName]="question.question._id+'_'+headers[5]"></textarea>
                         </div>
@@ -104,6 +104,6 @@
         </ng-container>
       </div>
     </form>
-    <div class="sticky float-left"> <button class="btn btn-acclight"><a class="nav-link oswald-item" [href]="ccwURL" target="_blank">Download CCW</a></button> </div>
+    <div class="sticky float-left" style="position:fixed"> <a class="nav-link oswald-item white-text" [href]="ccwURL" target="_blank"><button class="btn btn-acclight">Download CCW</button></a> </div>
     <div *ngIf="withCCW"> </div>
   </div>

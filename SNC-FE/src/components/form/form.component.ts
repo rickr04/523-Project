@@ -47,7 +47,6 @@ export class Form implements OnInit {
       } else {
         this.saq.getSAQ(this.getEnum(this.type)).subscribe(data => {
           this.questions = this.saq.sort(data);
-          console.log(data),
             //  this.questions = data.data,
             this.buildForm()
         });
@@ -101,13 +100,13 @@ export class Form implements OnInit {
   */
   onSubmit() {
     this.submitting = true;
-    this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
+    this.saq.submitSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
   }
   /*
   When the form is submitted it send the information to the backend to update the users database
   */
   onSave() {
     this.submitting = true;
-    this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { console.log(data), this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
+    this.saq.saveSAQ(this.getEnum(this.type), this.saqForm.value).subscribe(data => { this.submitting = false, this.router.navigate(['../'], { relativeTo: this.route }); });
   }
 }

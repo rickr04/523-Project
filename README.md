@@ -101,3 +101,6 @@ Suggested editor for working on this application is Atom. You can log in to Git 
 [MongoDB](https://mongoosejs.com/docs/guide.html)
 
 [Angular](https://angular.io/docs)
+
+## Update 11/2019
+Project is being taken over by Rick and Nathan
